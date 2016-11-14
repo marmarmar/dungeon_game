@@ -47,26 +47,26 @@ def display_gameboard(table):
         cprint(' '.join(table[row]), 'magenta')
 
 
-def user_move(x, y, user_position, *args):
-    table = gameboard(x, y)
+def user_move(table, user_position, *args):
+    #  print(user_position)
     x_user = user_position[0]
     y_user = user_position[1]
     move = getch()
     if move == 'd':
         x_user += 1
-        if table[x_user][y_user] == '#':
+        if table[y_user][x_user] == '#':
             x_user -= 1
     elif move == 'a':
         x_user -= 1
-        if table[x_user][y_user] == '#':
+        if table[y_user][x_user] == '#':
             x_user += 1
     elif move == 'w':
         y_user -= 1
-        if table[x_user][y_user] == '#':
+        if table[y_user][x_user] == '#':
             y_user += 1
     elif move == 's':
         y_user += 1
-        if table[x_user][y_user] == '#':
+        if table[y_user][x_user] == '#':
             y_user -= 1
     user_position[0] = x_user
     user_position[1] = y_user
@@ -74,13 +74,14 @@ def user_move(x, y, user_position, *args):
 
 
 def main():
-
     user_coordinates = [1, 1]
     wide_gameboard = 20
     height_gameboard = 50
+    gameboard_table = gameboard(wide_gameboard, height_gameboard, user_coordinates)
+    display_gameboard(gameboard_table)
     while True:
         display_gameboard(gameboard(wide_gameboard, height_gameboard, user_coordinates))
-        user_move(wide_gameboard, height_gameboard, user_coordinates)
+        user_move(gameboard_table, user_coordinates)
         time.sleep(0.1)
 
 if __name__ == '__main__':
