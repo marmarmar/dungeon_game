@@ -11,5 +11,24 @@ def getch():
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     return ch
 
-x = getch()
-print(x)
+#x = getch()
+#print(x)
+
+
+def gameboard(x=5, y=5):
+    table = []
+    for row in range(x):
+        table.append([])
+        for column in range(y):
+            if row == 0 or row == x-1 or column == 0 or column == y-1:
+                table[row].append('#')
+            else:
+                table[row].append('.')
+    return table
+
+def display_gameboard(table):
+    for row in range(len(table)):
+        print(' '.join(table[row]))
+
+
+display_gameboard(gameboard(10,10))
