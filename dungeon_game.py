@@ -41,14 +41,18 @@ def gameboard(x=5, y=5, user_position=[1, 1]):
     return table
 
 
-def display_gameboard(table):
+def display_gameboard(x, y, table):
     os.system('clear')  # clear screen
-    for row in range(len(table)):
-        cprint(' '.join(table[row]), 'magenta')
+    for i in range(x):
+        for j in range(y):
+            if table[i][j] == '#':
+                cprint(table[i][j], 'yellow', end=' ')
+            else:
+                print(table[i][j], end=' ')
+        print('')
 
 
 def user_move(table, user_position, *args):
-    #  print(user_position)
     x_user = user_position[0]
     y_user = user_position[1]
     move = getch()
@@ -78,9 +82,10 @@ def main():
     wide_gameboard = 20
     height_gameboard = 50
     gameboard_table = gameboard(wide_gameboard, height_gameboard, user_coordinates)
-    display_gameboard(gameboard_table)
     while True:
-        display_gameboard(gameboard(wide_gameboard, height_gameboard, user_coordinates))
+        os.system('clear')
+        gameboard_table = gameboard(wide_gameboard, height_gameboard, user_coordinates)
+        display_gameboard(wide_gameboard, height_gameboard, gameboard_table)
         user_move(gameboard_table, user_coordinates)
         time.sleep(0.1)
 
