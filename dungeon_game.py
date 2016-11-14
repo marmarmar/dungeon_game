@@ -30,6 +30,8 @@ def gameboard(x=5, y=5, user_position=[1, 1]):
                     (row > 15 and row < 16 and column > 8 and column < 13) or \
                     (row > 7 and row < 10 and column > 5 and column < 8) or \
                     (row > 16 and column > 30 and column < 35) or \
+                    (row > 5 and row < 10 and column > 20 and column < 30) or \
+                    (row > 12 and row < 15 and column > 20 and column < 25) or \
                     (row < 2 and column >12 and column < 17):
                 table[row].append('#')
             elif row == x_user and column == y_user:
