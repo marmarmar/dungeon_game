@@ -34,7 +34,10 @@ def display_gameboard(table):
         print(' '.join(table[row]))
 
 
+def main():
+    display_gameboard(gameboard(10, 10))
+    user_coordinates = [1, 1]
 
-display_gameboard(gameboard(10, 10))
 
-user_coordinates = [1, 1]
+if __name__ == '__main__':
+    main()
