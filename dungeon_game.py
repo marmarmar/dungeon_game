@@ -1,5 +1,9 @@
+import sys
+import os
+os.system('clear')
+
+
 def getch():
-    import sys
     import tty
     import termios
     fd = sys.stdin.fileno()
