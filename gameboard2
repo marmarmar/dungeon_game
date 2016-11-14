@@ -26,7 +26,7 @@ def display_gameboard(x, y, table2):
     for i in range(x):
         for j in range(y):
             if table2[i][j] == '#':
-                cprint(table2[i][j], 'yellow', end=' ')
+                cprint(table2[i][j], 'blue', end=' ')
             else:
                 print(table2[i][j], end=' ')
         print('')
