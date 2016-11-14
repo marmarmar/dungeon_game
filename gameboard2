@@ -1,0 +1,32 @@
+def gameboard2(x=5, y=5, user_position=[1, 1]):
+    x_user = user_position[1]
+    y_user = user_position[0]
+    table = []
+    for row in range(x):
+        table.append([])
+        for column in range(y):
+            if row == 0 or row == x-1 or column == 0 or column == y-1 or \
+                    (row > 15 and row < 17 and column > 13 and column < 18) or \
+                    (row > 22 and row < 28 and column > 12 and column < 23) or \
+                    (row > 33 and row  < 37 and column > 33 and column < 35) or \
+                    (row > 5 and row < 10 and column > 34 and column < 37) or \
+                    (row > 32 and row < 35 and column > 22 and column < 26) or \
+                    (row < 4 and column > 7 and column < 12) or \
+                    (row > 37 and row < 39 and column > 24 and column < 29):
+                table[row].append('#')
+            elif row == x_user and column == y_user:
+                table2[row].append('@')
+            else:
+                table2[row].append('.')
+    return table2
+
+
+def display_gameboard(x, y, table2):
+    os.system('clear')  # clear screen
+    for i in range(x):
+        for j in range(y):
+            if table2[i][j] == '#':
+                cprint(table2[i][j], 'yellow', end=' ')
+            else:
+                print(table2[i][j], end=' ')
+        print('')
