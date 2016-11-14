@@ -1,10 +1,12 @@
+import sys
 import os
 import time
+from termcolor import colored, cprint
+
 os.system('clear')  # clear screen
 
 
 def getch():
-    import sys
     import tty
     import termios
     fd = sys.stdin.fileno()
@@ -36,18 +38,19 @@ def gameboard(x=5, y=5, user_position=[1, 1]):
 def display_gameboard(table):
     os.system('clear')  # clear screen
     for row in range(len(table)):
-        print(' '.join(table[row]))
+        cprint(' '.join(table[row]), 'magenta')
 
 
 def user_move(user_position):
     print(user_position[0][0])
     return user_position
 
+
 def main():
     user_coordinates = [3, 1]
     while True:
         display_gameboard(gameboard(10, 20, user_coordinates))
-        #user_move(user_coordinates)
+        #  user_move(user_coordinates)
         time.sleep(0.5)
 
 if __name__ == '__main__':
