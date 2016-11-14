@@ -1,3 +1,7 @@
+import os
+os.system('clear')  # clear screen
+
+
 def getch():
     import sys
     import tty
@@ -11,11 +15,8 @@ def getch():
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     return ch
 
-#x = getch()
-#print(x)
 
-
-def gameboard(x=5, y=5):
+def gameboard(x=5, y=5, x_user=1, y_user=1):
     table = []
     for row in range(x):
         table.append([])
@@ -26,9 +27,13 @@ def gameboard(x=5, y=5):
                 table[row].append('.')
     return table
 
+
 def display_gameboard(table):
+    os.system('clear')  # clear screen
     for row in range(len(table)):
         print(' '.join(table[row]))
 
 
-display_gameboard(gameboard(10,10))
+display_gameboard(gameboard(10, 10))
+
+user_coordinates = [1, 1]
