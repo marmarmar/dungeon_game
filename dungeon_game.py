@@ -1,7 +1,7 @@
 import sys
 import os
+from termcolor import colored, cprint
 os.system('clear')
-
 
 def getch():
     import tty
@@ -15,11 +15,8 @@ def getch():
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     return ch
 
-#x = getch()
-#print(x)
 
-
-def gameboard(x=5, y=5):
+def gameboard(x=5, y=5, x_user=1, y_user=1):
     table = []
     for row in range(x):
         table.append([])
@@ -30,9 +27,12 @@ def gameboard(x=5, y=5):
                 table[row].append('.')
     return table
 
+
 def display_gameboard(table):
+    os.system('clear')  # clear screen
     for row in range(len(table)):
-        print(' '.join(table[row]))
+        cprint(' '.join(table[row]), 'magenta')
 
+display_gameboard(gameboard(10, 10))
 
-display_gameboard(gameboard(10,10))
+user_coordinates = [1, 1]
