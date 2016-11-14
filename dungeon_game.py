@@ -29,6 +29,8 @@ def gameboard(x=5, y=5, x_user=1, y_user=1):
                     (row > 12 and row < 15 and column > 20 and column < 25) or \
                     (row < 2 and column > 12 and column < 17):
                 table[row].append('#')
+            elif row == x_user and column == y_user:
+                table[row].append('@')
             else:
                 table[row].append('.')
     return table
@@ -38,8 +40,6 @@ def display_gameboard(table):
     os.system('clear')  # clear screen
     for row in range(len(table)):
         cprint(' '.join(table[row]), 'magenta')
-
-display_gameboard(gameboard(10, 10))
 
 user_coordinates = [1, 1]
 def user_move(x, y, user_position, *args):
@@ -72,7 +72,7 @@ def main():
 
     user_coordinates = [1, 1]
     wide_gameboard = 20
-    height_gameboard = 50
+    height_gameboard = 40
     while True:
         display_gameboard(gameboard(wide_gameboard, height_gameboard, user_coordinates))
         user_move(wide_gameboard, height_gameboard, user_coordinates)
