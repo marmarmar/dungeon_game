@@ -33,6 +33,10 @@ def display_gameboard(table):
     for row in range(len(table)):
         cprint(' '.join(table[row]), 'magenta')
 
-display_gameboard(gameboard(10, 10))
+def main():
+    display_gameboard(gameboard(10, 10))
+    user_coordinates = [1, 1]
 
-user_coordinates = [1, 1]
+
+if __name__ == '__main__':
+    main()
