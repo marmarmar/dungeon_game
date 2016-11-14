@@ -26,7 +26,13 @@ def gameboard(x=5, y=5, user_position=[1, 1]):
     for row in range(x):
         table.append([])
         for column in range(y):
-            if row == 0 or row == x-1 or column == 0 or column == y-1:
+            if row == 0 or row == x-1 or column == 0 or column == y-1 or \
+                    (row > 15 and row < 16 and column > 8 and column < 13) or \
+                    (row > 7 and row < 10 and column > 5 and column < 8) or \
+                    (row > 16 and column > 30 and column < 35) or \
+                    (row > 5 and row < 10 and column > 20 and column < 30) or \
+                    (row > 12 and row < 15 and column > 20 and column < 25) or \
+                    (row < 2 and column > 12 and column < 17):
                 table[row].append('#')
             elif row == x_user and column == y_user:
                 table[row].append('@')
@@ -68,9 +74,10 @@ def user_move(x, y, user_position, *args):
 
 
 def main():
+
     user_coordinates = [1, 1]
     wide_gameboard = 20
-    height_gameboard = 20
+    height_gameboard = 50
     while True:
         display_gameboard(gameboard(wide_gameboard, height_gameboard, user_coordinates))
         user_move(wide_gameboard, height_gameboard, user_coordinates)
