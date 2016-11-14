@@ -26,9 +26,12 @@ def gameboard(x=5, y=5):
                 table[row].append('.')
     return table
 
+
 def display_gameboard(table):
     for row in range(len(table)):
         print(' '.join(table[row]))
 
 
+
 display_gameboard(gameboard(10,10))
+
