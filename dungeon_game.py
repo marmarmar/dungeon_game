@@ -73,7 +73,7 @@ def option():
 
 
 def credits():
-    cprint("Made by Maria Steimetz, Mateusz Siga and Marek Stopka", 'green', 'on_grey')
+    cprint("Made by Maria Steinmec, Mateusz Siga and Marek Stopka", 'green', 'on_grey')
     exit = input("Press <q> to go back to menu: ")
     if exit == 'q':
         option()
