@@ -3,11 +3,36 @@ import os
 import time
 import gameboard
 import random
+import collections
 from termcolor import colored, cprint
 
 os.system('clear')  # clear screen
 
+inv = {}
 
+
+def sfinx(inv):
+    life = 3
+    print("If you answer my riddle I will give you a ruby. If not I will attack you!")
+    print("\nWhat creature walks on four legs in the morning, on two in the midday and on three in the evening?")
+    answer_sfinx = input("\nWhat is your answer?: ")
+    while answer_sfinx != "human":
+        life -= 1
+        answer_sfinx = input("What is your answer?: ")
+        print("lifes:", life)
+    else:
+        print("You are correct. Here is your ruby. You can move on with your journey.")
+        loot = ['ruby']
+        inv = add_to_inventory(inv, loot)
+
+
+def add_to_inventory(inv, loot):
+    """it adding loot to current inventory"""
+    inv = collections.Counter(inv)
+    # collections module helps to add dictionaries value
+    loot = collections.Counter(loot)
+    inv = inv+loot
+    return inv
 def choice_gameboard(number, wide_gameboard, height_gameboard, user_coordinates):
     tab = []
     if number == 1:
@@ -19,7 +44,7 @@ def choice_gameboard(number, wide_gameboard, height_gameboard, user_coordinates)
     return tab
 
 
-def getch():
+def getch(inv):
     import tty
     import termios
     fd = sys.stdin.fileno()
@@ -32,32 +57,33 @@ def getch():
     return ch
 
 
-def option():
+
+def option(inv):
     """starting menu about inventory"""
     option1 = input("Choose an option(start/instructions/credits/exit): ")
     if option1 == 'start':
-            start()
+            start(inv)
             pass
     elif option1 == "instructions":
-        instructions()
+        instructions(inv)
     elif option1 == "credits":
-        credits()
+        credits(inv)
     elif option1 == "exit":
         sys.exit()
         pass
 
 
-def credits():
+def credits(inv):
     cprint("Made by Maria Steimetz, Mateusz Siga and Marek Stopka", 'green', 'on_grey')
     exit = input("Press <q> to go back to menu: ")
     if exit == 'q':
-        option()
+        sfinx(inv)
     else:
         cprint("Are you ready to go on?", attrs=['bold'])
-        instructions()
+        instructions(inv)
 
 
-def instructions():
+def instructions(inv):
     """it shows how to move in a dungeon game"""
     cprint("Use WSAD to move up/down/left/right in DUNGEON GAME", 'green', 'on_grey')
     cprint("And x to exit the game.", 'green', 'on_grey')
@@ -69,7 +95,7 @@ def instructions():
         instructions()
 
 
-def display_gameboard(x, y, table):
+def display_gameboard(x, y, table, inv):
     os.system('clear')  # clear screen
     for i in range(x):
         for j in range(y):
@@ -90,7 +116,7 @@ def display_gameboard(x, y, table):
         print('')
 
 
-def user_move(table, user_position, *args):
+def user_move(table, user_position, *args, inv):
     x_user = user_position[0]
     y_user = user_position[1]
     move = getch()
@@ -122,7 +148,8 @@ def user_move(table, user_position, *args):
     return table
 
 
-def random_elements(tab, *args):
+
+def random_elements(tab, *args, inv):
     """randoms items to gameboard"""
     elements = ('!', '$', '%', '^', '&', '?')
     for i in range(6):
@@ -135,8 +162,9 @@ def random_elements(tab, *args):
     return tab
 
 
-def start():
+def start(inv):
     user_coordinates = [1, 1]
+    inv = {'gold coin' : 20, 'ruby' : 1}
     wide_gameboard = 40
     height_gameboard = 40
     gameboard_table = choice_gameboard(3, wide_gameboard, height_gameboard, user_coordinates)
@@ -150,7 +178,7 @@ def start():
 
 def main():
     cprint("Welcome stranger in DUNGEON GAME!", 'green', 'on_red')
-    option()
+    option(inv)
 
 
 main()
