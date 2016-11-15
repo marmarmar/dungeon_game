@@ -120,8 +120,9 @@ def display_gameboard(x, y, table):
 
 def user_move(table, user_position):
     """
-    Moves user position
-    Return new table with new position with user
+    Moves user and clears previous position
+    Returns new table with new position with user
+    When touch '?' going to boss level
     """
     global num_gameb
     x_user = user_position[0]
@@ -193,6 +194,12 @@ def start():
     """
     Starts game
     num_gameb checks wich gameboard should be displayed
+    if num_gameb ==
+        #1 first gameboard
+        #2 sfinx
+        #3 create second gameboard
+        #4 run second gameboard
+        #5 ...
     """
     global num_gameb
     inv = {'gold coin': 20, 'ruby': 1}
