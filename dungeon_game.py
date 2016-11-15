@@ -29,7 +29,7 @@ def gameboard(x=5, y=5, user_position=[1, 1]):
             if row == 0 or row == x-1 or column == 0 or column == y-1 or \
                     (row > 15 and row < 16 and column > 8 and column < 13) or \
                     (row > 7 and row < 10 and column > 5 and column < 8) or \
-                    (row > 24 and row  < 27 and column > 30 and column < 35) or \
+                    (row > 24 and row < 27 and column > 30 and column < 35) or \
                     (row > 5 and row < 10 and column > 20 and column < 30) or \
                     (row > 12 and row < 15 and column > 20 and column < 25) or \
                     (row < 2 and column > 12 and column < 17) or \
@@ -73,6 +73,8 @@ def user_move(table, user_position, *args):
         y_user += 1
         if table[y_user][x_user] == '#':
             y_user -= 1
+    elif move == 'x':
+        sys.exit()
     user_position[0] = x_user
     user_position[1] = y_user
     return user_position
@@ -82,7 +84,6 @@ def main():
     user_coordinates = [1, 1]
     wide_gameboard = 40
     height_gameboard = 40
-    gameboard_table = gameboard(wide_gameboard, height_gameboard, user_coordinates)
     while True:
         os.system('clear')
         gameboard_table = gameboard(wide_gameboard, height_gameboard, user_coordinates)
