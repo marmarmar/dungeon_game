@@ -22,6 +22,7 @@ def option():
         sys.exit()
         pass
 
+
 def credits():
     cprint("Made by Maria Steimetz, Mateusz Siga and Marek Stopka", 'green', 'on_grey')
     exit = input("Press <q> to go back to menu: ")
@@ -30,6 +31,8 @@ def credits():
     else:
         cprint("Are you ready to go on?", attrs=['bold'])
         instructions()
+
+
 def instructions():
     """it shows how to move in a dungeon game"""
     cprint("Use WSAD to move up/down/left/right in DUNGEON GAME", 'green', 'on_grey')

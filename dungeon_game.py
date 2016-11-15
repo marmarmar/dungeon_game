@@ -32,6 +32,7 @@ def add_to_inventory(inv, loot):
         else:
             inv[b] += 1   # for already acquired items
 
+
 def choice_gameboard(number, wide_gameboard, height_gameboard, user_coordinates):
     tab = []
     if number == 1:
@@ -54,7 +55,6 @@ def getch():
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     return ch
-
 
 
 def option():
@@ -115,11 +115,12 @@ def display_gameboard(x, y, table):
         print('')
 
 
-def user_move(table, user_position, *args):
+def user_move(table, user_position):
     """
     Moves user position
     Return new table with new position with user
     """
+    global num_gameb
     x_user = user_position[0]
     y_user = user_position[1]
     move = getch()
@@ -128,6 +129,8 @@ def user_move(table, user_position, *args):
         # checks new position
         if table[y_user][x_user] == '#':
             x_user -= 1
+        elif table[y_user][x_user] == '?':
+            num_gameb += 1
         # removes @ from previous position
         table[y_user][x_user - 1] = '.'
     elif move == 'a':
@@ -135,6 +138,8 @@ def user_move(table, user_position, *args):
         # checks new position
         if table[y_user][x_user] == '#':
             x_user += 1
+        elif table[y_user][x_user] == '?':
+            num_gameb += 1
         # removes @ from previous position
         table[y_user][x_user + 1] = '.'
     elif move == 'w':
@@ -142,6 +147,8 @@ def user_move(table, user_position, *args):
         # checks new position
         if table[y_user][x_user] == '#':
             y_user += 1
+        elif table[y_user][x_user] == '?':
+            num_gameb += 1
         # removes @ from previous position
         table[y_user + 1][x_user] = '.'
     elif move == 's':
@@ -149,6 +156,8 @@ def user_move(table, user_position, *args):
         # checks new position
         if table[y_user][x_user] == '#':
             y_user -= 1
+        elif table[y_user][x_user] == '?':
+            num_gameb += 1
         # removes @ from previous position
         table[y_user - 1][x_user] = '.'
     elif move == 'x':
@@ -158,7 +167,6 @@ def user_move(table, user_position, *args):
     # sets @ on current position of user
     table[y_user][x_user] = '@'
     return table
-
 
 
 def random_elements(tab, *args):
@@ -175,16 +183,23 @@ def random_elements(tab, *args):
 
 
 def start():
+    """Starts game"""
+    global num_gameb
+    num_gameb = 1
     user_coordinates = [1, 1]
     wide_gameboard = 40
     height_gameboard = 40
-    gameboard_table = choice_gameboard(3, wide_gameboard, height_gameboard, user_coordinates)
+    gameboard_table = choice_gameboard(num_gameb, wide_gameboard, height_gameboard, user_coordinates)
     gameboard_table = random_elements(gameboard_table)
     while True:
         os.system('clear')
-        display_gameboard(wide_gameboard, height_gameboard, gameboard_table)
-        user_move(gameboard_table, user_coordinates)
-        time.sleep(0.1)
+        if num_gameb == 1:
+            display_gameboard(wide_gameboard, height_gameboard, gameboard_table)
+            print('{}'.format(num_gameb))
+            user_move(gameboard_table, user_coordinates)
+            time.sleep(0.1)
+        elif num_gameb == 2:
+            sfinx()
 
 
 def main():
@@ -197,4 +212,3 @@ main()
 
 if __name__ == '__main__':
     main()
-
