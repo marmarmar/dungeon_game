@@ -10,6 +10,7 @@ os.system('clear')  # clear screen
 
 
 def sfinx(inv):
+    global num_gameb
     inv = {'gold coin': 20, 'ruby': 1}
     life = 3
     print("If you answer my riddle I will give you a ruby. If not I will attack you!")
@@ -23,7 +24,7 @@ def sfinx(inv):
         print("You are correct. Here is your ruby. You can move on with your journey.")
         loot = ['ruby']
         inv = add_to_inventory(inv, loot)
-        start()
+        num_gameb += 1
 
 
 def add_to_inventory(inv, loot):
@@ -39,9 +40,9 @@ def choice_gameboard(number, wide_gameboard, height_gameboard, user_coordinates)
     tab = []
     if number == 1:
         tab = gameboard.gameboard(wide_gameboard, height_gameboard, user_coordinates)
-    elif number == 2:
-        tab = gameboard.gameboard1(wide_gameboard, height_gameboard, user_coordinates)
     elif number == 3:
+        tab = gameboard.gameboard1(wide_gameboard, height_gameboard, user_coordinates)
+    elif number == 5:
         tab = gameboard.gameboard2(wide_gameboard, height_gameboard, user_coordinates)
     return tab
 
@@ -132,6 +133,7 @@ def user_move(table, user_position):
         if table[y_user][x_user] == '#':
             x_user -= 1
         elif table[y_user][x_user] == '?':
+            # switch to next gameboard
             num_gameb += 1
         # removes @ from previous position
         table[y_user][x_user - 1] = '.'
@@ -141,6 +143,7 @@ def user_move(table, user_position):
         if table[y_user][x_user] == '#':
             x_user += 1
         elif table[y_user][x_user] == '?':
+            # switch to next gameboard
             num_gameb += 1
         # removes @ from previous position
         table[y_user][x_user + 1] = '.'
@@ -150,6 +153,7 @@ def user_move(table, user_position):
         if table[y_user][x_user] == '#':
             y_user += 1
         elif table[y_user][x_user] == '?':
+            # switch to next gameboard
             num_gameb += 1
         # removes @ from previous position
         table[y_user + 1][x_user] = '.'
@@ -159,6 +163,7 @@ def user_move(table, user_position):
         if table[y_user][x_user] == '#':
             y_user -= 1
         elif table[y_user][x_user] == '?':
+            # switch to next gameboard
             num_gameb += 1
         # removes @ from previous position
         table[y_user - 1][x_user] = '.'
@@ -185,7 +190,10 @@ def random_elements(tab, *args):
 
 
 def start():
-    """Starts game"""
+    """
+    Starts game
+    num_gameb checks wich gameboard should be displayed
+    """
     global num_gameb
     inv = {'gold coin': 20, 'ruby': 1}
     num_gameb = 1
@@ -203,6 +211,19 @@ def start():
             time.sleep(0.1)
         elif num_gameb == 2:
             sfinx(inv)
+        elif num_gameb == 3:
+            user_coordinates = [1, 1]
+            gameboard_table = choice_gameboard(num_gameb, wide_gameboard, height_gameboard, user_coordinates)
+            gameboard_table = random_elements(gameboard_table)
+            num_gameb += 1
+        elif num_gameb == 4:
+            display_gameboard(wide_gameboard, height_gameboard, gameboard_table)
+            print('{}'.format(num_gameb))
+            user_move(gameboard_table, user_coordinates)
+            time.sleep(0.1)
+        elif num_gameb == 5:
+            print('I wait for function!')
+            sys.exit()
 
 
 def main():
