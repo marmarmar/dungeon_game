@@ -4,6 +4,7 @@ import time
 import gameboard
 import random
 import collections
+import sfinx_graphic
 from termcolor import colored, cprint
 
 os.system('clear')  # clear screen
@@ -13,6 +14,7 @@ def sfinx(inv):
     global num_gameb
     inv = {'gold coin': 20, 'ruby': 1}
     life = 3
+    sfinx_graphic.print_sfinx()
     print("If you answer my riddle I will give you a ruby. If not I will attack you!")
     print("\nWhat creature walks on four legs in the morning, on two in the midday and on three in the evening?")
     answer_sfinx = input("\nWhat is your answer?: ")
