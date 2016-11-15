@@ -74,7 +74,17 @@ def display_gameboard(x, y, table):
     for i in range(x):
         for j in range(y):
             if table[i][j] == '#':
-                cprint(table[i][j], 'yellow', end=' ')
+                cprint(table[i][j], 'yellow', attrs=['bold'], end=' ')
+            elif table[i][j] == '?':
+                cprint(table[i][j], 'red', attrs=['bold'], end=' ')
+            elif table[i][j] == '$' or table[i][j] == '%':
+                cprint(table[i][j], 'blue', attrs=['bold'], end=' ')
+            elif table[i][j] == '^':
+                cprint(table[i][j], 'magenta', attrs=['bold'], end=' ')
+            elif table[i][j] == '&' or table[i][j] == '!':
+                cprint(table[i][j], 'green', attrs=['bold'], end=' ')
+            elif table[i][j] == '@':
+                cprint(table[i][j], 'white', attrs=['bold'], end=' ')
             else:
                 print(table[i][j], end=' ')
         print('')
