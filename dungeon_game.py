@@ -34,7 +34,6 @@ def main():
     cprint("Welcome stranger in DUNGEON GAME!", 'green', 'on_red')
     option()
 
-
 def option():
     """starting menu about inventory"""
     option1 = input("Choose an option(start/instructions/credits/exit): ")
