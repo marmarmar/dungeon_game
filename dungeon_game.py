@@ -2,6 +2,7 @@ import sys
 import os
 import time
 import gameboard
+import random
 from termcolor import colored, cprint
 
 os.system('clear')  # clear screen
@@ -30,9 +31,6 @@ def getch():
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     return ch
 
-def main():
-    cprint("Welcome stranger in DUNGEON GAME!", 'green', 'on_red')
-    option()
 
 def option():
     """starting menu about inventory"""
@@ -48,6 +46,7 @@ def option():
         sys.exit()
         pass
 
+
 def credits():
     cprint("Made by Maria Steimetz, Mateusz Siga and Marek Stopka", 'green', 'on_grey')
     exit = input("Press <q> to go back to menu: ")
@@ -56,6 +55,8 @@ def credits():
     else:
         cprint("Are you ready to go on?", attrs=['bold'])
         instructions()
+
+
 def instructions():
     """it shows how to move in a dungeon game"""
     cprint("Use WSAD to move up/down/left/right in DUNGEON GAME", 'green', 'on_grey')
@@ -66,6 +67,7 @@ def instructions():
     else:
         cprint("Are you ready to go on?", attrs=['bold'])
         instructions()
+
 
 def display_gameboard(x, y, table):
     os.system('clear')  # clear screen
@@ -86,36 +88,63 @@ def user_move(table, user_position, *args):
         x_user += 1
         if table[y_user][x_user] == '#':
             x_user -= 1
+        table[y_user][x_user - 1] = '.'
     elif move == 'a':
         x_user -= 1
         if table[y_user][x_user] == '#':
             x_user += 1
+        table[y_user][x_user + 1] = '.'
     elif move == 'w':
         y_user -= 1
         if table[y_user][x_user] == '#':
             y_user += 1
+        table[y_user + 1][x_user] = '.'
     elif move == 's':
         y_user += 1
         if table[y_user][x_user] == '#':
             y_user -= 1
+        table[y_user - 1][x_user] = '.'
     elif move == 'x':
         sys.exit()
     user_position[0] = x_user
     user_position[1] = y_user
-    return user_position
+    table[y_user][x_user] = '@'
+    return table
+
+
+def random_elements(tab, *args):
+    """randoms items to gameboard"""
+    elements = ('!', '$', '%', '^', '&', '?')
+    for i in range(6):
+        x = random.randint(2, len(tab)-1)
+        y = random.randint(2, len(tab[0])-1)
+        while tab[y][x] != '.':
+            x = random.randint(2, len(tab)-1)
+            y = random.randint(2, len(tab[0])-1)
+        tab[y][x] = elements[i]
+    return tab
 
 
 def start():
     user_coordinates = [1, 1]
     wide_gameboard = 40
     height_gameboard = 40
+    gameboard_table = choice_gameboard(3, wide_gameboard, height_gameboard, user_coordinates)
+    gameboard_table = random_elements(gameboard_table)
     while True:
         os.system('clear')
-        gameboard_table = choice_gameboard(3, wide_gameboard, height_gameboard, user_coordinates)
         display_gameboard(wide_gameboard, height_gameboard, gameboard_table)
         user_move(gameboard_table, user_coordinates)
         time.sleep(0.1)
 
+
+def main():
+    cprint("Welcome stranger in DUNGEON GAME!", 'green', 'on_red')
+    option()
+
+
 main()
+
+
 if __name__ == '__main__':
     main()
