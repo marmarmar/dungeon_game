@@ -2,6 +2,7 @@ import sys
 import os
 import time
 import gameboard
+import random
 from termcolor import colored, cprint
 
 os.system('clear')  # clear screen
@@ -69,6 +70,19 @@ def user_move(table, user_position, *args):
     return user_position
 
 
+def random_elements(tab, *args):
+    """randoms items to gameboard"""
+    elements = ['!', '$', '%', '^', '&', '?']
+    for i in range(6):
+        x = random.randint(2, len(tab)-1)
+        y = random.randint(2, len(tab[0])-1)
+        while tab[y][x] != '.':
+            x = random.randint(2, len(tab)-1)
+            y = random.randint(2, len(tab[0])-1)
+        tab[y][x] = elements[i]
+    return tab
+
+
 def main():
     user_coordinates = [1, 1]
     wide_gameboard = 40
@@ -76,6 +90,7 @@ def main():
     while True:
         os.system('clear')
         gameboard_table = choice_gameboard(3, wide_gameboard, height_gameboard, user_coordinates)
+        gameboard_table = random_elements(gameboard_table)
         display_gameboard(wide_gameboard, height_gameboard, gameboard_table)
         user_move(gameboard_table, user_coordinates)
         time.sleep(0.1)
