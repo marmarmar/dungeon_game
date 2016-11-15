@@ -64,22 +64,42 @@ def getch():
 
 def option():
     """starting menu about inventory"""
-    option1 = input("Choose an option(start/instructions/credits/exit): ")
-    if option1 == 'start':
+    cprint("\t  ...:::CHOOSE AN OPTION:::...\t\t", 'green', 'on_grey')
+    cprint("{:>9}{:>16}{:>11}{:>8}\t".format('START', 'INSTRUCTIONS', 'CREDITS', 'EXIT'), 'green', 'on_grey')
+    cprint("{:>7}{:>13}{:>13}{:>10}\t".format('1', '2', '3', 'X'), 'blue', 'on_grey')
+    option1 = getch()
+    if option1 == '1':
             start()
             pass
-    elif option1 == "instructions":
+    elif option1 == '2':
+        os.system('clear')  # clear screen
         instructions()
-    elif option1 == "credits":
+    elif option1 == '3':
+        os.system('clear')  # clear screen
         credits()
-    elif option1 == "exit":
+    elif option1 == 'x':
         sys.exit()
-        pass
+
+
+# def option():
+#    """starting menu about inventory"""
+#    option1 = input("Choose an option(start/instructions/credits/exit): ")
+#    if option1 == 'start':
+#            start()
+#            pass
+#    elif option1 == "instructions":
+#        instructions()
+#    elif option1 == "credits":
+#        credits()
+#    elif option1 == "exit":
+#        sys.exit()
+#        pass
 
 
 def credits():
     cprint("Made by Maria Steinmec, Mateusz Siga and Marek Stopka", 'green', 'on_grey')
-    exit = input("Press <q> to go back to menu: ")
+    cprint("Press <q> to go back to menu: ", 'red', 'on_grey')
+    exit = getch()
     if exit == 'q':
         sfinx(inv)
     else:
@@ -91,8 +111,10 @@ def instructions():
     """it shows how to move in a dungeon game"""
     cprint("Use WSAD to move up/down/left/right in DUNGEON GAME", 'green', 'on_grey')
     cprint("And x to exit the game.", 'green', 'on_grey')
-    exit = input("Press <q> to go back to menu: ")
+    cprint("Press <q> to go back to menu: ", 'red', 'on_grey')
+    exit = getch()
     if exit == 'q':
+        os.system('clear')  # clear screen
         option()
     else:
         cprint("Are you ready to go on?", attrs=['bold'])
@@ -135,9 +157,6 @@ def user_move(table, user_position):
         # checks new position
         if table[y_user][x_user] == '#':
             x_user -= 1
-        elif table[y_user][x_user] == '?':
-            # switch to next gameboard
-            num_gameb += 1
         # removes @ from previous position
         table[y_user][x_user - 1] = '.'
     elif move == 'a':
@@ -145,9 +164,6 @@ def user_move(table, user_position):
         # checks new position
         if table[y_user][x_user] == '#':
             x_user += 1
-        elif table[y_user][x_user] == '?':
-            # switch to next gameboard
-            num_gameb += 1
         # removes @ from previous position
         table[y_user][x_user + 1] = '.'
     elif move == 'w':
@@ -155,9 +171,6 @@ def user_move(table, user_position):
         # checks new position
         if table[y_user][x_user] == '#':
             y_user += 1
-        elif table[y_user][x_user] == '?':
-            # switch to next gameboard
-            num_gameb += 1
         # removes @ from previous position
         table[y_user + 1][x_user] = '.'
     elif move == 's':
@@ -165,18 +178,34 @@ def user_move(table, user_position):
         # checks new position
         if table[y_user][x_user] == '#':
             y_user -= 1
-        elif table[y_user][x_user] == '?':
-            # switch to next gameboard
-            num_gameb += 1
         # removes @ from previous position
         table[y_user - 1][x_user] = '.'
     elif move == 'x':
         sys.exit()
     user_position[0] = x_user
     user_position[1] = y_user
+    check_touch(table, user_position)
     # sets @ on current position of user
     table[y_user][x_user] = '@'
-    return table
+
+
+def check_touch(table, user_position):
+    """Checks if the user touches any item"""
+    global num_gameb
+    x_user = user_position[0]
+    y_user = user_position[1]
+    if table[y_user][x_user] == '?':
+        num_gameb += 1
+    elif table[y_user][x_user] == '!':
+        pass
+    elif table[y_user][x_user] == '$':
+        pass
+    elif table[y_user][x_user] == '%':
+        pass
+    elif table[y_user][x_user] == '^':
+        pass
+    elif table[y_user][x_user] == '&':
+        pass
 
 
 def random_elements(tab, *args):
