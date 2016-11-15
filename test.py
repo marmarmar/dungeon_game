@@ -3,7 +3,7 @@ inv = {}
 
 def sfinx():
     life = 3
-    print("If you answer my riddle I will give you a ruby. If not I will attack you!")
+    print("If you answer my riddle I will give you a ruby. If not, I will attack you!")
     print("\nWhat creature walks on four legs in the morning, on two in the midday and on three in the evening?")
     answer_sfinx = input("\nWhat is your answer?: ")
     while answer_sfinx != "human":
@@ -38,5 +38,3 @@ def merchant():
     except ValueError:
         print("You need to give me some gold.")
     if life_potions == 0
-
-

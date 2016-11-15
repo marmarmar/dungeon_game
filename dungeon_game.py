@@ -3,14 +3,14 @@ import os
 import time
 import gameboard
 import random
+import collections
 from termcolor import colored, cprint
 
 os.system('clear')  # clear screen
 
-inv = {}
 
-
-def sfinx():
+def sfinx(inv):
+    inv = {'gold coin': 20, 'ruby': 1}
     life = 3
     print("If you answer my riddle I will give you a ruby. If not I will attack you!")
     print("\nWhat creature walks on four legs in the morning, on two in the midday and on three in the evening?")
@@ -18,19 +18,21 @@ def sfinx():
     while answer_sfinx != "human":
         life -= 1
         answer_sfinx = input("What is your answer?: ")
-        print(life)
+        print("lifes:", life)
     else:
         print("You are correct. Here is your ruby. You can move on with your journey.")
         loot = ['ruby']
-        add_to_inventory(inv, loot)
+        inv = add_to_inventory(inv, loot)
+        start()
 
 
 def add_to_inventory(inv, loot):
-    for b in loot:
-        if not b in inv:  # for new items
-            inv[b] = 1
-        else:
-            inv[b] += 1   # for already acquired items
+    """it adding loot to current inventory"""
+    inv = collections.Counter(inv)
+    # collections module helps to add dictionaries value
+    loot = collections.Counter(loot)
+    inv = inv+loot
+    return inv
 
 
 def choice_gameboard(number, wide_gameboard, height_gameboard, user_coordinates):
@@ -76,10 +78,10 @@ def credits():
     cprint("Made by Maria Steimetz, Mateusz Siga and Marek Stopka", 'green', 'on_grey')
     exit = input("Press <q> to go back to menu: ")
     if exit == 'q':
-        option()
+        sfinx(inv)
     else:
         cprint("Are you ready to go on?", attrs=['bold'])
-        instructions()
+        instructions(inv)
 
 
 def instructions():
@@ -185,6 +187,7 @@ def random_elements(tab, *args):
 def start():
     """Starts game"""
     global num_gameb
+    inv = {'gold coin': 20, 'ruby': 1}
     num_gameb = 1
     user_coordinates = [1, 1]
     wide_gameboard = 40
@@ -199,7 +202,7 @@ def start():
             user_move(gameboard_table, user_coordinates)
             time.sleep(0.1)
         elif num_gameb == 2:
-            sfinx()
+            sfinx(inv)
 
 
 def main():
