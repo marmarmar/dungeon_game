@@ -7,6 +7,30 @@ from termcolor import colored, cprint
 
 os.system('clear')  # clear screen
 
+inv = {}
+
+
+def sfinx():
+    life = 3
+    print("If you answer my riddle I will give you a ruby. If not I will attack you!")
+    print("\nWhat creature walks on four legs in the morning, on two in the midday and on three in the evening?")
+    answer_sfinx = input("\nWhat is your answer?: ")
+    while answer_sfinx != "human":
+        life -= 1
+        answer_sfinx = input("What is your answer?: ")
+        print(life)
+    else:
+        print("You are correct. Here is your ruby. You can move on with your journey.")
+        loot = ['ruby']
+        add_to_inventory(inv, loot)
+
+
+def add_to_inventory(inv, loot):
+    for b in loot:
+        if not b in inv:  # for new items
+            inv[b] = 1
+        else:
+            inv[b] += 1   # for already acquired items
 
 def choice_gameboard(number, wide_gameboard, height_gameboard, user_coordinates):
     tab = []
@@ -30,6 +54,7 @@ def getch():
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     return ch
+
 
 
 def option():
@@ -135,6 +160,7 @@ def user_move(table, user_position, *args):
     return table
 
 
+
 def random_elements(tab, *args):
     """randoms items to gameboard"""
     elements = ('!', '$', '%', '^', '&', '?')
@@ -171,3 +197,4 @@ main()
 
 if __name__ == '__main__':
     main()
+
