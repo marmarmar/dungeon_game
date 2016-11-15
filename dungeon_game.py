@@ -1,6 +1,8 @@
 import sys
 import os
 import time
+import gameboard
+import random
 from termcolor import colored, cprint
 
 os.system('clear')  # clear screen
@@ -30,6 +32,17 @@ def add_to_inventory(inv, loot):
         else:
             inv[b] += 1   # for already acquired items
 
+def choice_gameboard(number, wide_gameboard, height_gameboard, user_coordinates):
+    tab = []
+    if number == 1:
+        tab = gameboard.gameboard(wide_gameboard, height_gameboard, user_coordinates)
+    elif number == 2:
+        tab = gameboard.gameboard1(wide_gameboard, height_gameboard, user_coordinates)
+    elif number == 3:
+        tab = gameboard.gameboard2(wide_gameboard, height_gameboard, user_coordinates)
+    return tab
+
+
 def getch():
     import tty
     import termios
@@ -44,33 +57,41 @@ def getch():
 
 
 
+def option():
+    """starting menu about inventory"""
+    option1 = input("Choose an option(start/instructions/credits/exit): ")
+    if option1 == 'start':
+            start()
+            pass
+    elif option1 == "instructions":
+        instructions()
+    elif option1 == "credits":
+        credits()
+    elif option1 == "exit":
+        sys.exit()
+        pass
 
 
+def credits():
+    cprint("Made by Maria Steimetz, Mateusz Siga and Marek Stopka", 'green', 'on_grey')
+    exit = input("Press <q> to go back to menu: ")
+    if exit == 'q':
+        option()
+    else:
+        cprint("Are you ready to go on?", attrs=['bold'])
+        instructions()
 
 
-
-
-def gameboard(x=5, y=5, user_position=[1, 1]):
-    x_user = user_position[1]
-    y_user = user_position[0]
-    table = []
-    for row in range(x):
-        table.append([])
-        for column in range(y):
-            if row == 0 or row == x-1 or column == 0 or column == y-1 or \
-                    (row > 15 and row < 16 and column > 8 and column < 13) or \
-                    (row > 7 and row < 10 and column > 5 and column < 8) or \
-                    (row > 24 and row < 27 and column > 30 and column < 35) or \
-                    (row > 5 and row < 10 and column > 20 and column < 30) or \
-                    (row > 12 and row < 15 and column > 20 and column < 25) or \
-                    (row < 2 and column > 12 and column < 17) or \
-                    (row > 27 and row < 33 and column > 2 and column < 9):
-                table[row].append('#')
-            elif row == x_user and column == y_user:
-                table[row].append('@')
-            else:
-                table[row].append('.')
-    return table
+def instructions():
+    """it shows how to move in a dungeon game"""
+    cprint("Use WSAD to move up/down/left/right in DUNGEON GAME", 'green', 'on_grey')
+    cprint("And x to exit the game.", 'green', 'on_grey')
+    exit = input("Press <q> to go back to menu: ")
+    if exit == 'q':
+        option()
+    else:
+        cprint("Are you ready to go on?", attrs=['bold'])
+        instructions()
 
 
 def display_gameboard(x, y, table):
@@ -78,7 +99,17 @@ def display_gameboard(x, y, table):
     for i in range(x):
         for j in range(y):
             if table[i][j] == '#':
-                cprint(table[i][j], 'yellow', end=' ')
+                cprint(table[i][j], 'yellow', attrs=['bold'], end=' ')
+            elif table[i][j] == '?':
+                cprint(table[i][j], 'red', attrs=['bold'], end=' ')
+            elif table[i][j] == '$' or table[i][j] == '%':
+                cprint(table[i][j], 'blue', attrs=['bold'], end=' ')
+            elif table[i][j] == '^':
+                cprint(table[i][j], 'magenta', attrs=['bold'], end=' ')
+            elif table[i][j] == '&' or table[i][j] == '!':
+                cprint(table[i][j], 'green', attrs=['bold'], end=' ')
+            elif table[i][j] == '@':
+                cprint(table[i][j], 'white', attrs=['bold'], end=' ')
             else:
                 print(table[i][j], end=' ')
         print('')
@@ -92,37 +123,63 @@ def user_move(table, user_position, *args):
         x_user += 1
         if table[y_user][x_user] == '#':
             x_user -= 1
+        table[y_user][x_user - 1] = '.'
     elif move == 'a':
         x_user -= 1
         if table[y_user][x_user] == '#':
             x_user += 1
+        table[y_user][x_user + 1] = '.'
     elif move == 'w':
         y_user -= 1
         if table[y_user][x_user] == '#':
             y_user += 1
+        table[y_user + 1][x_user] = '.'
     elif move == 's':
         y_user += 1
         if table[y_user][x_user] == '#':
             y_user -= 1
+        table[y_user - 1][x_user] = '.'
     elif move == 'x':
         sys.exit()
     user_position[0] = x_user
     user_position[1] = y_user
-    return user_position
+    table[y_user][x_user] = '@'
+    return table
 
 
-def main():
 
+def random_elements(tab, *args):
+    """randoms items to gameboard"""
+    elements = ('!', '$', '%', '^', '&', '?')
+    for i in range(6):
+        x = random.randint(2, len(tab)-1)
+        y = random.randint(2, len(tab[0])-1)
+        while tab[y][x] != '.':
+            x = random.randint(2, len(tab)-1)
+            y = random.randint(2, len(tab[0])-1)
+        tab[y][x] = elements[i]
+    return tab
+
+
+def start():
     user_coordinates = [1, 1]
     wide_gameboard = 40
     height_gameboard = 40
+    gameboard_table = choice_gameboard(3, wide_gameboard, height_gameboard, user_coordinates)
+    gameboard_table = random_elements(gameboard_table)
     while True:
         os.system('clear')
-        gameboard_table = gameboard(wide_gameboard, height_gameboard, user_coordinates)
         display_gameboard(wide_gameboard, height_gameboard, gameboard_table)
         user_move(gameboard_table, user_coordinates)
         time.sleep(0.1)
 
+
+def main():
+    cprint("Welcome stranger in DUNGEON GAME!", 'green', 'on_red')
+    option()
+
+
+main()
 
 
 if __name__ == '__main__':
