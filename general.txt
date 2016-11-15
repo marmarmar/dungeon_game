@@ -1,22 +1,26 @@
-Hero : Imiê jako imput na pocz¹tku. Bêdzie siê wyœwietla³o przy tabeli z inventory. Tabela po prawej stronie planszy?
+Hero : ImiÄ™ jako imput na poczÄ…tku. BÄ™dzie siÄ™ wyÅ›wietlaÅ‚o przy tabeli z inventory. Tabela po prawej stronie planszy?
 Tabela
-a)Lifes - te osobno nie wliczaj¹ siê do wagi przedmiotów
+a)Lifes - te osobno nie wliczajÄ… siÄ™ do wagi przedmiotÃ³w
 b)inventory - trzy kategorie(gold coins, ruby) = money, (abacus, book, globe)=clue items, (sword, dagger) = weapons
 max items 5
 
+W dowolnym momencie gry moÅ¼na jednym klawiszem je wyÅ›wietliÄ‡ i wykonaÄ‡ operacje - np. uÅ¼yj potion by odzyskaÄ‡ Å¼ycie. 
+Po operacji w inventory - wrÃ³ciÄ‡ do gry.
 u kupca 1 life potion = 3 gold coins or 1 ruby
 
-NPC = kupiec i wrogowie (Czy mo¿e byæ paru wrogów?)
+NPC = kupiec i wrogowie 
+Czy moÅ¼e byÄ‡ paru wrogÃ³w?
+Po napotkaniu kupca i zakupach/braku ich musi wrÃ³ciÄ‡ do gry.
 
-Plansza pierwsza - losowo siê generuj¹ nasze rzeczy i kupiec.
-W pierwszej planszy musimy zebraæ & jako ksi¹¿kê do rozwik³ania zagadki sfinksa
+Plansza pierwsza - losowo siÄ™ generujÄ… nasze rzeczy i kupiec.
+W pierwszej planszy musimy zebraÄ‡ & jako ksiÄ…Å¼kÄ™ do rozwikÅ‚ania zagadki sfinksa
 
-Jeœli napotkamy ^ czyli wroga to odejmie nam ¿ycie.
-Chyba ¿e mamy miecz lub sztylet, wówczas wróg znika, a my dostajemy 5 z³ota, ale tracimy ow¹ u¿yt¹ broñ.
+JeÅ›li napotkamy ^ czyli wroga to odejmie nam Å¼ycie.
+Chyba Å¼e mamy miecz lub sztylet, wÃ³wczas wrÃ³g znika, a my dostajemy 5 zÅ‚ota, ale tracimy owÄ… uÅ¼ytÄ… broÅ„.
 
-w drugiej planszy musimy zebraæ globus by rozwik³aæ hangmana.
+w drugiej planszy musimy zebraÄ‡ globus by rozwikÅ‚aÄ‡ hangmana.
 
-w trzeciej symbolicznie liczyd³o(abacus) by rozwi¹zaæ hot_cold game.
+w trzeciej symbolicznie liczydÅ‚o(abacus) by rozwiÄ…zaÄ‡ hot_cold game.
 ? - sfinx1) - necessery = book
 
 ? - sfinx2) - necessery = globe
@@ -38,6 +42,7 @@ $ - merchant - 1 potion = 3 coins/1 ruby
 % - funny efect to discuss(mayby ascii alk)
 
 ` = loot = {'abacus' : 1}, add_to_inventory(inv,loot)
+
 
 
 
