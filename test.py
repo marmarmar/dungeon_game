@@ -1,4 +1,5 @@
-inv = {'gold coin': 210}
+import collections
+
 
 
 def sfinx():
@@ -17,28 +18,29 @@ def sfinx():
 
 
 def add_to_inventory(inv, loot):
-    for b in loot:
-        if not b in inv:  # for new items
-            inv[b] = 1
-        else:
-            inv[b] += 1   # for already acquired items
+    """it adding loot to current inventory"""
+    inv = collections.Counter(inv)
+    # collections module helps to add dictionaries value
+    loot = collections.Counter(loot)
+    inv = inv+loot
+    return inv
+
 
 
 def merchant():
-    life_potions = 5
+    inv = {'gold coin': 210}
+    bottles = {'life_potions'}
     print("Welcome in my shop.")
     print("\nI sell potions that restore your life.")
     print("\nOne costs 30 gold coins")
-    amount = int(input("\nHow much do you want?: "))
     try:
-        while life_potions >= amount:
-            amount = int(input("How much do you want?: "))
-            life_potions = life_potions - amount
-            int(inv['gold coin']) - 30 * amount
-            print("Thank you for purchase.")
-        else:
-            print("Not more than 5.")
+        amount = input("\nHow much do you want?: ")
+        bottles = int(amount)*bottles
+        bottles = collections.Counter(bottles)
+        inv = collections.Counter(inv)
+        inv = inv+bottles
+        print(inv)
     except ValueError:
-        print("You need to give me some gold.")
+        print("else")
 
 merchant()
