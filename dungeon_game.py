@@ -30,6 +30,43 @@ def getch():
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     return ch
 
+def main():
+    cprint("Welcome stranger in DUNGEON GAME!", 'green', 'on_red')
+    option()
+
+
+def option():
+    """starting menu about inventory"""
+    option1 = input("Choose an option(start/instructions/credits/exit): ")
+    if option1 == 'start':
+            start()
+            pass
+    elif option1 == "instructions":
+        instructions()
+    elif option1 == "credits":
+        credits()
+    elif option1 == "exit":
+        sys.exit()
+        pass
+
+def credits():
+    cprint("Made by Maria Steimetz, Mateusz Siga and Marek Stopka", 'green', 'on_grey')
+    exit = input("Press <q> to go back to menu: ")
+    if exit == 'q':
+        option()
+    else:
+        cprint("Are you ready to go on?", attrs=['bold'])
+        instructions()
+def instructions():
+    """it shows how to move in a dungeon game"""
+    cprint("Use WSAD to move up/down/left/right in DUNGEON GAME", 'green', 'on_grey')
+    cprint("And x to exit the game.", 'green', 'on_grey')
+    exit = input("Press <q> to go back to menu: ")
+    if exit == 'q':
+        option()
+    else:
+        cprint("Are you ready to go on?", attrs=['bold'])
+        instructions()
 
 def display_gameboard(x, y, table):
     os.system('clear')  # clear screen
@@ -69,7 +106,7 @@ def user_move(table, user_position, *args):
     return user_position
 
 
-def main():
+def start():
     user_coordinates = [1, 1]
     wide_gameboard = 40
     height_gameboard = 40
@@ -80,5 +117,6 @@ def main():
         user_move(gameboard_table, user_coordinates)
         time.sleep(0.1)
 
+main()
 if __name__ == '__main__':
     main()
