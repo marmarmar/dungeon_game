@@ -91,33 +91,46 @@ def display_gameboard(x, y, table):
 
 
 def user_move(table, user_position, *args):
+    """
+    Moves user position
+    Return new table with new position with user
+    """
     x_user = user_position[0]
     y_user = user_position[1]
     move = getch()
     if move == 'd':
         x_user += 1
+        # checks new position
         if table[y_user][x_user] == '#':
             x_user -= 1
+        # removes @ from previous position
         table[y_user][x_user - 1] = '.'
     elif move == 'a':
         x_user -= 1
+        # checks new position
         if table[y_user][x_user] == '#':
             x_user += 1
+        # removes @ from previous position
         table[y_user][x_user + 1] = '.'
     elif move == 'w':
         y_user -= 1
+        # checks new position
         if table[y_user][x_user] == '#':
             y_user += 1
+        # removes @ from previous position
         table[y_user + 1][x_user] = '.'
     elif move == 's':
         y_user += 1
+        # checks new position
         if table[y_user][x_user] == '#':
             y_user -= 1
+        # removes @ from previous position
         table[y_user - 1][x_user] = '.'
     elif move == 'x':
         sys.exit()
     user_position[0] = x_user
     user_position[1] = y_user
+    # sets @ on current position of user
     table[y_user][x_user] = '@'
     return table
 
