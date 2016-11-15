@@ -1,9 +1,21 @@
 import sys
 import os
 import time
+import gameboard
 from termcolor import colored, cprint
 
 os.system('clear')  # clear screen
+
+
+def choice_gameboard(number, wide_gameboard, height_gameboard, user_coordinates):
+    tab = []
+    if number == 1:
+        tab = gameboard.gameboard(wide_gameboard, height_gameboard, user_coordinates)
+    elif number == 2:
+        tab = gameboard.gameboard1(wide_gameboard, height_gameboard, user_coordinates)
+    elif number == 3:
+        tab = gameboard.gameboard2(wide_gameboard, height_gameboard, user_coordinates)
+    return tab
 
 
 def getch():
@@ -17,29 +29,6 @@ def getch():
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     return ch
-
-
-def gameboard(x=5, y=5, user_position=[1, 1]):
-    x_user = user_position[1]
-    y_user = user_position[0]
-    table = []
-    for row in range(x):
-        table.append([])
-        for column in range(y):
-            if row == 0 or row == x-1 or column == 0 or column == y-1 or \
-                    (row > 15 and row < 16 and column > 8 and column < 13) or \
-                    (row > 7 and row < 10 and column > 5 and column < 8) or \
-                    (row > 24 and row < 27 and column > 30 and column < 35) or \
-                    (row > 5 and row < 10 and column > 20 and column < 30) or \
-                    (row > 12 and row < 15 and column > 20 and column < 25) or \
-                    (row < 2 and column > 12 and column < 17) or \
-                    (row > 27 and row < 33 and column > 2 and column < 9):
-                table[row].append('#')
-            elif row == x_user and column == y_user:
-                table[row].append('@')
-            else:
-                table[row].append('.')
-    return table
 
 
 def display_gameboard(x, y, table):
@@ -86,7 +75,7 @@ def main():
     height_gameboard = 40
     while True:
         os.system('clear')
-        gameboard_table = gameboard(wide_gameboard, height_gameboard, user_coordinates)
+        gameboard_table = choice_gameboard(3, wide_gameboard, height_gameboard, user_coordinates)
         display_gameboard(wide_gameboard, height_gameboard, gameboard_table)
         user_move(gameboard_table, user_coordinates)
         time.sleep(0.1)
