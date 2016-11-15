@@ -1,4 +1,4 @@
-inv = {}
+inv = {'gold coin': 210}
 
 
 def sfinx():
@@ -27,14 +27,18 @@ def add_to_inventory(inv, loot):
 def merchant():
     life_potions = 5
     print("Welcome in my shop.")
-    print("I sell potions that restore your life.")
-    print("One costs 30 gold coins")
+    print("\nI sell potions that restore your life.")
+    print("\nOne costs 30 gold coins")
+    amount = int(input("\nHow much do you want?: "))
     try:
-        amount = int(input("How much do you want?: "))
-        inv[gold_coins] - 30 * amount
-        if amount> life_potions:
-            print
-
+        while life_potions >= amount:
+            amount = int(input("How much do you want?: "))
+            life_potions = life_potions - amount
+            int(inv['gold coin']) - 30 * amount
+            print("Thank you for purchase.")
+        else:
+            print("Not more than 5.")
     except ValueError:
         print("You need to give me some gold.")
-    if life_potions == 0
+
+merchant()
