@@ -8,7 +8,6 @@ from termcolor import colored, cprint
 
 os.system('clear')  # clear screen
 
-inv = {}
 
 
 def sfinx(inv):
