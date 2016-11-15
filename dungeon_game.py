@@ -11,6 +11,7 @@ os.system('clear')  # clear screen
 
 
 def sfinx(inv):
+    inv = {'gold coin' : 20, 'ruby' : 1}
     life = 3
     print("If you answer my riddle I will give you a ruby. If not I will attack you!")
     print("\nWhat creature walks on four legs in the morning, on two in the midday and on three in the evening?")
@@ -23,6 +24,7 @@ def sfinx(inv):
         print("You are correct. Here is your ruby. You can move on with your journey.")
         loot = ['ruby']
         inv = add_to_inventory(inv, loot)
+        start()
 
 
 def add_to_inventory(inv, loot):
@@ -43,7 +45,7 @@ def choice_gameboard(number, wide_gameboard, height_gameboard, user_coordinates)
     return tab
 
 
-def getch(inv):
+def getch():
     import tty
     import termios
     fd = sys.stdin.fileno()
@@ -57,22 +59,22 @@ def getch(inv):
 
 
 
-def option(inv):
+def option():
     """starting menu about inventory"""
     option1 = input("Choose an option(start/instructions/credits/exit): ")
     if option1 == 'start':
-            start(inv)
+            start()
             pass
     elif option1 == "instructions":
-        instructions(inv)
+        instructions()
     elif option1 == "credits":
-        credits(inv)
+        credits()
     elif option1 == "exit":
         sys.exit()
         pass
 
 
-def credits(inv):
+def credits():
     cprint("Made by Maria Steimetz, Mateusz Siga and Marek Stopka", 'green', 'on_grey')
     exit = input("Press <q> to go back to menu: ")
     if exit == 'q':
@@ -82,7 +84,7 @@ def credits(inv):
         instructions(inv)
 
 
-def instructions(inv):
+def instructions():
     """it shows how to move in a dungeon game"""
     cprint("Use WSAD to move up/down/left/right in DUNGEON GAME", 'green', 'on_grey')
     cprint("And x to exit the game.", 'green', 'on_grey')
@@ -94,7 +96,7 @@ def instructions(inv):
         instructions()
 
 
-def display_gameboard(x, y, table, inv):
+def display_gameboard(x, y, table):
     os.system('clear')  # clear screen
     for i in range(x):
         for j in range(y):
@@ -115,7 +117,7 @@ def display_gameboard(x, y, table, inv):
         print('')
 
 
-def user_move(table, user_position, *args, inv):
+def user_move(table, user_position, *args):
     x_user = user_position[0]
     y_user = user_position[1]
     move = getch()
@@ -148,7 +150,7 @@ def user_move(table, user_position, *args, inv):
 
 
 
-def random_elements(tab, *args, inv):
+def random_elements(tab, *args):
     """randoms items to gameboard"""
     elements = ('!', '$', '%', '^', '&', '?')
     for i in range(6):
@@ -161,9 +163,8 @@ def random_elements(tab, *args, inv):
     return tab
 
 
-def start(inv):
+def start():
     user_coordinates = [1, 1]
-    inv = {'gold coin' : 20, 'ruby' : 1}
     wide_gameboard = 40
     height_gameboard = 40
     gameboard_table = choice_gameboard(3, wide_gameboard, height_gameboard, user_coordinates)
@@ -177,7 +178,7 @@ def start(inv):
 
 def main():
     cprint("Welcome stranger in DUNGEON GAME!", 'green', 'on_red')
-    option(inv)
+    option()
 
 
 main()
