@@ -11,6 +11,21 @@ from termcolor import colored, cprint
 os.system('clear')  # clear screen
 
 
+def intro_graphic():
+    data = [line.strip() for line in open("intro_graphic.txt", 'r')]
+    for i in range(len(data)):
+        if i == 0:
+            print(" ", end='')
+        if i == 9:
+            print(" ", end='')
+        if i > 7:
+            print("            ", end='')
+        for j in range(len(data[i])):
+            time.sleep(0.001)
+            cprint("{}".format(data[i][j]), 'red', attrs=['bold'], end='')
+        print()
+    print()
+
 
 def print_table(order="count,asc"):
     """Prints sorted table of inventory"""
@@ -43,7 +58,6 @@ def print_table(order="count,asc"):
     x = getch()
 
 
-
 def sfinx(life):
     global num_gameb
     global inv
@@ -69,38 +83,42 @@ def sfinx(life):
 
 def merchant():
     global gold_coins
-    global inv
     global num_gameb
     life_potions = 5
     print("Welcome in my shop.")
     print("\nI sell potions that restore your life.")
     print("\nOne costs 30 gold coins")
-    while True:
-        if gold_coins >= 30:
-            print("You can buy at least one")
-        elif gold_coins < 30:
-            break
-            print("You don't have enough gold to trade with me")
-            num_gameb += 1
-            num_gameb -= 1
-        try:
-            amount = int(input("\nHow much do you want?: "))
-            if life_potions >= amount:
-                if gold_coins >= amount * 30:
-                    life_potions = ['life_potions'] * amount
-                    gold_coins = gold_coins - 30 * amount
-                    print(life_potions)
-                    print("\nThank you for purchase.")
-                    loot = life_potions*amount
-                    add_to_inventory(loot)
-                    num_gameb += 1
-                    num_gameb -= 1
-                    break
-                else:
-                    print("You don't have enough gold.")
+    if gold_coins >= 30:
+        print("You can buy at least one")
+        while True:
+            try:
+                amount = int(input("\nHow many do you want?(0 for exit): "))
+                if life_potions >= amount:
+                    if amount == 0:
+                        break
+                        num_gameb += 1
+                        num_gameb -= 1
+                    elif gold_coins >= amount * 30:
+                        life_potions = ['life potions'] * amount
+                        gold_coins = gold_coins - 30 * amount
+                        print(life_potions)
+                        print("\nThank you for purchase.")
+                        loot = life_potions*amount
+                        add_to_inventory(loot)
+                        num_gameb += 1
+                        num_gameb -= 1
+                    else:
+                        print("You don't have enough gold.")
+            except ValueError:
+                break
+                num_gameb += 1
+                num_gameb -= 1
+    elif gold_coins < 30:
+        print("You don't have enough gold to trade with me")
+        key = input("Press any key to go on")
+        num_gameb += 1
+        num_gameb -= 1
 
-        except ValueError:
-            print("You need to give me some gold.")
 
 
 def add_to_inventory(loot):
@@ -138,8 +156,11 @@ def getch():
 
 def option():
     """starting menu about inventory"""
-    cprint("\t  ...:::CHOOSE AN OPTION:::...\t\t", 'green', 'on_grey')
+    print('     ', end='')
+    cprint("\t\t  ...:::CHOOSE AN OPTION:::...\t\t", 'green', 'on_grey')
+    print('     ', end='')
     cprint("{:>9}{:>16}{:>11}{:>8}\t".format('START', 'INSTRUCTIONS', 'CREDITS', 'EXIT'), 'green', 'on_grey')
+    print('     ', end='')
     cprint("{:>7}{:>13}{:>13}{:>10}\t".format('1', '2', '3', 'X'), 'blue', 'on_grey')
     option1 = getch()
     if option1 == '1':
@@ -274,8 +295,9 @@ def check_touch(table, user_position):
     elif table[y_user][x_user] == '$':
         gold_coins += random.randint(20, 50)
     elif table[y_user][x_user] == '%':
+        loot = ['bootle']
+        add_to_inventory(loot)
         # add ascii drinking
-        life -= 1
     elif table[y_user][x_user] == 'M':
         merchant()
     elif table[y_user][x_user] == '^':
@@ -287,9 +309,10 @@ def check_touch(table, user_position):
             life -= 1
     elif table[y_user][x_user] == '&':
         # add ascii spell book
-        loot = ['spell book']
+        loot = ['spell book', 'globe', 'abacus']
         add_to_inventory(loot)
     return life
+
 
 
 def random_elements(tab, *args):
@@ -321,7 +344,7 @@ def start():
     global inv
     global life
     life = 3
-    gold_coins = 1009
+    gold_coins = 10
     inv = {'ruby': 1}
     num_gameb = 1
     user_coordinates = [1, 1]
@@ -370,7 +393,8 @@ def start():
 
 
 def main():
-    cprint("{:^48}".format("Welcome stranger in DUNGEON GAME!"), 'red', 'on_grey')
+    intro_graphic()
+    # cprint("{:^48}".format("Welcome stranger in DUNGEON GAME!"), 'red', 'on_grey')
     option()
 
 
