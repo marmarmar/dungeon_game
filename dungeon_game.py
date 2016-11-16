@@ -56,7 +56,7 @@ def print_table(order="count,asc"):
         total += inv[i]
     print("-" * (10 + max_len))
     print("Total number of items: {}\n".format(total))
-    use = input("'h' to use potion, 'p to use bottle' and 'q' to exit from inventory: ")
+    use = input("'h' to use potion, 'p to use vodka' and 'q' to exit from inventory: ")
     while use != 'p' or use !='q' or use != 'h':
         if use == 'h':
             loot = ['life potions']
@@ -66,7 +66,7 @@ def print_table(order="count,asc"):
             break
             x = getch()
         elif use == 'p':
-            loot = ['bottle']
+            loot = ['vodka']
             remove_from_inventory(loot)
             life += 3
             os.system('clear')
@@ -337,7 +337,7 @@ def check_touch(table, user_position, last_position, x):
     elif table[y_user][x_user] == '$':
         gold_coins += random.randint(20, 50)
     elif table[y_user][x_user] == '%':
-        loot = ['bottle']
+        loot = ['vodka']
         add_to_inventory(loot)
         # add ascii drinking
     elif table[y_user][x_user] == 'M':
