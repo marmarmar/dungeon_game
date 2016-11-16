@@ -76,7 +76,7 @@ def sfinx(life):
     else:
         print("You are correct. Here is your ruby. You can move on with your journey.")
         loot = ['ruby']
-        inv = add_to_inventory(loot)
+        add_to_inventory(loot)
         num_gameb += 1
         return life
 
@@ -363,8 +363,11 @@ def start():
             time.sleep(0.1)
         elif num_gameb == 2:
             # move to first boss
-            if 'spell book'
-            life = sfinx(life)
+            if 'spell book' in inv.keys():
+                life = sfinx(life)
+            elif 'spell book' not in inv.keys():
+                x  = input("You don't have necessery item in your inventory. Search!")
+                num_gameb -= 1
         elif num_gameb == 3:
             # creates new gameboard
             user_coordinates = [1, 1]
