@@ -11,6 +11,21 @@ from termcolor import colored, cprint
 os.system('clear')  # clear screen
 
 
+def intro_graphic():
+    data = [line.strip() for line in open("intro_graphic.txt", 'r')]
+    for i in range(len(data)):
+        if i == 0:
+            print(" ", end='')
+        if i == 9:
+            print(" ", end='')
+        if i > 7:
+            print("            ", end='')
+        for j in range(len(data[i])):
+            time.sleep(0.001)
+            cprint("{}".format(data[i][j]), 'red', attrs=['bold'], end='')
+        print()
+    print()
+
 
 def print_table(order="count,asc"):
     """Prints sorted table of inventory"""
@@ -41,7 +56,6 @@ def print_table(order="count,asc"):
     print("Total number of items: {}\n".format(total))
     print('Press any key to exit')
     x = getch()
-
 
 
 def sfinx(life):
@@ -142,8 +156,11 @@ def getch():
 
 def option():
     """starting menu about inventory"""
-    cprint("\t  ...:::CHOOSE AN OPTION:::...\t\t", 'green', 'on_grey')
+    print('     ', end='')
+    cprint("\t\t  ...:::CHOOSE AN OPTION:::...\t\t", 'green', 'on_grey')
+    print('     ', end='')
     cprint("{:>9}{:>16}{:>11}{:>8}\t".format('START', 'INSTRUCTIONS', 'CREDITS', 'EXIT'), 'green', 'on_grey')
+    print('     ', end='')
     cprint("{:>7}{:>13}{:>13}{:>10}\t".format('1', '2', '3', 'X'), 'blue', 'on_grey')
     option1 = getch()
     if option1 == '1':
@@ -291,10 +308,6 @@ def check_touch(table, user_position):
         add_to_inventory(loot)
 
 
-
-
-
-
 def random_elements(tab, *args):
     """randoms items to gameboard"""
     elements = ('!', '$', '%', '^', '&', '?', 'M')
@@ -372,7 +385,8 @@ def start():
 
 
 def main():
-    cprint("{:^48}".format("Welcome stranger in DUNGEON GAME!"), 'red', 'on_grey')
+    intro_graphic()
+    # cprint("{:^48}".format("Welcome stranger in DUNGEON GAME!"), 'red', 'on_grey')
     option()
 
 
