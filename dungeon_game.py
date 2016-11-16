@@ -243,6 +243,7 @@ def user_move(table, user_position):
     When touch '?' going to boss level
     """
     global num_gameb
+    last_position = user_position[:]
     x_user = user_position[0]
     y_user = user_position[1]
     move = getch()
@@ -274,12 +275,18 @@ def user_move(table, user_position):
         print_table()
     user_position[0] = x_user
     user_position[1] = y_user
-    check_touch(table, user_position)
+    x = 0
+    x = check_touch(table, user_position, last_position, x)
+    if x != 0:
+        user_position = x
+        x_user = user_position[0]
+        y_user = user_position[1]
     # sets @ on current position of user
     table[y_user][x_user] = '@'
+    return user_position
 
 
-def check_touch(table, user_position):
+def check_touch(table, user_position, last_position, x):
     """Checks if the user touches any item"""
     global num_gameb
     global gold_coins
@@ -288,6 +295,7 @@ def check_touch(table, user_position):
     y_user = user_position[1]
     if table[y_user][x_user] == '?':
         num_gameb += 1
+        return last_position
     elif table[y_user][x_user] == '!':
         # add ascii with weapon
         weapon = ['sword', 'axe', 'dagger']
@@ -301,6 +309,7 @@ def check_touch(table, user_position):
         # add ascii drinking
     elif table[y_user][x_user] == 'M':
         merchant()
+        return last_position
     elif table[y_user][x_user] == '^':
         if 'sword' in inv.keys() or 'dagger' in inv.keys() or 'axe' in inv.keys():
             # add ascii ruby
@@ -312,7 +321,7 @@ def check_touch(table, user_position):
         # add ascii spell book
         loot = ['spell book', 'globe', 'abacus']
         add_to_inventory(loot)
-    return life
+    return x
 
 
 def random_elements(tab, *args):
@@ -357,7 +366,7 @@ def start():
         if num_gameb == 1:
             display_gameboard(wide_gameboard, height_gameboard, gameboard_table, life, gold_coins)
             print('{}'.format(num_gameb))
-            user_move(gameboard_table, user_coordinates)
+            user_coordinates = user_move(gameboard_table, user_coordinates)
         elif num_gameb == 2:
             # move to first boss
             if 'spell book' in inv.keys():
@@ -375,7 +384,7 @@ def start():
             # run next level
             display_gameboard(wide_gameboard, height_gameboard, gameboard_table, life, gold_coins)
             print('{}'.format(num_gameb))
-            user_move(gameboard_table, user_coordinates)
+            user_coordinates = user_move(gameboard_table, user_coordinates)
         elif num_gameb == 5:
             hang_tupl = hangman_game.main(life, num_gameb)
             life = hang_tupl[0]
@@ -390,7 +399,7 @@ def start():
             # run next level
             display_gameboard(wide_gameboard, height_gameboard, gameboard_table, life, gold_coins)
             print('{}'.format(num_gameb))
-            user_move(gameboard_table, user_coordinates)
+            user_coordinates = user_move(gameboard_table, user_coordinates)
 
 
 def main():
