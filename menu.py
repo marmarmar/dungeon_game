@@ -1,50 +1,26 @@
-import sys
-import operator
-from termcolor import colored, cprint
-
-
-def main():
-    cprint("Welcome stranger in DUNGEON GAME!", 'green', 'on_red')
-    option()
-
-
-def option():
-    """starting menu about inventory"""
-    option1 = input("Choose an option(start/instructions/credits/exit): ")
-    if option1 == 'start':
-            start()
-            pass
-    elif option1 == "instructions":
-        instructions()
-    elif option1 == "credits":
-        credits()
-    elif option1 == "exit":
-        sys.exit()
-        pass
-
-
-def credits():
-    cprint("Made by Maria Steimetz, Mateusz Siga and Marek Stopka", 'green', 'on_grey')
-    exit = input("Press <q> to go back to menu: ")
-    if exit == 'q':
-        option()
+def merchant():
+    global gold coins
+    global inv
+    global num_gameb
+    loot =['life_potions']
+    life_potions = 5
+    print("Welcome in my shop.")
+    print("\nI sell potions that restore your life.")
+    print("\nOne costs 30 gold coins")
+    amount = int(input("\nHow much do you want?: "))
+    if life_potions >= amount:
+        if inv["gold coin"] >= amount * 30:
+            life_potions = life_potions * amount
+            gold_coins = gold_coins - 30 * amount
+            print(inv)
+            print("\nThank you for purchase.")
+            print(life_potions)
+            loot = ['life_potions']*amount
+            add_to_inventory(loot)
+            num_gameb -= 1
+        else:
+            print("You don't have enough gold.")
+    elif ValueError:
+        print("You need to give me some gold.")
     else:
-        cprint("Are you ready to go on?", attrs=['bold'])
-        instructions()
-
-
-def instructions():
-    """it shows how to move in a dungeon game"""
-    cprint("Use WSAD to move up/down/left/right in DUNGEON GAME", 'green', 'on_grey')
-    cprint("And x to exit the game.", 'green', 'on_grey')
-    exit = input("Press <q> to go back to menu: ")
-    if exit == 'q':
-        option()
-    else:
-        cprint("Are you ready to go on?", attrs=['bold'])
-        instructions()
-
-
-main()
-if __name__ == '__main__':
-    main()
+        print("I do not have that many.")

@@ -11,6 +11,39 @@ from termcolor import colored, cprint
 os.system('clear')  # clear screen
 
 
+
+def print_table(order="count,asc"):
+    """Prints sorted table of inventory"""
+    os.system('clear')
+    global inv
+    # if user want to sort own inventory, sorts it by values
+    if order == "count,desc":
+        ordered = sorted(inv, key=inv.get, reverse=True)
+    elif order == "count,asc":
+        ordered = sorted(inv, key=inv.get, reverse=False)
+    else:
+        ordered = inv
+    total = 0
+    # checks maximal length of names of loot and if it's to short for
+    # good presentation change it to 9
+    max_len = len(max(inv, key=len))
+    if max_len < 9:
+        max_len = 9
+    # creates string which will been displays
+    formatted_text = "{:>7}{:>%d}" % (max_len + 3)
+    print("Inventory:")
+    print(formatted_text.format("count", "item name"))
+    print("-" * (10 + max_len))
+    for i in ordered:
+        print(formatted_text.format(inv[i], i))
+        total += inv[i]
+    print("-" * (10 + max_len))
+    print("Total number of items: {}\n".format(total))
+    print('Press any key to exit')
+    x = getch()
+
+
+
 def sfinx(life):
     global num_gameb
     global inv
@@ -32,6 +65,42 @@ def sfinx(life):
         inv = add_to_inventory(loot)
         num_gameb += 1
         return life
+
+
+def merchant():
+    global gold_coins
+    global inv
+    global num_gameb
+    life_potions = 5
+    print("Welcome in my shop.")
+    print("\nI sell potions that restore your life.")
+    print("\nOne costs 30 gold coins")
+    while True:
+        if gold_coins >= 30:
+            print("You can buy at least one")
+        elif gold_coins < 30:
+            break
+            print("You don't have enough gold to trade with me")
+            num_gameb += 1
+            num_gameb -= 1
+        try:
+            amount = int(input("\nHow much do you want?: "))
+            if life_potions >= amount:
+                if gold_coins >= amount * 30:
+                    life_potions = ['life_potions'] * amount
+                    gold_coins = gold_coins - 30 * amount
+                    print(life_potions)
+                    print("\nThank you for purchase.")
+                    loot = life_potions*amount
+                    add_to_inventory(loot)
+                    num_gameb += 1
+                    num_gameb -= 1
+                    break
+                else:
+                    print("You don't have enough gold.")
+
+        except ValueError:
+            print("You need to give me some gold.")
 
 
 def add_to_inventory(loot):
@@ -90,7 +159,7 @@ def credits():
     cprint("Press <q> to go back to menu: ", 'red', 'on_grey')
     exit = getch()
     if exit == 'q':
-        os.system('clear')  # clear screen
+        os.system('clear')
         option()
     else:
         cprint("Are you ready to go on?", attrs=['bold'])
@@ -111,13 +180,13 @@ def instructions():
         instructions()
 
 
-def display_gameboard(x, y, table, life, cash):
+def display_gameboard(x, y, table, life, gold_coins):
     os.system('clear')  # clear screen
     for i in range(x):
         if i == 2:
-            cprint("{:^15}".format("MONEY"), 'green', attrs=['bold'], end='')
+            cprint("{:^15}".format("GOLD COINS"), 'green', attrs=['bold'], end='')
         elif i == 3:
-            cprint("{:^15}".format(cash), 'green', attrs=['bold'], end='')
+            cprint("{:^15}".format(gold_coins), 'green', attrs=['bold'], end='')
         elif i == 6:
             cprint("{:^15}".format("LIFES"), 'green', attrs=['bold'], end='')
         elif i == 7:
@@ -142,6 +211,7 @@ def display_gameboard(x, y, table, life, cash):
             elif table[i][j] == '.':
                 print('\033[1;30;1m' + "{}".format(table[i][j]) + '\033[0m', end=' ')
         print('')
+    cprint("{:^110}".format("For backpack press 'i'"), 'green', attrs=['bold'])
 
 
 def user_move(table, user_position):
@@ -178,6 +248,8 @@ def user_move(table, user_position):
         table[y_user - 1][x_user] = '.'
     elif move == 'x':
         sys.exit()
+    elif move == 'i':
+        print_table()
     user_position[0] = x_user
     user_position[1] = y_user
     check_touch(table, user_position)
@@ -188,7 +260,7 @@ def user_move(table, user_position):
 def check_touch(table, user_position, life):
     """Checks if the user touches any item"""
     global num_gameb
-    global cash
+    global gold_coins
     x_user = user_position[0]
     y_user = user_position[1]
     if table[y_user][x_user] == '?':
@@ -199,10 +271,12 @@ def check_touch(table, user_position, life):
         weapon = random.choice(loot)
         add_to_inventory(weapon)
     elif table[y_user][x_user] == '$':
-        cash += random.randint(20, 50)
+        gold_coins += random.randint(20, 50)
     elif table[y_user][x_user] == '%':
         # add ascii drinking
         life -= 1
+    elif table[y_user][x_user] == 'M':
+        merchant()
     elif table[y_user][x_user] == '^':
         if not 'sword' or 'dagger' or 'axe' in inv:
             life -= 1
@@ -244,12 +318,12 @@ def start():
         #4 run second gameboard
         #5 ...
     """
-    global cash
+    global gold_coins
     global num_gameb
     global inv
     life = 3
-    cash = 0
-    inv = {'gold coin': 20, 'ruby': 1}
+    gold_coins = 1009
+    inv = {'ruby': 1}
     num_gameb = 1
     user_coordinates = [1, 1]
     wide_gameboard = 40
@@ -259,13 +333,13 @@ def start():
     while True:
         os.system('clear')
         if num_gameb == 1:
-            display_gameboard(wide_gameboard, height_gameboard, gameboard_table, life, cash)
+            display_gameboard(wide_gameboard, height_gameboard, gameboard_table, life, gold_coins)
             print('{}'.format(num_gameb))
             user_move(gameboard_table, user_coordinates)
             time.sleep(0.1)
         elif num_gameb == 2:
             # move to first boss
-            life = sfinx(inv, life)
+            life = sfinx(life)
         elif num_gameb == 3:
             # creates new gameboard
             user_coordinates = [1, 1]
@@ -274,7 +348,7 @@ def start():
             num_gameb += 1
         elif num_gameb == 4:
             # run next level
-            display_gameboard(wide_gameboard, height_gameboard, gameboard_table, life, cash)
+            display_gameboard(wide_gameboard, height_gameboard, gameboard_table, life, gold_coins)
             print('{}'.format(num_gameb))
             user_move(gameboard_table, user_coordinates)
             time.sleep(0.1)
@@ -290,7 +364,7 @@ def start():
             num_gameb += 1
         elif num_gameb == 7:
             # run next level
-            display_gameboard(wide_gameboard, height_gameboard, gameboard_table, life, cash)
+            display_gameboard(wide_gameboard, height_gameboard, gameboard_table, life, gold_coins)
             print('{}'.format(num_gameb))
             user_move(gameboard_table, user_coordinates)
             time.sleep(0.1)
