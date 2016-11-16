@@ -29,9 +29,9 @@ w trzeciej symbolicznie liczydło(abacus) by rozwiązać hot_cold game.
 
 $ - merchant - 1 potion = 3 coins/1 ruby
 
-! - loot = {'sword' : 1}, add_to_inventory(inv,loot)
+! - loot = {'sword' : 1}, add_to_inventory(loot)
 
-/ - loot = {'dagger' : 1}, add_to_inventory(inv,loot)
+/ - loot = {'dagger' : 1}, add_to_inventory(loot)
 
 ^ - ENEMY >>>>>>> if not sword or dagger, lifes =-1, else loot = {'sword' : -1}, add_to_inventory(inv,loot)
 

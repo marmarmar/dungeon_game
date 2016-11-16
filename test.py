@@ -63,3 +63,6 @@ def merchant():
 
 
 merchant()
+
+def brandy():
+    sfinx_graphic.print_sfinx()

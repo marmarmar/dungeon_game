@@ -11,6 +11,7 @@ from termcolor import colored, cprint
 os.system('clear')  # clear screen
 
 
+
 def print_table(order="count,asc"):
     """Prints sorted table of inventory"""
     os.system('clear')
@@ -42,10 +43,11 @@ def print_table(order="count,asc"):
     x = getch()
 
 
+
 def sfinx(life):
     global num_gameb
-    # global life
     global inv
+    # global life
     sfinx_graphic.print_sfinx()
     print("If you answer my riddle I will give you a ruby. If not I will attack you!")
     print("\nWhat creature walks on four legs in the morning, on two in the midday and on three in the evening?")
@@ -255,7 +257,7 @@ def user_move(table, user_position):
     table[y_user][x_user] = '@'
 
 
-def check_touch(table, user_position):
+def check_touch(table, user_position, life):
     """Checks if the user touches any item"""
     global num_gameb
     global gold_coins
@@ -264,17 +266,32 @@ def check_touch(table, user_position):
     if table[y_user][x_user] == '?':
         num_gameb += 1
     elif table[y_user][x_user] == '!':
-        pass
+        # add ascii with weapon
+        loot = ['sword', 'axe', 'dagger']
+        weapon = random.choice(loot)
+        add_to_inventory(weapon)
     elif table[y_user][x_user] == '$':
         gold_coins += random.randint(20, 50)
     elif table[y_user][x_user] == '%':
-        pass
+        # add ascii drinking
+        life -= 1
     elif table[y_user][x_user] == 'M':
         merchant()
     elif table[y_user][x_user] == '^':
-        pass
+        if not 'sword' or 'dagger' or 'axe' in inv:
+            life -= 1
+        else:
+            #add ascii ruby
+            loot = ['ruby']
+            add_to_inventory(loot)
     elif table[y_user][x_user] == '&':
-        pass
+        # add ascii spell book
+        loot = ['spell book']
+        add_to_inventory(loot)
+
+
+
+
 
 
 def random_elements(tab, *args):
