@@ -11,6 +11,37 @@ from termcolor import colored, cprint
 os.system('clear')  # clear screen
 
 
+def print_table(order="count,asc"):
+    """Prints sorted table of inventory"""
+    os.system('clear')
+    global inv
+    # if user want to sort own inventory, sorts it by values
+    if order == "count,desc":
+        ordered = sorted(inv, key=inv.get, reverse=True)
+    elif order == "count,asc":
+        ordered = sorted(inv, key=inv.get, reverse=False)
+    else:
+        ordered = inv
+    total = 0
+    # checks maximal length of names of loot and if it's to short for
+    # good presentation change it to 9
+    max_len = len(max(inv, key=len))
+    if max_len < 9:
+        max_len = 9
+    # creates string which will been displays
+    formatted_text = "{:>7}{:>%d}" % (max_len + 3)
+    print("Inventory:")
+    print(formatted_text.format("count", "item name"))
+    print("-" * (10 + max_len))
+    for i in ordered:
+        print(formatted_text.format(inv[i], i))
+        total += inv[i]
+    print("-" * (10 + max_len))
+    print("Total number of items: {}\n".format(total))
+    print('Press any key to exit')
+    x = getch()
+
+
 def sfinx(life):
     global num_gameb
     # global life
@@ -51,8 +82,8 @@ def merchant():
             num_gameb += 1
             num_gameb -= 1
         try:
-           amount = int(input("\nHow much do you want?: "))
-           if life_potions >= amount:
+            amount = int(input("\nHow much do you want?: "))
+            if life_potions >= amount:
                 if gold_coins >= amount * 30:
                     life_potions = ['life_potions'] * amount
                     gold_coins = gold_coins - 30 * amount
@@ -215,6 +246,8 @@ def user_move(table, user_position):
         table[y_user - 1][x_user] = '.'
     elif move == 'x':
         sys.exit()
+    elif move == 'i':
+        print_table()
     user_position[0] = x_user
     user_position[1] = y_user
     check_touch(table, user_position)
@@ -238,7 +271,6 @@ def check_touch(table, user_position):
         pass
     elif table[y_user][x_user] == 'M':
         merchant()
-        pass
     elif table[y_user][x_user] == '^':
         pass
     elif table[y_user][x_user] == '&':
