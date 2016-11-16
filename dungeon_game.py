@@ -10,23 +10,27 @@ from termcolor import colored, cprint
 os.system('clear')  # clear screen
 
 
-def sfinx(inv):
+def sfinx(inv, life):
     global num_gameb
+    # global life
     inv = {'gold coin': 20, 'ruby': 1}
-    life = 3
     sfinx_graphic.print_sfinx()
     print("If you answer my riddle I will give you a ruby. If not I will attack you!")
     print("\nWhat creature walks on four legs in the morning, on two in the midday and on three in the evening?")
     answer_sfinx = input("\nWhat is your answer?: ")
     while answer_sfinx != "human":
+        os.system('clear')  # clear screen
         life -= 1
-        answer_sfinx = input("What is your answer?: ")
+        sfinx_graphic.print_sfinx()
+        print("\nWhat creature walks on four legs in the morning, on two in the midday and on three in the evening?")
         print("lifes:", life)
+        answer_sfinx = input("What is your answer?: ")
     else:
         print("You are correct. Here is your ruby. You can move on with your journey.")
         loot = ['ruby']
         inv = add_to_inventory(inv, loot)
         num_gameb += 1
+        return life
 
 
 def add_to_inventory(inv, loot):
@@ -64,22 +68,26 @@ def getch():
 
 def option():
     """starting menu about inventory"""
-    option1 = input("Choose an option(start/instructions/credits/exit): ")
-    if option1 == 'start':
+    cprint("\t  ...:::CHOOSE AN OPTION:::...\t\t", 'green', 'on_grey')
+    cprint("{:>9}{:>16}{:>11}{:>8}\t".format('START', 'INSTRUCTIONS', 'CREDITS', 'EXIT'), 'green', 'on_grey')
+    cprint("{:>7}{:>13}{:>13}{:>10}\t".format('1', '2', '3', 'X'), 'blue', 'on_grey')
+    option1 = getch()
+    if option1 == '1':
             start()
-            pass
-    elif option1 == "instructions":
+    elif option1 == '2':
+        os.system('clear')  # clear screen
         instructions()
-    elif option1 == "credits":
+    elif option1 == '3':
+        os.system('clear')  # clear screen
         credits()
-    elif option1 == "exit":
+    elif option1 == 'x':
         sys.exit()
-        pass
 
 
 def credits():
     cprint("Made by Maria Steinmec, Mateusz Siga and Marek Stopka", 'green', 'on_grey')
-    exit = input("Press <q> to go back to menu: ")
+    cprint("Press <q> to go back to menu: ", 'red', 'on_grey')
+    exit = getch()
     if exit == 'q':
         sfinx(inv)
     else:
@@ -91,17 +99,29 @@ def instructions():
     """it shows how to move in a dungeon game"""
     cprint("Use WSAD to move up/down/left/right in DUNGEON GAME", 'green', 'on_grey')
     cprint("And x to exit the game.", 'green', 'on_grey')
-    exit = input("Press <q> to go back to menu: ")
+    cprint("Press <q> to go back to menu: ", 'red', 'on_grey')
+    exit = getch()
     if exit == 'q':
+        os.system('clear')  # clear screen
         option()
     else:
         cprint("Are you ready to go on?", attrs=['bold'])
         instructions()
 
 
-def display_gameboard(x, y, table):
+def display_gameboard(x, y, table, life, cash):
     os.system('clear')  # clear screen
     for i in range(x):
+        if i == 2:
+            cprint("{:^15}".format("MONEY"), 'green', attrs=['bold'], end='')
+        elif i == 3:
+            cprint("{:^15}".format(cash), 'green', attrs=['bold'], end='')
+        elif i == 6:
+            cprint("{:^15}".format("LIFES"), 'green', attrs=['bold'], end='')
+        elif i == 7:
+            cprint("{:^15}".format(life), 'green', attrs=['bold'], end='')
+        else:
+            print('{:>15}'.format(''), end='')
         for j in range(y):
             if table[i][j] == '#':
                 cprint(table[i][j], 'yellow', attrs=['bold'], end=' ')
@@ -115,8 +135,8 @@ def display_gameboard(x, y, table):
                 cprint(table[i][j], 'green', attrs=['bold'], end=' ')
             elif table[i][j] == '@':
                 cprint(table[i][j], 'white', attrs=['bold'], end=' ')
-            else:
-                print(table[i][j], end=' ')
+            elif table[i][j] == '.':
+                print('\033[1;30;1m' + "{}".format(table[i][j]) + '\033[0m', end=' ')
         print('')
 
 
@@ -135,48 +155,50 @@ def user_move(table, user_position):
         # checks new position
         if table[y_user][x_user] == '#':
             x_user -= 1
-        elif table[y_user][x_user] == '?':
-            # switch to next gameboard
-            num_gameb += 1
         # removes @ from previous position
         table[y_user][x_user - 1] = '.'
     elif move == 'a':
         x_user -= 1
-        # checks new position
         if table[y_user][x_user] == '#':
             x_user += 1
-        elif table[y_user][x_user] == '?':
-            # switch to next gameboard
-            num_gameb += 1
-        # removes @ from previous position
         table[y_user][x_user + 1] = '.'
     elif move == 'w':
         y_user -= 1
-        # checks new position
         if table[y_user][x_user] == '#':
             y_user += 1
-        elif table[y_user][x_user] == '?':
-            # switch to next gameboard
-            num_gameb += 1
-        # removes @ from previous position
         table[y_user + 1][x_user] = '.'
     elif move == 's':
         y_user += 1
-        # checks new position
         if table[y_user][x_user] == '#':
             y_user -= 1
-        elif table[y_user][x_user] == '?':
-            # switch to next gameboard
-            num_gameb += 1
-        # removes @ from previous position
         table[y_user - 1][x_user] = '.'
     elif move == 'x':
         sys.exit()
     user_position[0] = x_user
     user_position[1] = y_user
+    check_touch(table, user_position)
     # sets @ on current position of user
     table[y_user][x_user] = '@'
-    return table
+
+
+def check_touch(table, user_position):
+    """Checks if the user touches any item"""
+    global num_gameb
+    global cash
+    x_user = user_position[0]
+    y_user = user_position[1]
+    if table[y_user][x_user] == '?':
+        num_gameb += 1
+    elif table[y_user][x_user] == '!':
+        pass
+    elif table[y_user][x_user] == '$':
+        cash += random.randint(20, 50)
+    elif table[y_user][x_user] == '%':
+        pass
+    elif table[y_user][x_user] == '^':
+        pass
+    elif table[y_user][x_user] == '&':
+        pass
 
 
 def random_elements(tab, *args):
@@ -203,7 +225,10 @@ def start():
         #4 run second gameboard
         #5 ...
     """
+    global cash
     global num_gameb
+    life = 3
+    cash = 0
     inv = {'gold coin': 20, 'ruby': 1}
     num_gameb = 1
     user_coordinates = [1, 1]
@@ -214,29 +239,32 @@ def start():
     while True:
         os.system('clear')
         if num_gameb == 1:
-            display_gameboard(wide_gameboard, height_gameboard, gameboard_table)
+            display_gameboard(wide_gameboard, height_gameboard, gameboard_table, life, cash)
             print('{}'.format(num_gameb))
             user_move(gameboard_table, user_coordinates)
             time.sleep(0.1)
         elif num_gameb == 2:
-            sfinx(inv)
+            # move to first boss
+            life = sfinx(inv, life)
         elif num_gameb == 3:
+            # creates new gameboard
             user_coordinates = [1, 1]
             gameboard_table = choice_gameboard(num_gameb, wide_gameboard, height_gameboard, user_coordinates)
             gameboard_table = random_elements(gameboard_table)
             num_gameb += 1
         elif num_gameb == 4:
-            display_gameboard(wide_gameboard, height_gameboard, gameboard_table)
+            # run next level
+            display_gameboard(wide_gameboard, height_gameboard, gameboard_table, life, cash)
             print('{}'.format(num_gameb))
             user_move(gameboard_table, user_coordinates)
             time.sleep(0.1)
         elif num_gameb == 5:
-            print('I wait for function!')
+            print('\n\n\tI wait for function!\n\n')
             sys.exit()
 
 
 def main():
-    cprint("Welcome stranger in DUNGEON GAME!", 'green', 'on_red')
+    cprint("{:^48}".format("Welcome stranger in DUNGEON GAME!"), 'red', 'on_grey')
     option()
 
 
