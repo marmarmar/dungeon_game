@@ -60,8 +60,8 @@ def print_table(order="count,asc"):
 
 def sfinx(life):
     global num_gameb
-    # global life
     global inv
+    # global life
     sfinx_graphic.print_sfinx()
     print("If you answer my riddle I will give you a ruby. If not I will attack you!")
     print("\nWhat creature walks on four legs in the morning, on two in the midday and on three in the evening?")
@@ -283,17 +283,25 @@ def check_touch(table, user_position):
     if table[y_user][x_user] == '?':
         num_gameb += 1
     elif table[y_user][x_user] == '!':
-        pass
+        # add ascii with weapon
+        weapon = ['sword', 'axe', 'dagger']
+        loot = [random.choice(weapon)]
+        add_to_inventory(loot)
     elif table[y_user][x_user] == '$':
         gold_coins += random.randint(20, 50)
     elif table[y_user][x_user] == '%':
-        pass
+        loot = ['bootle']
+        add_to_inventory(loot)
+        # add ascii drinking
     elif table[y_user][x_user] == 'M':
         merchant()
     elif table[y_user][x_user] == '^':
-        pass
+            loot = ['ruby']
+            add_to_inventory(loot)
     elif table[y_user][x_user] == '&':
-        pass
+        # add ascii spell book
+        loot = ['spell book']
+        add_to_inventory(loot)
 
 
 def random_elements(tab, *args):
@@ -324,7 +332,7 @@ def start():
     global num_gameb
     global inv
     life = 3
-    gold_coins = 1009
+    gold_coins = 10
     inv = {'ruby': 1}
     num_gameb = 1
     user_coordinates = [1, 1]
