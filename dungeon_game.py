@@ -6,6 +6,7 @@ import random
 import collections
 import sfinx_graphic
 import hangman_game
+import drunk
 from termcolor import colored, cprint
 
 os.system('clear')  # clear screen
@@ -31,6 +32,7 @@ def print_table(order="count,asc"):
     """Prints sorted table of inventory"""
     os.system('clear')
     global inv
+    global life
     # if user want to sort own inventory, sorts it by values
     if order == "count,desc":
         ordered = sorted(inv, key=inv.get, reverse=True)
@@ -54,8 +56,28 @@ def print_table(order="count,asc"):
         total += inv[i]
     print("-" * (10 + max_len))
     print("Total number of items: {}\n".format(total))
-    print('Press any key to exit')
-    x = getch()
+    use = input("'h' to use potion, 'p to use vodka' and 'q' to exit from inventory: ")
+    while use != 'p' or use != 'q' or use != 'h':
+        if use == 'h':
+            loot = ['life potions']
+            remove_from_inventory(loot)
+            life += 1
+            print("press any key to exit")
+            break
+            x = getch()
+        elif use == 'p':
+            loot = ['vodka']
+            remove_from_inventory(loot)
+            life += 3
+            os.system('clear')
+            drunk.print_drunk()
+            x = getch()
+            break
+        elif use == 'q':
+            break
+            x = getch()
+        else:
+            use = input("I've already said 'p', 'h' or 'q'!")
 
 
 def sfinx(life):
@@ -93,6 +115,7 @@ def merchant():
         print("You can buy at least one")
         while True:
             try:
+                print("I've got 5 potions to sell.")
                 amount = int(input("\nHow many do you want?(0 for exit): "))
                 if life_potions >= amount:
                     if amount == 0:
@@ -113,6 +136,8 @@ def merchant():
                     else:
                         print("You don't have enough gold.")
             except ValueError:
+                print("I will wait for serious offer.")
+                time.sleep(3)
                 break
                 num_gameb += 1
                 num_gameb -= 1
@@ -130,6 +155,15 @@ def add_to_inventory(loot):
     # collections module helps to add dictionaries value
     loot = collections.Counter(loot)
     inv = inv+loot
+
+
+def remove_from_inventory(loot):
+    """it delete item from inventory"""
+    global inv
+    inv = collections.Counter(inv)
+    # collections module helps to add dictionaries value
+    loot = collections.Counter(loot)
+    inv = inv-loot
 
 
 def choice_gameboard(number, wide_gameboard, height_gameboard, user_coordinates):
@@ -193,6 +227,7 @@ def instructions():
     """it shows how to move in a dungeon game"""
     cprint("Use WSAD to move up/down/left/right in DUNGEON GAME", 'green', 'on_grey')
     cprint("And x to exit the game.", 'green', 'on_grey')
+    cprint("i to show inventory during the game, p use life potions", 'green', 'on_grey')
     cprint("Press <q> to go back to menu: ", 'red', 'on_grey')
     exit = getch()
     if exit == 'q':
@@ -305,7 +340,7 @@ def check_touch(table, user_position, last_position, x):
     elif table[y_user][x_user] == '💰':
         gold_coins += random.randint(20, 50)
     elif table[y_user][x_user] == '🎁':
-        loot = ['bootle']
+        loot = ['vodka']
         add_to_inventory(loot)
         # add ascii drinking
     elif table[y_user][x_user] == '🞦':
