@@ -60,9 +60,7 @@ def merchant():
         except ValueError:
             print("You need to give me some gold.")
 
+weapon = ['sword', 'axe', 'dagger']
+loot = random.choice(weapon)
 
-
-merchant()
-
-def brandy():
-    sfinx_graphic.print_sfinx()
+print(loot)

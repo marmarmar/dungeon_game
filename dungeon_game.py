@@ -284,6 +284,7 @@ def check_touch(table, user_position):
     """Checks if the user touches any item"""
     global num_gameb
     global gold_coins
+    global life
     x_user = user_position[0]
     y_user = user_position[1]
     if table[y_user][x_user] == '?':
@@ -302,12 +303,18 @@ def check_touch(table, user_position):
     elif table[y_user][x_user] == 'M':
         merchant()
     elif table[y_user][x_user] == '^':
+        if 'sword' in inv.keys() or 'dagger' in inv.keys() or 'axe' in inv.keys():
+            # add ascii ruby
             loot = ['ruby']
             add_to_inventory(loot)
+        else:
+            life -= 1
     elif table[y_user][x_user] == '&':
         # add ascii spell book
         loot = ['spell book', 'globe', 'abacus']
         add_to_inventory(loot)
+    return life
+
 
 
 def random_elements(tab, *args):
@@ -337,6 +344,7 @@ def start():
     global gold_coins
     global num_gameb
     global inv
+    global life
     life = 3
     gold_coins = 10
     inv = {'ruby': 1}
