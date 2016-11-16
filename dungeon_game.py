@@ -83,38 +83,43 @@ def sfinx(life):
 
 def merchant():
     global gold_coins
-    global inv
     global num_gameb
     life_potions = 5
     print("Welcome in my shop.")
     print("\nI sell potions that restore your life.")
     print("\nOne costs 30 gold coins")
-    while True:
-        if gold_coins >= 30:
-            print("You can buy at least one")
-        elif gold_coins < 30:
-            break
-            print("You don't have enough gold to trade with me")
-            num_gameb += 1
-            num_gameb -= 1
-        try:
-            amount = int(input("\nHow much do you want?: "))
-            if life_potions >= amount:
-                if gold_coins >= amount * 30:
-                    life_potions = ['life_potions'] * amount
-                    gold_coins = gold_coins - 30 * amount
-                    print(life_potions)
-                    print("\nThank you for purchase.")
-                    loot = life_potions*amount
-                    add_to_inventory(loot)
-                    num_gameb += 1
-                    num_gameb -= 1
-                    break
-                else:
-                    print("You don't have enough gold.")
+    if gold_coins >= 30:
+        print("You can buy at least one")
+        while True:
+            try:
+                amount = int(input("\nHow many do you want?(0 for exit): "))
+                if life_potions >= amount:
+                    if amount == 0:
+                        break
+                        num_gameb += 1
+                        num_gameb -= 1
+                    elif gold_coins >= amount * 30:
 
-        except ValueError:
-            print("You need to give me some gold.")
+                        life_potions = ['life potions'] * amount
+                        gold_coins = gold_coins - 30 * amount
+                        loot = life_potions
+                        print("\nThank you for purchase.")
+                        loot = life_potions*amount
+                        add_to_inventory(loot)
+                        break
+                        num_gameb += 1
+                        num_gameb -= 1
+                    else:
+                        print("You don't have enough gold.")
+            except ValueError:
+                break
+                num_gameb += 1
+                num_gameb -= 1
+    elif gold_coins < 30:
+        print("You don't have enough gold to trade with me")
+        key = input("Press any key to go on")
+        num_gameb += 1
+        num_gameb -= 1
 
 
 def add_to_inventory(loot):
@@ -278,6 +283,7 @@ def check_touch(table, user_position):
     """Checks if the user touches any item"""
     global num_gameb
     global gold_coins
+    global life
     x_user = user_position[0]
     y_user = user_position[1]
     if table[y_user][x_user] == '?':
@@ -296,12 +302,17 @@ def check_touch(table, user_position):
     elif table[y_user][x_user] == 'M':
         merchant()
     elif table[y_user][x_user] == '^':
+        if 'sword' in inv.keys() or 'dagger' in inv.keys() or 'axe' in inv.keys():
+            # add ascii ruby
             loot = ['ruby']
             add_to_inventory(loot)
+        else:
+            life -= 1
     elif table[y_user][x_user] == '&':
         # add ascii spell book
-        loot = ['spell book']
+        loot = ['spell book', 'globe', 'abacus']
         add_to_inventory(loot)
+    return life
 
 
 def random_elements(tab, *args):
@@ -331,6 +342,7 @@ def start():
     global gold_coins
     global num_gameb
     global inv
+    global life
     life = 3
     gold_coins = 10
     inv = {'ruby': 1}
@@ -348,7 +360,11 @@ def start():
             user_move(gameboard_table, user_coordinates)
         elif num_gameb == 2:
             # move to first boss
-            life = sfinx(life)
+            if 'spell book' in inv.keys():
+                life = sfinx(life)
+            elif 'spell book' not in inv.keys():
+                x = input("You don't have necessery item in your inventory. Search!")
+                num_gameb -= 1
         elif num_gameb == 3:
             # creates new gameboard
             user_coordinates = [1, 1]
