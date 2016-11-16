@@ -6,6 +6,7 @@ import random
 import collections
 import sfinx_graphic
 import hangman_game
+import drunk
 from termcolor import colored, cprint
 
 os.system('clear')  # clear screen
@@ -55,20 +56,28 @@ def print_table(order="count,asc"):
         total += inv[i]
     print("-" * (10 + max_len))
     print("Total number of items: {}\n".format(total))
-    use = input("'p' to use potion, 'q' to exit from inventory: ")
-    while use != 'p' or use !='q':
-        if use == 'p':
+    use = input("'h' to use potion, 'p to use bottle' and 'q' to exit from inventory: ")
+    while use != 'p' or use !='q' or use != 'h':
+        if use == 'h':
             loot = ['life potions']
             remove_from_inventory(loot)
             life += 1
             print("press any key to exit")
             break
             x = getch()
+        elif use == 'p':
+            loot = ['bottle']
+            remove_from_inventory(loot)
+            life += 3
+            os.system('clear')
+            drunk.print_drunk()
+            x = getch()
+            break
         elif use == 'q':
             break
             x = getch()
         else :
-            use = input("I've already said 'p' or 'q'!")
+            use = input("I've already said 'p', 'h' or 'q'!")
 
 def sfinx(life):
     global num_gameb
@@ -328,7 +337,7 @@ def check_touch(table, user_position, last_position, x):
     elif table[y_user][x_user] == '$':
         gold_coins += random.randint(20, 50)
     elif table[y_user][x_user] == '%':
-        loot = ['bootle']
+        loot = ['bottle']
         add_to_inventory(loot)
         # add ascii drinking
     elif table[y_user][x_user] == 'M':
