@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 import collections
 
+=======
+inv = {'gold coin': 300}
+>>>>>>> d59c18ed33eb5b257f1caab0cbee00ba860cc32b
 
 
 def sfinx():
@@ -33,14 +37,27 @@ def merchant():
     print("Welcome in my shop.")
     print("\nI sell potions that restore your life.")
     print("\nOne costs 30 gold coins")
-    try:
-        amount = input("\nHow much do you want?: ")
-        bottles = int(amount)*bottles
-        bottles = collections.Counter(bottles)
-        inv = collections.Counter(inv)
-        inv = inv+bottles
-        print(inv)
-    except ValueError:
-        print("else")
+    while life_potions > 0 and inv["gold coin"] >= 30:
+        try:
+            amount = int(input("\nHow much do you want?: "))
+            if life_potions >= amount:
+                if inv["gold coin"] >= amount * 30:
+                    life_potions = life_potions - amount
+                    inv['gold coin'] = int(inv['gold coin']) - 30 * amount
+                    print(inv)
+                    print("\nThank you for purchase.")
+                    print(life_potions)
+                else:
+                    print("You don't have enough gold.")
+            else:
+                print("I do not have that many.")
+        except ValueError:
+            print("You need to give me some gold.")
+    if life_potions <1:
+        print("\nYou bought everything I had to sell. Good luck on your journey!")
+    else:
+        print("\nSadly you don't have enough money to trade with me. Go away!")
+
+    return inv
 
 merchant()
