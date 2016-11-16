@@ -355,6 +355,7 @@ def start():
             time.sleep(0.1)
         elif num_gameb == 2:
             # move to first boss
+            if 'spell book'
             life = sfinx(life)
         elif num_gameb == 3:
             # creates new gameboard
