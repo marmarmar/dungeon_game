@@ -273,7 +273,7 @@ def start():
     global num_gameb
     global inv
     life = 3
-    gold_coins = 1009
+    gold_coins = 10
     inv = {'ruby': 1}
     num_gameb = 1
     user_coordinates = [1, 1]
