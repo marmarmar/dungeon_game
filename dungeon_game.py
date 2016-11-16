@@ -257,19 +257,20 @@ def user_move(table, user_position):
     table[y_user][x_user] = '@'
 
 
-def check_touch(table, user_position, life):
+def check_touch(table, user_position):
     """Checks if the user touches any item"""
     global num_gameb
     global gold_coins
+    global life
     x_user = user_position[0]
     y_user = user_position[1]
     if table[y_user][x_user] == '?':
         num_gameb += 1
     elif table[y_user][x_user] == '!':
         # add ascii with weapon
-        loot = ['sword', 'axe', 'dagger']
-        weapon = random.choice(loot)
-        add_to_inventory(weapon)
+        weapon = ['sword', 'axe', 'dagger']
+        loot = [random.choice(weapon)]
+        add_to_inventory(loot)
     elif table[y_user][x_user] == '$':
         gold_coins += random.randint(20, 50)
     elif table[y_user][x_user] == '%':
@@ -278,20 +279,17 @@ def check_touch(table, user_position, life):
     elif table[y_user][x_user] == 'M':
         merchant()
     elif table[y_user][x_user] == '^':
-        if not 'sword' or 'dagger' or 'axe' in inv:
-            life -= 1
-        else:
-            #add ascii ruby
+        if 'sword' in inv.keys() or 'dagger' in inv.keys() or 'axe' in inv.keys():
+            # add ascii ruby
             loot = ['ruby']
             add_to_inventory(loot)
+        else:
+            life -= 1
     elif table[y_user][x_user] == '&':
         # add ascii spell book
         loot = ['spell book']
         add_to_inventory(loot)
-
-
-
-
+    return life
 
 
 def random_elements(tab, *args):
@@ -321,6 +319,7 @@ def start():
     global gold_coins
     global num_gameb
     global inv
+    global life
     life = 3
     gold_coins = 1009
     inv = {'ruby': 1}
