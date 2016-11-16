@@ -7,6 +7,7 @@ import collections
 import sfinx_graphic
 import hangman_game
 import drunk
+import cold_warm_hot_game
 from termcolor import colored, cprint
 
 os.system('clear')  # clear screen
@@ -436,6 +437,14 @@ def start():
             display_gameboard(wide_gameboard, height_gameboard, gameboard_table, life, gold_coins)
             print('{}'.format(num_gameb))
             user_coordinates = user_move(gameboard_table, user_coordinates)
+        elif num_gameb == 8:
+            # move to first boss
+            if 'spell book' in inv.keys():
+                cold_warm_hot_game.run()
+                # life = sfinx(life)
+            elif 'spell book' not in inv.keys():
+                x = input("You don't have necessery item in your inventory. Search!")
+                num_gameb -= 1
 
 
 def main():
