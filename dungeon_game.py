@@ -257,7 +257,7 @@ def user_move(table, user_position):
     table[y_user][x_user] = '@'
 
 
-def check_touch(table, user_position, life):
+def check_touch(table, user_position):
     """Checks if the user touches any item"""
     global num_gameb
     global gold_coins
@@ -267,21 +267,18 @@ def check_touch(table, user_position, life):
         num_gameb += 1
     elif table[y_user][x_user] == '!':
         # add ascii with weapon
-        loot = ['sword', 'axe', 'dagger']
-        weapon = random.choice(loot)
-        add_to_inventory(weapon)
+        weapon = ['sword', 'axe', 'dagger']
+        loot = [random.choice(weapon)]
+        add_to_inventory(loot)
     elif table[y_user][x_user] == '$':
         gold_coins += random.randint(20, 50)
     elif table[y_user][x_user] == '%':
+        loot = ['bootle']
+        add_to_inventory(loot)
         # add ascii drinking
-        life -= 1
     elif table[y_user][x_user] == 'M':
         merchant()
     elif table[y_user][x_user] == '^':
-        if not 'sword' or 'dagger' or 'axe' in inv:
-            life -= 1
-        else:
-            #add ascii ruby
             loot = ['ruby']
             add_to_inventory(loot)
     elif table[y_user][x_user] == '&':
