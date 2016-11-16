@@ -76,7 +76,7 @@ def sfinx(life):
     else:
         print("You are correct. Here is your ruby. You can move on with your journey.")
         loot = ['ruby']
-        inv = add_to_inventory(loot)
+        add_to_inventory(loot)
         num_gameb += 1
         return life
 
@@ -309,9 +309,15 @@ def check_touch(table, user_position):
             add_to_inventory(loot)
         else:
             life -= 1
-    elif table[y_user][x_user] == '&':
+    elif table[y_user][x_user] == '&' and num_gameb == 1:
         # add ascii spell book
-        loot = ['spell book', 'globe', 'abacus']
+        loot = ['spell book']
+        add_to_inventory(loot)
+    elif table[y_user][x_user] == '&'and num_gameb == 4:
+        loot = ['globe']
+        add_to_inventory(loot)
+    elif table[y_user][x_user] == '&'and num_gameb == 7:
+        loot = ['abacus']
         add_to_inventory(loot)
     return life
 
