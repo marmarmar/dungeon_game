@@ -151,7 +151,7 @@ def display_gameboard(x, y, table, life, gold_coins):
     os.system('clear')  # clear screen
     for i in range(x):
         if i == 2:
-            cprint("{:^15}".format("MONEY"), 'green', attrs=['bold'], end='')
+            cprint("{:^15}".format("GOLD COINS"), 'green', attrs=['bold'], end='')
         elif i == 3:
             cprint("{:^15}".format(gold_coins), 'green', attrs=['bold'], end='')
         elif i == 6:
@@ -178,6 +178,7 @@ def display_gameboard(x, y, table, life, gold_coins):
             elif table[i][j] == '.':
                 print('\033[1;30;1m' + "{}".format(table[i][j]) + '\033[0m', end=' ')
         print('')
+    cprint("{:^110}".format("For backpack press 'i'"), 'green', attrs=['bold'])
 
 
 def user_move(table, user_position):
