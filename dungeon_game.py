@@ -89,10 +89,11 @@ def credits():
     cprint("Press <q> to go back to menu: ", 'red', 'on_grey')
     exit = getch()
     if exit == 'q':
-        sfinx(inv)
+        os.system('clear')  # clear screen
+        option()
     else:
         cprint("Are you ready to go on?", attrs=['bold'])
-        instructions(inv)
+        instructions()
 
 
 def instructions():
