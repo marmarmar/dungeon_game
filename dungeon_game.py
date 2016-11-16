@@ -5,6 +5,7 @@ import gameboard
 import random
 import collections
 import sfinx_graphic
+import hangman_game
 from termcolor import colored, cprint
 
 os.system('clear')  # clear screen
@@ -28,7 +29,7 @@ def sfinx(life):
     else:
         print("You are correct. Here is your ruby. You can move on with your journey.")
         loot = ['ruby']
-        inv = add_to_inventory(inv, loot)
+        inv = add_to_inventory(loot)
         num_gameb += 1
         return life
 
@@ -37,29 +38,36 @@ def merchant():
     global gold_coins
     global inv
     global num_gameb
-    loot =['life_potions']
     life_potions = 5
     print("Welcome in my shop.")
     print("\nI sell potions that restore your life.")
     print("\nOne costs 30 gold coins")
-    amount = int(input("\nHow much do you want?: "))
-    if life_potions >= amount:
-        if gold_coins >= amount * 30:
-            life_potions = life_potions * amount
-            gold_coins = gold_coins - 30 * amount
-            print(inv)
-            print("\nThank you for purchase.")
-            print(life_potions)
-            loot = ['life_potions']*amount
-            add_to_inventory(loot)
+    while True:
+        if gold_coins >= 30:
+            print("You can buy at least one")
+        elif gold_coins < 30:
+            break
+            print("You don't have enough gold to trade with me")
             num_gameb += 1
             num_gameb -= 1
-        else:
-            print("You don't have enough gold.")
-    elif ValueError:
-        print("You need to give me some gold.")
-    else:
-        print("I do not have that many.")
+        try:
+           amount = int(input("\nHow much do you want?: "))
+           if life_potions >= amount:
+                if gold_coins >= amount * 30:
+                    life_potions = ['life_potions'] * amount
+                    gold_coins = gold_coins - 30 * amount
+                    print(life_potions)
+                    print("\nThank you for purchase.")
+                    loot = life_potions*amount
+                    add_to_inventory(loot)
+                    num_gameb += 1
+                    num_gameb -= 1
+                    break
+                else:
+                    print("You don't have enough gold.")
+
+        except ValueError:
+            print("You need to give me some gold.")
 
 
 def add_to_inventory(loot):
@@ -69,7 +77,6 @@ def add_to_inventory(loot):
     # collections module helps to add dictionaries value
     loot = collections.Counter(loot)
     inv = inv+loot
-    return inv
 
 
 def choice_gameboard(number, wide_gameboard, height_gameboard, user_coordinates):
@@ -78,7 +85,7 @@ def choice_gameboard(number, wide_gameboard, height_gameboard, user_coordinates)
         tab = gameboard.gameboard(wide_gameboard, height_gameboard, user_coordinates)
     elif number == 3:
         tab = gameboard.gameboard1(wide_gameboard, height_gameboard, user_coordinates)
-    elif number == 5:
+    elif number == 6:
         tab = gameboard.gameboard2(wide_gameboard, height_gameboard, user_coordinates)
     return tab
 
@@ -156,6 +163,8 @@ def display_gameboard(x, y, table, life, gold_coins):
         for j in range(y):
             if table[i][j] == '#':
                 cprint(table[i][j], 'yellow', attrs=['bold'], end=' ')
+            elif table[i][j] == 'M':
+                cprint(table[i][j], 'yellow', attrs=['bold'], end=' ')
             elif table[i][j] == '?':
                 cprint(table[i][j], 'red', attrs=['bold'], end=' ')
             elif table[i][j] == '$' or table[i][j] == '%':
@@ -226,8 +235,10 @@ def check_touch(table, user_position):
         gold_coins += random.randint(20, 50)
     elif table[y_user][x_user] == '%':
         pass
-    elif table[y_user][x_user] == '^':
+    elif table[y_user][x_user] == 'M':
         merchant()
+        pass
+    elif table[y_user][x_user] == '^':
         pass
     elif table[y_user][x_user] == '&':
         pass
@@ -235,8 +246,8 @@ def check_touch(table, user_position):
 
 def random_elements(tab, *args):
     """randoms items to gameboard"""
-    elements = ('!', '$', '%', '^', '&', '?')
-    for i in range(6):
+    elements = ('!', '$', '%', '^', '&', '?', 'M')
+    for i in range(len(elements)):
         x = random.randint(2, len(tab)-1)
         y = random.randint(2, len(tab[0])-1)
         while tab[y][x] != '.':
@@ -278,7 +289,7 @@ def start():
             time.sleep(0.1)
         elif num_gameb == 2:
             # move to first boss
-            life = sfinx(inv, life)
+            life = sfinx(life)
         elif num_gameb == 3:
             # creates new gameboard
             user_coordinates = [1, 1]
@@ -292,8 +303,21 @@ def start():
             user_move(gameboard_table, user_coordinates)
             time.sleep(0.1)
         elif num_gameb == 5:
-            print('\n\n\tI wait for function!\n\n')
-            sys.exit()
+            hang_tupl = hangman_game.main(life, num_gameb)
+            life = hang_tupl[0]
+            num_gameb = hang_tupl[1]
+        elif num_gameb == 6:
+            # creates new gameboard
+            user_coordinates = [1, 1]
+            gameboard_table = choice_gameboard(num_gameb, wide_gameboard, height_gameboard, user_coordinates)
+            gameboard_table = random_elements(gameboard_table)
+            num_gameb += 1
+        elif num_gameb == 7:
+            # run next level
+            display_gameboard(wide_gameboard, height_gameboard, gameboard_table, life, gold_coins)
+            print('{}'.format(num_gameb))
+            user_move(gameboard_table, user_coordinates)
+            time.sleep(0.1)
 
 
 def main():
