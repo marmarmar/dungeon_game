@@ -312,7 +312,6 @@ def check_touch(table, user_position):
         # add ascii spell book
         loot = ['spell book', 'globe', 'abacus']
         add_to_inventory(loot)
-    return life
 
 
 def random_elements(tab, *args):
