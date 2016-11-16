@@ -76,7 +76,7 @@ def sfinx(life):
     else:
         print("You are correct. Here is your ruby. You can move on with your journey.")
         loot = ['ruby']
-        inv = add_to_inventory(loot)
+        add_to_inventory(loot)
         num_gameb += 1
         return life
 
@@ -346,7 +346,6 @@ def start():
             display_gameboard(wide_gameboard, height_gameboard, gameboard_table, life, gold_coins)
             print('{}'.format(num_gameb))
             user_move(gameboard_table, user_coordinates)
-            time.sleep(0.1)
         elif num_gameb == 2:
             # move to first boss
             life = sfinx(life)
@@ -361,7 +360,6 @@ def start():
             display_gameboard(wide_gameboard, height_gameboard, gameboard_table, life, gold_coins)
             print('{}'.format(num_gameb))
             user_move(gameboard_table, user_coordinates)
-            time.sleep(0.1)
         elif num_gameb == 5:
             hang_tupl = hangman_game.main(life, num_gameb)
             life = hang_tupl[0]
@@ -377,12 +375,10 @@ def start():
             display_gameboard(wide_gameboard, height_gameboard, gameboard_table, life, gold_coins)
             print('{}'.format(num_gameb))
             user_move(gameboard_table, user_coordinates)
-            time.sleep(0.1)
 
 
 def main():
     intro_graphic()
-    # cprint("{:^48}".format("Welcome stranger in DUNGEON GAME!"), 'red', 'on_grey')
     option()
 
 
