@@ -215,6 +215,7 @@ def instructions():
     """it shows how to move in a dungeon game"""
     cprint("Use WSAD to move up/down/left/right in DUNGEON GAME", 'green', 'on_grey')
     cprint("And x to exit the game.", 'green', 'on_grey')
+    cprint("i to show inventory during the game, p use life potions", 'green', 'on_grey')
     cprint("Press <q> to go back to menu: ", 'red', 'on_grey')
     exit = getch()
     if exit == 'q':
