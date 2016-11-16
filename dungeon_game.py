@@ -82,6 +82,7 @@ def sfinx(life):
 
 
 def merchant():
+    os.system('clear')
     global gold_coins
     global num_gameb
     life_potions = 5
@@ -212,26 +213,26 @@ def display_gameboard(x, y, table, life, gold_coins):
         elif i == 6:
             cprint("{:^15}".format("LIFES"), 'green', attrs=['bold'], end='')
         elif i == 7:
-            cprint("{:^15}".format(life), 'green', attrs=['bold'], end='')
+            cprint("{:^15}".format(life*'💗 '), 'red', attrs=['bold'], end='')
         else:
             print('{:>15}'.format(''), end='')
         for j in range(y):
-            if table[i][j] == '#':
+            if table[i][j] == '🌴':
+                cprint(table[i][j], 'yellow', end=' ')
+            elif table[i][j] == '🞦':
                 cprint(table[i][j], 'yellow', attrs=['bold'], end=' ')
-            elif table[i][j] == 'M':
-                cprint(table[i][j], 'yellow', attrs=['bold'], end=' ')
-            elif table[i][j] == '?':
+            elif table[i][j] == '🔑':
                 cprint(table[i][j], 'red', attrs=['bold'], end=' ')
-            elif table[i][j] == '$' or table[i][j] == '%':
+            elif table[i][j] == '💰' or table[i][j] == '🎁':
                 cprint(table[i][j], 'blue', attrs=['bold'], end=' ')
             elif table[i][j] == '^':
                 cprint(table[i][j], 'magenta', attrs=['bold'], end=' ')
-            elif table[i][j] == '&' or table[i][j] == '!':
+            elif table[i][j] == '&' or table[i][j] == '🗡':
                 cprint(table[i][j], 'green', attrs=['bold'], end=' ')
-            elif table[i][j] == '@':
-                cprint(table[i][j], 'white', attrs=['bold'], end=' ')
+            elif table[i][j] == '🐵':
+                cprint(table[i][j], 'white', end=' ')
             elif table[i][j] == '.':
-                print('\033[1;30;1m' + "{}".format(table[i][j]) + '\033[0m', end=' ')
+                print('\033[1;30;8m' + "{}".format(table[i][j]) + '\033[0m', end=' ')
         print('')
     cprint("{:^110}".format("For backpack press 'i'"), 'green', attrs=['bold'])
 
@@ -250,23 +251,23 @@ def user_move(table, user_position):
     if move == 'd':
         x_user += 1
         # checks new position
-        if table[y_user][x_user] == '#':
+        if table[y_user][x_user] == '🌴':
             x_user -= 1
         # removes @ from previous position
         table[y_user][x_user - 1] = '.'
     elif move == 'a':
         x_user -= 1
-        if table[y_user][x_user] == '#':
+        if table[y_user][x_user] == '🌴':
             x_user += 1
         table[y_user][x_user + 1] = '.'
     elif move == 'w':
         y_user -= 1
-        if table[y_user][x_user] == '#':
+        if table[y_user][x_user] == '🌴':
             y_user += 1
         table[y_user + 1][x_user] = '.'
     elif move == 's':
         y_user += 1
-        if table[y_user][x_user] == '#':
+        if table[y_user][x_user] == '🌴':
             y_user -= 1
         table[y_user - 1][x_user] = '.'
     elif move == 'x':
@@ -282,7 +283,7 @@ def user_move(table, user_position):
         x_user = user_position[0]
         y_user = user_position[1]
     # sets @ on current position of user
-    table[y_user][x_user] = '@'
+    table[y_user][x_user] = '🐵'
     return user_position
 
 
@@ -293,21 +294,21 @@ def check_touch(table, user_position, last_position, x):
     global life
     x_user = user_position[0]
     y_user = user_position[1]
-    if table[y_user][x_user] == '?':
+    if table[y_user][x_user] == '🔑':
         num_gameb += 1
         return last_position
-    elif table[y_user][x_user] == '!':
+    elif table[y_user][x_user] == '🗡':
         # add ascii with weapon
         weapon = ['sword', 'axe', 'dagger']
         loot = [random.choice(weapon)]
         add_to_inventory(loot)
-    elif table[y_user][x_user] == '$':
+    elif table[y_user][x_user] == '💰':
         gold_coins += random.randint(20, 50)
-    elif table[y_user][x_user] == '%':
+    elif table[y_user][x_user] == '🎁':
         loot = ['bootle']
         add_to_inventory(loot)
         # add ascii drinking
-    elif table[y_user][x_user] == 'M':
+    elif table[y_user][x_user] == '🞦':
         merchant()
         return last_position
     elif table[y_user][x_user] == '^':
@@ -326,7 +327,7 @@ def check_touch(table, user_position, last_position, x):
 
 def random_elements(tab, *args):
     """randoms items to gameboard"""
-    elements = ('!', '$', '%', '^', '&', '?', 'M')
+    elements = ('🗡', '💰', '🎁', '^', '&', '🔑', '🞦')
     for i in range(len(elements)):
         x = random.randint(2, len(tab)-1)
         y = random.randint(2, len(tab[0])-1)
@@ -352,7 +353,7 @@ def start():
     global num_gameb
     global inv
     global life
-    life = 3
+    life = 5
     gold_coins = 10
     inv = {'ruby': 1}
     num_gameb = 1

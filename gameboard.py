@@ -13,9 +13,9 @@ def gameboard(x=5, y=5, user_position=[1, 1]):
                     (row > 12 and row < 15 and column > 20 and column < 25) or \
                     (row < 2 and column > 12 and column < 17) or \
                     (row > 27 and row < 33 and column > 2 and column < 9):
-                table[row].append('#')
+                table[row].append('🌴')
             elif row == x_user and column == y_user:
-                table[row].append('@')
+                table[row].append('🐵')
             else:
                 table[row].append('.')
     return table
@@ -36,9 +36,9 @@ def gameboard1(x=5, y=5, user_position=[1, 1]):
                     (row > 12 and row < 15 and column > 2 and column < 6) or \
                     (row < 4 and column > 12 and column < 17) or \
                     (row > 27 and row < 33 and column > 2 and column < 9):
-                table1[row].append('#')
+                table1[row].append('🌴')
             elif row == x_user and column == y_user:
-                table1[row].append('@')
+                table1[row].append('🐵')
             else:
                 table1[row].append('.')
     return table1
@@ -59,9 +59,9 @@ def gameboard2(x=5, y=5, user_position=[1, 1]):
                     (row > 32 and row < 35 and column > 22 and column < 26) or \
                     (row < 4 and column > 7 and column < 12) or \
                     (row > 37 and row < 39 and column > 24 and column < 29):
-                table2[row].append('#')
+                table2[row].append('🌴')
             elif row == x_user and column == y_user:
-                table2[row].append('@')
+                table2[row].append('🐵')
             else:
                 table2[row].append('.')
     return table2
