@@ -5,6 +5,7 @@ import gameboard
 import random
 import collections
 import sfinx_graphic
+import hangman_game
 from termcolor import colored, cprint
 
 os.system('clear')  # clear screen
@@ -48,7 +49,7 @@ def choice_gameboard(number, wide_gameboard, height_gameboard, user_coordinates)
         tab = gameboard.gameboard(wide_gameboard, height_gameboard, user_coordinates)
     elif number == 3:
         tab = gameboard.gameboard1(wide_gameboard, height_gameboard, user_coordinates)
-    elif number == 5:
+    elif number == 6:
         tab = gameboard.gameboard2(wide_gameboard, height_gameboard, user_coordinates)
     return tab
 
@@ -125,6 +126,8 @@ def display_gameboard(x, y, table, life, cash):
             print('{:>15}'.format(''), end='')
         for j in range(y):
             if table[i][j] == '#':
+                cprint(table[i][j], 'yellow', attrs=['bold'], end=' ')
+            elif table[i][j] == 'M':
                 cprint(table[i][j], 'yellow', attrs=['bold'], end=' ')
             elif table[i][j] == '?':
                 cprint(table[i][j], 'red', attrs=['bold'], end=' ')
@@ -219,8 +222,8 @@ def check_touch(table, user_position, life):
 
 def random_elements(tab, *args):
     """randoms items to gameboard"""
-    elements = ('!', '$', '%', '^', '&', '?')
-    for i in range(6):
+    elements = ('!', '$', '%', '^', '&', '?', 'M')
+    for i in range(len(elements)):
         x = random.randint(2, len(tab)-1)
         y = random.randint(2, len(tab[0])-1)
         while tab[y][x] != '.':
@@ -276,8 +279,21 @@ def start():
             user_move(gameboard_table, user_coordinates)
             time.sleep(0.1)
         elif num_gameb == 5:
-            print('\n\n\tI wait for function!\n\n')
-            sys.exit()
+            hang_tupl = hangman_game.main(life, num_gameb)
+            life = hang_tupl[0]
+            num_gameb = hang_tupl[1]
+        elif num_gameb == 6:
+            # creates new gameboard
+            user_coordinates = [1, 1]
+            gameboard_table = choice_gameboard(num_gameb, wide_gameboard, height_gameboard, user_coordinates)
+            gameboard_table = random_elements(gameboard_table)
+            num_gameb += 1
+        elif num_gameb == 7:
+            # run next level
+            display_gameboard(wide_gameboard, height_gameboard, gameboard_table, life, cash)
+            print('{}'.format(num_gameb))
+            user_move(gameboard_table, user_coordinates)
+            time.sleep(0.1)
 
 
 def main():
