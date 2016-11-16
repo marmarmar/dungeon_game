@@ -99,12 +99,14 @@ def merchant():
                         num_gameb += 1
                         num_gameb -= 1
                     elif gold_coins >= amount * 30:
+
                         life_potions = ['life potions'] * amount
                         gold_coins = gold_coins - 30 * amount
-                        print(life_potions)
+                        loot = life_potions
                         print("\nThank you for purchase.")
                         loot = life_potions*amount
                         add_to_inventory(loot)
+                        break
                         num_gameb += 1
                         num_gameb -= 1
                     else:
