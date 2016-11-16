@@ -10,10 +10,10 @@ from termcolor import colored, cprint
 os.system('clear')  # clear screen
 
 
-def sfinx(inv, life):
+def sfinx(life):
     global num_gameb
+    global inv
     # global life
-    inv = {'gold coin': 20, 'ruby': 1}
     sfinx_graphic.print_sfinx()
     print("If you answer my riddle I will give you a ruby. If not I will attack you!")
     print("\nWhat creature walks on four legs in the morning, on two in the midday and on three in the evening?")
@@ -28,18 +28,18 @@ def sfinx(inv, life):
     else:
         print("You are correct. Here is your ruby. You can move on with your journey.")
         loot = ['ruby']
-        inv = add_to_inventory(inv, loot)
+        inv = add_to_inventory(loot)
         num_gameb += 1
         return life
 
 
-def add_to_inventory(inv, loot):
+def add_to_inventory(loot):
     """it adding loot to current inventory"""
+    global inv
     inv = collections.Counter(inv)
     # collections module helps to add dictionaries value
     loot = collections.Counter(loot)
     inv = inv+loot
-    return inv
 
 
 def choice_gameboard(number, wide_gameboard, height_gameboard, user_coordinates):
@@ -93,7 +93,7 @@ def credits():
         option()
     else:
         cprint("Are you ready to go on?", attrs=['bold'])
-        instructions()
+        credits()
 
 
 def instructions():
@@ -182,7 +182,7 @@ def user_move(table, user_position):
     table[y_user][x_user] = '@'
 
 
-def check_touch(table, user_position):
+def check_touch(table, user_position, life):
     """Checks if the user touches any item"""
     global num_gameb
     global cash
@@ -191,15 +191,30 @@ def check_touch(table, user_position):
     if table[y_user][x_user] == '?':
         num_gameb += 1
     elif table[y_user][x_user] == '!':
-        pass
+        # add ascii with weapon
+        loot = ['sword', 'axe', 'dagger']
+        weapon = random.choice(loot)
+        add_to_inventory(weapon)
     elif table[y_user][x_user] == '$':
         cash += random.randint(20, 50)
     elif table[y_user][x_user] == '%':
-        pass
+        # add ascii drinking
+        life -= 1
     elif table[y_user][x_user] == '^':
-        pass
+        if not 'sword' or 'dagger' or 'axe' in inv:
+            life -= 1
+        else:
+            #add ascii ruby
+            loot = ['ruby']
+            add_to_inventory(loot)
     elif table[y_user][x_user] == '&':
-        pass
+        # add ascii spell book
+        loot = ['spell book']
+        add_to_inventory(loot)
+
+
+
+
 
 
 def random_elements(tab, *args):
@@ -228,6 +243,7 @@ def start():
     """
     global cash
     global num_gameb
+    global inv
     life = 3
     cash = 0
     inv = {'gold coin': 20, 'ruby': 1}
