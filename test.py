@@ -1,9 +1,8 @@
-<<<<<<< HEAD
+
 import collections
 
-=======
+global inv
 inv = {'gold coin': 300}
->>>>>>> d59c18ed33eb5b257f1caab0cbee00ba860cc32b
 
 
 def sfinx():
@@ -21,43 +20,41 @@ def sfinx():
         add_to_inventory(inv, loot)
 
 
-def add_to_inventory(inv, loot):
+def add_to_inventory(loot):
     """it adding loot to current inventory"""
     inv = collections.Counter(inv)
     # collections module helps to add dictionaries value
     loot = collections.Counter(loot)
     inv = inv+loot
-    return inv
 
 
 
 def merchant():
-    inv = {'gold coin': 210}
-    bottles = {'life_potions'}
+    global gold coins
+    global inv
+    global num_gameb
+    loot =['life_potions']
+    life_potions = 5
     print("Welcome in my shop.")
     print("\nI sell potions that restore your life.")
     print("\nOne costs 30 gold coins")
-    while life_potions > 0 and inv["gold coin"] >= 30:
-        try:
-            amount = int(input("\nHow much do you want?: "))
-            if life_potions >= amount:
-                if inv["gold coin"] >= amount * 30:
-                    life_potions = life_potions - amount
-                    inv['gold coin'] = int(inv['gold coin']) - 30 * amount
-                    print(inv)
-                    print("\nThank you for purchase.")
-                    print(life_potions)
-                else:
-                    print("You don't have enough gold.")
-            else:
-                print("I do not have that many.")
-        except ValueError:
-            print("You need to give me some gold.")
-    if life_potions <1:
-        print("\nYou bought everything I had to sell. Good luck on your journey!")
+    amount = int(input("\nHow much do you want?: "))
+    if life_potions >= amount:
+        if inv["gold coin"] >= amount * 30:
+            life_potions = life_potions * amount
+            gold_coins = gold_coins - 30 * amount
+            print(inv)
+            print("\nThank you for purchase.")
+            print(life_potions)
+            loot = ['life_potions']*amount
+            add_to_inventory(loot)
+            num_gameb -= 1
+        else:
+            print("You don't have enough gold.")
+    elif ValueError:
+        print("You need to give me some gold.")
     else:
-        print("\nSadly you don't have enough money to trade with me. Go away!")
+        print("I do not have that many.")
 
-    return inv
 
 merchant()

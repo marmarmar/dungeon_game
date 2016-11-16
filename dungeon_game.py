@@ -10,10 +10,10 @@ from termcolor import colored, cprint
 os.system('clear')  # clear screen
 
 
-def sfinx(inv, life):
+def sfinx(life):
     global num_gameb
     # global life
-    inv = {'gold coin': 20, 'ruby': 1}
+    global inv
     sfinx_graphic.print_sfinx()
     print("If you answer my riddle I will give you a ruby. If not I will attack you!")
     print("\nWhat creature walks on four legs in the morning, on two in the midday and on three in the evening?")
@@ -33,8 +33,38 @@ def sfinx(inv, life):
         return life
 
 
-def add_to_inventory(inv, loot):
+def merchant():
+    global gold_coins
+    global inv
+    global num_gameb
+    loot =['life_potions']
+    life_potions = 5
+    print("Welcome in my shop.")
+    print("\nI sell potions that restore your life.")
+    print("\nOne costs 30 gold coins")
+    amount = int(input("\nHow much do you want?: "))
+    if life_potions >= amount:
+        if gold_coins >= amount * 30:
+            life_potions = life_potions * amount
+            gold_coins = gold_coins - 30 * amount
+            print(inv)
+            print("\nThank you for purchase.")
+            print(life_potions)
+            loot = ['life_potions']*amount
+            add_to_inventory(loot)
+            num_gameb += 1
+            num_gameb -= 1
+        else:
+            print("You don't have enough gold.")
+    elif ValueError:
+        print("You need to give me some gold.")
+    else:
+        print("I do not have that many.")
+
+
+def add_to_inventory(loot):
     """it adding loot to current inventory"""
+    global inv
     inv = collections.Counter(inv)
     # collections module helps to add dictionaries value
     loot = collections.Counter(loot)
@@ -89,10 +119,11 @@ def credits():
     cprint("Press <q> to go back to menu: ", 'red', 'on_grey')
     exit = getch()
     if exit == 'q':
-        sfinx(inv)
+        os.system('clear')
+        option()
     else:
         cprint("Are you ready to go on?", attrs=['bold'])
-        instructions(inv)
+        credits()
 
 
 def instructions():
@@ -109,13 +140,13 @@ def instructions():
         instructions()
 
 
-def display_gameboard(x, y, table, life, cash):
+def display_gameboard(x, y, table, life, gold_coins):
     os.system('clear')  # clear screen
     for i in range(x):
         if i == 2:
             cprint("{:^15}".format("MONEY"), 'green', attrs=['bold'], end='')
         elif i == 3:
-            cprint("{:^15}".format(cash), 'green', attrs=['bold'], end='')
+            cprint("{:^15}".format(gold_coins), 'green', attrs=['bold'], end='')
         elif i == 6:
             cprint("{:^15}".format("LIFES"), 'green', attrs=['bold'], end='')
         elif i == 7:
@@ -184,7 +215,7 @@ def user_move(table, user_position):
 def check_touch(table, user_position):
     """Checks if the user touches any item"""
     global num_gameb
-    global cash
+    global gold_coins
     x_user = user_position[0]
     y_user = user_position[1]
     if table[y_user][x_user] == '?':
@@ -192,10 +223,11 @@ def check_touch(table, user_position):
     elif table[y_user][x_user] == '!':
         pass
     elif table[y_user][x_user] == '$':
-        cash += random.randint(20, 50)
+        gold_coins += random.randint(20, 50)
     elif table[y_user][x_user] == '%':
         pass
     elif table[y_user][x_user] == '^':
+        merchant()
         pass
     elif table[y_user][x_user] == '&':
         pass
@@ -225,11 +257,12 @@ def start():
         #4 run second gameboard
         #5 ...
     """
-    global cash
+    global gold_coins
     global num_gameb
+    global inv
     life = 3
-    cash = 0
-    inv = {'gold coin': 20, 'ruby': 1}
+    gold_coins = 1009
+    inv = {'ruby': 1}
     num_gameb = 1
     user_coordinates = [1, 1]
     wide_gameboard = 40
@@ -239,7 +272,7 @@ def start():
     while True:
         os.system('clear')
         if num_gameb == 1:
-            display_gameboard(wide_gameboard, height_gameboard, gameboard_table, life, cash)
+            display_gameboard(wide_gameboard, height_gameboard, gameboard_table, life, gold_coins)
             print('{}'.format(num_gameb))
             user_move(gameboard_table, user_coordinates)
             time.sleep(0.1)
@@ -254,7 +287,7 @@ def start():
             num_gameb += 1
         elif num_gameb == 4:
             # run next level
-            display_gameboard(wide_gameboard, height_gameboard, gameboard_table, life, cash)
+            display_gameboard(wide_gameboard, height_gameboard, gameboard_table, life, gold_coins)
             print('{}'.format(num_gameb))
             user_move(gameboard_table, user_coordinates)
             time.sleep(0.1)
