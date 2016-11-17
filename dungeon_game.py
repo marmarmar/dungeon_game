@@ -4,6 +4,7 @@ import time
 import gameboard
 import random
 import collections
+import win
 import sfinx_graphic
 import hangman_game
 import drunk
@@ -139,6 +140,7 @@ def merchant():
     global gold_coins
     global num_gameb
     life_potions = 5
+    print_merchant()
     print("Welcome in my shop.")
     print("\nI sell potions that restore your life.")
     print("\nOne costs 30 gold coins")
@@ -177,6 +179,7 @@ def merchant():
         key = input("Press any key to go on")
         num_gameb += 1
         num_gameb -= 1
+
 
 
 def add_to_inventory(loot):
@@ -406,6 +409,7 @@ def check_touch(table, user_position, last_position, x):
         sword.print_sword()
         getch()
     elif table[y_user][x_user] == '💰':
+        print_cash()
         gold_coins += random.randint(20, 50)
     elif table[y_user][x_user] == '🎁':
         loot = ['whisky']
@@ -450,6 +454,21 @@ def print_whisky():
     getch()
 
 
+def print_cash():
+    os.system('clear')
+    x = open("cash.txt", 'r')
+    for line in x:
+        cprint(line, "yellow")
+    getch()
+
+def print_merchant():
+    os.system('clear')
+    x = open("merchant.txt", 'r')
+    for line in x:
+        cprint(line, "yellow")
+
+
+
 def random_elements(tab, *args):
     """randoms items to gameboard"""
     elements = ('🗡', '💰', '🎁', '🟔', '🔑', '🞦', '😼')
@@ -475,7 +494,7 @@ def start():
         #5 run hangman_game
         #6 create second gameboard
         #7 run third gameboard
-        # move to last boss
+        #8 move to cold_warm_hot_game
     """
     global gold_coins
     global num_gameb
@@ -538,10 +557,19 @@ def start():
         elif num_gameb == 8:
             # move to last boss
             if 'spell book' in inv.keys():
-                cold_warm_hot_game.run()
+                x = cold_warm_hot_game.run()
+                if x == 1:
+                    num_gameb += 1
+                else:
+                    num_gameb -= 1
+                    life -= 1
             elif 'spell book' not in inv.keys():
                 x = input("You don't have necessery item in your inventory. Search!")
                 num_gameb -= 1
+
+        elif num_gameb == 9:
+            # win game
+            win.win_game()
 
 
 def main():
