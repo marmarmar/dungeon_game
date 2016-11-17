@@ -38,6 +38,7 @@ def print_table(order="count,asc"):
     """
     Prints sorted table of inventory
     Lets to use items from inventory
+    If inventory is empty prints statement
     """
     os.system('clear')
     global inv
@@ -45,61 +46,72 @@ def print_table(order="count,asc"):
     # if user want to sort own inventory, sorts it by values
     ordered = sorted(inv, key=inv.get, reverse=True)
     total = 0
-    # checks maximal length of names of loot and if it's to short for
-    # good presentation change it to 9
-    max_len = len(max(inv, key=len))
-    if max_len < 9:
-        max_len = 9
-    # creates string which will been displays
-    formatted_text = "{:>7}{:>%d}" % (max_len + 3)
-    print("Inventory:")
-    print(formatted_text.format("count", "item name"))
-    print("-" * (10 + max_len))
-    for i in ordered:
-        print(formatted_text.format(inv[i], i))
-        total += inv[i]
-    print("-" * (10 + max_len))
-    print("Total number of items: {}\n".format(total))
-    print("'h' to use potion, 'p to use whisky' and 'q' to exit from inventory: ")
-    use = input("r to see the ruby: ")
-    # using inventory items
-    while use != 'p' or use != 'q' or use != 'h' or use != 'r':
-        if use == 'h':
-            if 'life potions' in inv.keys():
-                loot = ['life potions']
-                remove_from_inventory(loot)
-                life += 1
-                print("press any key to exit")
-                break
-                x = getch()
-            else:
-                print("You don't have any life potions.")
-                x = getch()
-                break
-        elif use == 'p':
-            if 'whisky' in inv.keys():
-                loot = ['whisky']
-                remove_from_inventory(loot)
+
+    try:
+        max_len = len(max(inv, key=len))
+
+    except ValueError:
+        max_len = '.'
+        print("\n\n\tYour inventory is empty")
+        # print(type(max_len))
+        time.sleep(2)
+
+    # if inventory not empty
+    if type(max_len) == int:
+        # checks maximal length of names of loot and if it's to short for
+        # good presentation change it to 9
+        if max_len < 9:
+            max_len = 9
+        # creates string which will been displays
+        formatted_text = "{:>7}{:>%d}" % (max_len + 3)
+        print("Inventory:")
+        print(formatted_text.format("count", "item name"))
+        print("-" * (10 + max_len))
+        for i in ordered:
+            print(formatted_text.format(inv[i], i))
+            total += inv[i]
+        print("-" * (10 + max_len))
+        print("Total number of items: {}\n".format(total))
+        print("'h' to use potion, 'p to use whisky' and 'q' to exit from inventory: ")
+        use = input("r to see the ruby: ")
+        # using inventory items
+        while use != 'p' or use != 'q' or use != 'h' or use != 'r':
+            if use == 'h':
+                if 'life potions' in inv.keys():
+                    loot = ['life potions']
+                    remove_from_inventory(loot)
+                    life += 1
+                    print("press any key to exit")
+                    break
+                    x = getch()
+                else:
+                    print("You don't have any life potions.")
+                    x = getch()
+                    break
+            elif use == 'p':
+                if 'whisky' in inv.keys():
+                    loot = ['whisky']
+                    remove_from_inventory(loot)
+                    os.system('clear')
+                    drunk.print_drunk()
+                    time.sleep(3)
+                    x = getch()
+                    break
+                else:
+                    print("You don't have any whisky.")
+                    x = getch()
+                    break
+            elif use == 'r':
                 os.system('clear')
-                drunk.print_drunk()
-                time.sleep(3)
+                ruby.print_ruby()
+                time.sleep(5)
                 x = getch()
                 break
+            elif use == 'q':
+                break
+                x = getch()
             else:
-                print("You don't have any whisky.")
-                x = getch()
-                break
-        elif use == 'r':
-            os.system('clear')
-            ruby.print_ruby()
-            time.sleep(5)
-            x = getch()
-            break
-        elif use == 'q':
-            break
-            x = getch()
-        else:
-            use = input("I've already said 'p', 'r,', 'h' or 'q'!")
+                use = input("I've already said 'p', 'r,', 'h' or 'q'!")
 
 
 def sfinx(life):
