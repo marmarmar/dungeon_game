@@ -43,12 +43,7 @@ def print_table(order="count,asc"):
     global inv
     global life
     # if user want to sort own inventory, sorts it by values
-    if order == "count,desc":
-        ordered = sorted(inv, key=inv.get, reverse=True)
-    elif order == "count,asc":
-        ordered = sorted(inv, key=inv.get, reverse=False)
-    else:
-        ordered = inv
+    ordered = sorted(inv, key=inv.get, reverse=True)
     total = 0
     # checks maximal length of names of loot and if it's to short for
     # good presentation change it to 9
@@ -79,8 +74,8 @@ def print_table(order="count,asc"):
                 x = getch()
             else:
                 print("You don't have any life potions.")
-                break
                 x = getch()
+                break
         elif use == 'p':
             if 'whisky' in inv.keys():
                 loot = ['whisky']
@@ -366,7 +361,7 @@ def display_gameboard(x, y, table, life, gold_coins):
         elif i == 16:
             cprint("{:^22}".format(special_items), 'green', attrs=['bold'], end='')
         elif i == 17:
-            cprint("{:^22}".format("PRECIOUS"), 'green', attrs=['bold'], end='')
+            cprint("{:^22}".format("PRECIOUS:"), 'green', attrs=['bold'], end='')
         elif i == 18:
             cprint("{:^22}".format(precious), 'green', attrs=['bold'], end='')
         else:
