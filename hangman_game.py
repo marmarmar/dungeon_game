@@ -193,8 +193,6 @@ def intro_graphic():
     for i in range(len(data)):
         if i == 0:
             print(" ", end='')
-        # if i == 9:
-        #     print(" ", end='')
         if i > 6:
             print("            ", end='')
         for j in range(len(data[i])):

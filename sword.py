@@ -1,4 +1,6 @@
 from termcolor import colored, cprint
+
+
 def print_sword():
     """printing sword when collecting weapons"""
     cprint("                                                                                           ://", 'blue')
