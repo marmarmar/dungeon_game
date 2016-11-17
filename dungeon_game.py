@@ -84,6 +84,7 @@ def print_table(order="count,asc"):
                 remove_from_inventory(loot)
                 os.system('clear')
                 drunk.print_drunk()
+                time.sleep(5)
                 x = getch()
                 break
             else:
@@ -93,6 +94,7 @@ def print_table(order="count,asc"):
         elif use == 'r':
             os.system('clear')
             ruby.print_ruby()
+            time.sleep(5)
             x = getch()
             break
         elif use == 'q':
@@ -279,7 +281,7 @@ def display_gameboard(x, y, table, life, gold_coins):
         elif i == 7:
             cprint("{:^22}".format(life*'💗 '), 'red', attrs=['bold'], end='')
         elif i == 10:
-            cprint("{:^22}".format("ITEMS press 'i'"), 'green', attrs=['bold'], end='')
+            cprint("{:^22}".format("For ITEMS press 'i'"), 'green', attrs=['bold'], end='')
         else:
             print('{:>22}'.format(''), end='')
         for j in range(y):
