@@ -393,15 +393,18 @@ def check_touch(table, user_position, last_position, x):
             loot = ['ruby']
             add_to_inventory(loot)
         else:
+            print_fight()
             life -= 1
     elif table[y_user][x_user] == '🟔' and num_gameb == 1:
-        # add ascii spell book
+        print_spell()
         loot = ['spell book']
         add_to_inventory(loot)
     elif table[y_user][x_user] == '🟔'and num_gameb == 4:
+        print_spell()
         loot = ['globe']
         add_to_inventory(loot)
     elif table[y_user][x_user] == '🟔'and num_gameb == 7:
+        print_spell()
         loot = ['abacus']
         add_to_inventory(loot)
     return x
@@ -421,7 +424,7 @@ def print_whisky():
     os.system('clear')
     x = open("w.txt", 'r')
     for line in x:
-        cprint(line, "yellow")
+        cprint(line, "blue")
     getch()
 
 
@@ -433,12 +436,22 @@ def print_cash():
         cprint(line, "yellow")
     getch()
 
+
 def print_merchant():
     """prints ascii from file"""
     os.system('clear')
     x = open("merchant.txt", 'r')
     for line in x:
         cprint(line, "yellow")
+
+
+def print_spell():
+    """prints ascii from file"""
+    os.system('clear')
+    x = open("spell.txt", 'r')
+    for line in x:
+        cprint(line, "green")
+    getch()
 
 
 
