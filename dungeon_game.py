@@ -3,6 +3,7 @@ import os
 import time
 import gameboard
 import random
+import game_over
 import collections
 import win
 import sfinx_graphic
@@ -122,6 +123,7 @@ def sfinx(life):
     while answer_sfinx != "human":
         os.system('clear')  # clear screen
         life -= 1
+        game_over.check_life(life)
         sfinx_graphic.print_sfinx()
         print("\nWhat creature walks on four legs in the morning, on two in the midday and on three in the evening?")
         print("lifes:", life)
@@ -181,7 +183,6 @@ def merchant():
         num_gameb -= 1
 
 
-
 def add_to_inventory(loot):
     """it adding loot to current inventory"""
     global inv
@@ -223,6 +224,7 @@ def checking_weight():
                 except ValueError:
                     print("what?")
                     drop = input("Pick item to drop: ")
+
 
 def remove_from_inventory(loot):
     """it delete item from inventory"""
@@ -462,12 +464,12 @@ def print_cash():
         cprint(line, "yellow")
     getch()
 
+
 def print_merchant():
     os.system('clear')
     x = open("merchant.txt", 'r')
     for line in x:
         cprint(line, "yellow")
-
 
 
 def random_elements(tab, *args):
@@ -521,6 +523,7 @@ def start():
             # move to first boss
             if 'spell book' in inv.keys():
                 life = sfinx(life)
+                game_over.check_life(life)
             elif 'spell book' not in inv.keys():
                 x = input("You don't have necessery item in your inventory. Search!")
                 num_gameb -= 1
@@ -534,6 +537,7 @@ def start():
 
         elif num_gameb == 4:
             # run next level
+            game_over.check_life(life)
             display_gameboard(wide_gameboard, height_gameboard, gameboard_table, life, gold_coins)
             user_coordinates = user_move(gameboard_table, user_coordinates)
 
@@ -541,6 +545,7 @@ def start():
             # run hangman_game
             hang_tupl = hangman_game.main(life, num_gameb)
             life = hang_tupl[0]
+            game_over.check_life(life)
             num_gameb = hang_tupl[1]
 
         elif num_gameb == 6:
@@ -552,6 +557,7 @@ def start():
 
         elif num_gameb == 7:
             # run next level
+            game_over.check_life(life)
             display_gameboard(wide_gameboard, height_gameboard, gameboard_table, life, gold_coins)
             user_coordinates = user_move(gameboard_table, user_coordinates)
 
@@ -564,6 +570,7 @@ def start():
                 else:
                     num_gameb -= 1
                     life -= 1
+                    game_over.check_life(life)
             elif 'spell book' not in inv.keys():
                 x = input("You don't have necessery item in your inventory. Search!")
                 num_gameb -= 1
