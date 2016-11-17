@@ -8,6 +8,7 @@ import sfinx_graphic
 import hangman_game
 import drunk
 import sword
+import ruby
 import cold_warm_hot_game
 from termcolor import colored, cprint
 
@@ -61,9 +62,10 @@ def print_table(order="count,asc"):
         total += inv[i]
     print("-" * (10 + max_len))
     print("Total number of items: {}\n".format(total))
-    use = input("'h' to use potion, 'p to use vodka' and 'q' to exit from inventory: ")
+    print("'h' to use potion, 'p to use vodka' and 'q' to exit from inventory: ")
+    use = input("r to see the ruby: ")
     #using inventory items
-    while use != 'p' or use != 'q' or use != 'h':
+    while use != 'p' or use != 'q' or use != 'h' or use != 'r':
         if use == 'h':
             if 'life potions' in inv.keys():
                 loot = ['life potions']
@@ -88,6 +90,11 @@ def print_table(order="count,asc"):
                 print("You don't have any vodka.")
                 x = getch()
                 break
+        elif use == 'r':
+            os.system('clear')
+            ruby.print_ruby()
+            x = getch()
+            break
         elif use == 'q':
             break
             x = getch()
