@@ -7,6 +7,8 @@ import collections
 import sfinx_graphic
 import hangman_game
 import drunk
+import sword
+import ruby
 import cold_warm_hot_game
 from termcolor import colored, cprint
 
@@ -60,21 +62,37 @@ def print_table(order="count,asc"):
         total += inv[i]
     print("-" * (10 + max_len))
     print("Total number of items: {}\n".format(total))
-    use = input("'h' to use potion, 'p to use vodka' and 'q' to exit from inventory: ")
-    while use != 'p' or use != 'q' or use != 'h':
+    print("'h' to use potion, 'p to use vodka' and 'q' to exit from inventory: ")
+    use = input("r to see the ruby: ")
+    # using inventory items
+    while use != 'p' or use != 'q' or use != 'h' or use != 'r':
         if use == 'h':
-            loot = ['life potions']
-            remove_from_inventory(loot)
-            life += 1
-            print("press any key to exit")
-            break
-            x = getch()
+            if 'life potions' in inv.keys():
+                loot = ['life potions']
+                remove_from_inventory(loot)
+                life += 1
+                print("press any key to exit")
+                break
+                x = getch()
+            else:
+                print("You don't have any life potions.")
+                break
+                x = getch()
         elif use == 'p':
-            loot = ['vodka']
-            remove_from_inventory(loot)
-            life += 3
+            if 'vodka' in inv.keys():
+                loot = ['vodka']
+                remove_from_inventory(loot)
+                os.system('clear')
+                drunk.print_drunk()
+                x = getch()
+                break
+            else:
+                print("You don't have any vodka.")
+                x = getch()
+                break
+        elif use == 'r':
             os.system('clear')
-            drunk.print_drunk()
+            ruby.print_ruby()
             x = getch()
             break
         elif use == 'q':
@@ -114,6 +132,7 @@ def sfinx(life):
 
 
 def merchant():
+    """NPC to buy life potions"""
     os.system('clear')
     global gold_coins
     global num_gameb
@@ -252,15 +271,17 @@ def display_gameboard(x, y, table, life, gold_coins):
     os.system('clear')  # clear screen
     for i in range(x):
         if i == 2:
-            cprint("{:^15}".format("GOLD COINS"), 'green', attrs=['bold'], end='')
+            cprint("{:^22}".format("GOLD COINS"), 'green', attrs=['bold'], end='')
         elif i == 3:
-            cprint("{:^15}".format(gold_coins), 'green', attrs=['bold'], end='')
+            cprint("{:^22}".format(gold_coins), 'green', attrs=['bold'], end='')
         elif i == 6:
-            cprint("{:^15}".format("LIFES"), 'green', attrs=['bold'], end='')
+            cprint("{:^22}".format("LIFES"), 'green', attrs=['bold'], end='')
         elif i == 7:
-            cprint("{:^15}".format(life*'💗 '), 'red', attrs=['bold'], end='')
+            cprint("{:^22}".format(life*'💗 '), 'red', attrs=['bold'], end='')
+        elif i == 10:
+            cprint("{:^22}".format("ITEMS press 'i'"), 'green', attrs=['bold'], end='')
         else:
-            print('{:>15}'.format(''), end='')
+            print('{:>22}'.format(''), end='')
         for j in range(y):
             if table[i][j] == '🌴':
                 cprint(table[i][j], 'yellow', end=' ')
@@ -270,7 +291,7 @@ def display_gameboard(x, y, table, life, gold_coins):
                 cprint(table[i][j], 'red', attrs=['bold'], end=' ')
             elif table[i][j] == '💰' or table[i][j] == '🎁':
                 cprint(table[i][j], 'blue', attrs=['bold'], end=' ')
-            elif table[i][j] == '^':
+            elif table[i][j] == '😼':
                 cprint(table[i][j], 'magenta', attrs=['bold'], end=' ')
             elif table[i][j] == '&' or table[i][j] == '🗡':
                 cprint(table[i][j], 'green', attrs=['bold'], end=' ')
@@ -279,7 +300,6 @@ def display_gameboard(x, y, table, life, gold_coins):
             elif table[i][j] == '.':
                 print('\033[1;30;8m' + "{}".format(table[i][j]) + '\033[0m', end=' ')
         print('')
-    cprint("{:^110}".format("For backpack press 'i'"), 'green', attrs=['bold'])
 
 
 def user_move(table, user_position):
@@ -347,6 +367,9 @@ def check_touch(table, user_position, last_position, x):
         weapon = ['sword', 'axe', 'dagger']
         loot = [random.choice(weapon)]
         add_to_inventory(loot)
+        os.system('clear')
+        sword.print_sword()
+        getch()
     elif table[y_user][x_user] == '💰':
         gold_coins += random.randint(20, 50)
     elif table[y_user][x_user] == '🎁':
@@ -356,7 +379,7 @@ def check_touch(table, user_position, last_position, x):
     elif table[y_user][x_user] == '🞦':
         merchant()
         return last_position
-    elif table[y_user][x_user] == '^':
+    elif table[y_user][x_user] == '😼':
         if 'sword' in inv.keys() or 'dagger' in inv.keys() or 'axe' in inv.keys():
             # add ascii ruby
             loot = ['ruby']
@@ -372,7 +395,7 @@ def check_touch(table, user_position, last_position, x):
 
 def random_elements(tab, *args):
     """randoms items to gameboard"""
-    elements = ('🗡', '💰', '🎁', '^', '&', '🔑', '🞦')
+    elements = ('🗡', '💰', '🎁', '😼', '&', '🔑', '🞦')
     for i in range(len(elements)):
         x = random.randint(2, len(tab)-1)
         y = random.randint(2, len(tab[0])-1)
@@ -395,6 +418,7 @@ def start():
         #5 run hangman_game
         #6 create second gameboard
         #7 run third gameboard
+        # move to last boss
     """
     global gold_coins
     global num_gameb
