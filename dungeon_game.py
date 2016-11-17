@@ -138,6 +138,7 @@ def merchant():
     global gold_coins
     global num_gameb
     life_potions = 5
+    print_merchant()
     print("Welcome in my shop.")
     print("\nI sell potions that restore your life.")
     print("\nOne costs 30 gold coins")
@@ -176,6 +177,7 @@ def merchant():
         key = input("Press any key to go on")
         num_gameb += 1
         num_gameb -= 1
+
 
 
 def add_to_inventory(loot):
@@ -294,7 +296,7 @@ def display_gameboard(x, y, table, life, gold_coins):
                 cprint(table[i][j], 'blue', attrs=['bold'], end=' ')
             elif table[i][j] == '😼':
                 cprint(table[i][j], 'magenta', attrs=['bold'], end=' ')
-            elif table[i][j] == '&' or table[i][j] == '🗡':
+            elif table[i][j] == '🟔' or table[i][j] == '🗡':
                 cprint(table[i][j], 'green', attrs=['bold'], end=' ')
             elif table[i][j] == '🐵':
                 cprint(table[i][j], 'white', end=' ')
@@ -372,31 +374,69 @@ def check_touch(table, user_position, last_position, x):
         sword.print_sword()
         getch()
     elif table[y_user][x_user] == '💰':
+        print_cash()
         gold_coins += random.randint(20, 50)
     elif table[y_user][x_user] == '🎁':
-        loot = ['vodka']
+        loot = ['whisky']
         add_to_inventory(loot)
-        # add ascii drinking
+        print_whisky()
     elif table[y_user][x_user] == '🞦':
         merchant()
         return last_position
     elif table[y_user][x_user] == '😼':
         if 'sword' in inv.keys() or 'dagger' in inv.keys() or 'axe' in inv.keys():
-            # add ascii ruby
+            print_fight()
             loot = ['ruby']
             add_to_inventory(loot)
         else:
             life -= 1
-    elif table[y_user][x_user] == '&':
+    elif table[y_user][x_user] == '🟔' and num_gameb == 1:
         # add ascii spell book
-        loot = ['spell book', 'globe', 'abacus']
+        loot = ['spell book']
+        add_to_inventory(loot)
+    elif table[y_user][x_user] == '🟔'and num_gameb == 4:
+        loot = ['globe']
+        add_to_inventory(loot)
+    elif table[y_user][x_user] == '🟔'and num_gameb == 7:
+        loot = ['abacus']
         add_to_inventory(loot)
     return x
 
 
+def print_fight():
+    os.system('clear')
+    x = open("monster.txt", 'r')
+    for line in x:
+        cprint(line, "red")
+    getch()
+
+
+def print_whisky():
+    os.system('clear')
+    x = open("w.txt", 'r')
+    for line in x:
+        cprint(line, "yellow")
+    getch()
+
+
+def print_cash():
+    os.system('clear')
+    x = open("cash.txt", 'r')
+    for line in x:
+        cprint(line, "yellow")
+    getch()
+
+def print_merchant():
+    os.system('clear')
+    x = open("merchant.txt", 'r')
+    for line in x:
+        cprint(line, "yellow")
+
+
+
 def random_elements(tab, *args):
     """randoms items to gameboard"""
-    elements = ('🗡', '💰', '🎁', '😼', '&', '🔑', '🞦')
+    elements = ('🗡', '💰', '🎁', '🟔', '🔑', '🞦', '😼')
     for i in range(len(elements)):
         x = random.randint(2, len(tab)-1)
         y = random.randint(2, len(tab[0])-1)
