@@ -62,6 +62,7 @@ def print_table(order="count,asc"):
     print("-" * (10 + max_len))
     print("Total number of items: {}\n".format(total))
     use = input("'h' to use potion, 'p to use vodka' and 'q' to exit from inventory: ")
+    #using inventory items
     while use != 'p' or use != 'q' or use != 'h':
         if use == 'h':
             if 'life potions' in inv.keys():
@@ -124,6 +125,7 @@ def sfinx(life):
 
 
 def merchant():
+    """NPC to buy life potions"""
     os.system('clear')
     global gold_coins
     global num_gameb
@@ -262,21 +264,17 @@ def display_gameboard(x, y, table, life, gold_coins):
     os.system('clear')  # clear screen
     for i in range(x):
         if i == 2:
-            cprint("{:^15}".format("GOLD COINS"), 'green', attrs=['bold'], end='')
+            cprint("{:^22}".format("GOLD COINS"), 'green', attrs=['bold'], end='')
         elif i == 3:
-            cprint("{:^15}".format(gold_coins), 'green', attrs=['bold'], end='')
+            cprint("{:^22}".format(gold_coins), 'green', attrs=['bold'], end='')
         elif i == 6:
-            cprint("{:^15}".format("LIFES"), 'green', attrs=['bold'], end='')
+            cprint("{:^22}".format("LIFES"), 'green', attrs=['bold'], end='')
         elif i == 7:
-<<<<<<< HEAD
             cprint("{:^22}".format(life*'💗 '), 'red', attrs=['bold'], end='')
         elif i == 10:
             cprint("{:^22}".format("ITEMS press 'i'"), 'green', attrs=['bold'], end='')
-=======
-            cprint("{:^15}".format(life*'💗 '), 'red', attrs=['bold'], end='')
->>>>>>> da75bb7e6acf0ffa476212f2f452d814681af4b0
         else:
-            print('{:>15}'.format(''), end='')
+            print('{:>22}'.format(''), end='')
         for j in range(y):
             if table[i][j] == '🌴':
                 cprint(table[i][j], 'yellow', end=' ')
