@@ -59,20 +59,29 @@ def print_table(order="count,asc"):
     use = input("'h' to use potion, 'p to use vodka' and 'q' to exit from inventory: ")
     while use != 'p' or use != 'q' or use != 'h':
         if use == 'h':
-            loot = ['life potions']
-            remove_from_inventory(loot)
-            life += 1
-            print("press any key to exit")
-            break
-            x = getch()
+            if 'life potions' in inv.keys():
+                loot = ['life potions']
+                remove_from_inventory(loot)
+                life += 1
+                print("press any key to exit")
+                break
+                x = getch()
+            else :
+                print("You don't have any life potions.")
+                break
+                x = getch()
         elif use == 'p':
-            loot = ['vodka']
-            remove_from_inventory(loot)
-            life += 3
-            os.system('clear')
-            drunk.print_drunk()
-            x = getch()
-            break
+            if 'vodka' in inv.keys():
+                loot = ['vodka']
+                remove_from_inventory(loot)
+                os.system('clear')
+                drunk.print_drunk()
+                x = getch()
+                break
+            else:
+                print("You don't have any vodka.")
+                x = getch()
+                break
         elif use == 'q':
             break
             x = getch()
