@@ -5,7 +5,9 @@ from termcolor import colored, cprint
 
 
 def intro_graphic():
+    """Read graphic from file cold_intro.txt"""
     data = [line.strip() for line in open("cold_intro.txt", 'r')]
+    print('\n\n')
     for i in range(len(data)):
         if i == 0:
             print(" ", end='')
@@ -47,15 +49,15 @@ def comparison_numbers(rand):
     print(rand)
     while attempt < 10:
         user_input = list(input('\t\tGuess #{}: \n\t\t'.format(attempt+1)))
+        if len(user_input) != 3 or (user_input[0] in user_input[1:]) or user_input[1] == user_input[2]:
+            print("\n\t\tYOU MUST INPUT 3 OTHERS DIGITS\n")
+            continue
         try:
             int(user_input[0])
             int(user_input[1])
             int(user_input[2])
         except ValueError:
             print("\n\t\tYOU MUST INPUT DIGITS\n")
-            continue
-        if len(user_input) != 3 or (user_input[0] in user_input[1:]) or user_input[1] == user_input[2]:
-            print("\n\t\tYOU MUST INPUT 3 OTHERS DIGITS\n")
             continue
         i = 0
         while i != 3:
@@ -120,9 +122,13 @@ def run():
         os.system('clear')
         print("\n\n\t\tYOU WIN!!!\n\n")
         time.sleep(2)
+        return 1
     if result == 0:
         os.system('clear')
         print("\n\n\t\tYOU LOSE...\n\n")
         time.sleep(2)
+        return 0
+
+# run()
 
 # main()

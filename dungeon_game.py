@@ -4,6 +4,7 @@ import time
 import gameboard
 import random
 import collections
+import win
 import sfinx_graphic
 import hangman_game
 import drunk
@@ -418,7 +419,7 @@ def start():
         #5 run hangman_game
         #6 create second gameboard
         #7 run third gameboard
-        # move to last boss
+        #8 move to cold_warm_hot_game
     """
     global gold_coins
     global num_gameb
@@ -481,10 +482,19 @@ def start():
         elif num_gameb == 8:
             # move to last boss
             if 'spell book' in inv.keys():
-                cold_warm_hot_game.run()
+                x = cold_warm_hot_game.run()
+                if x == 1:
+                    num_gameb += 1
+                else:
+                    num_gameb -= 1
+                    life -= 1
             elif 'spell book' not in inv.keys():
                 x = input("You don't have necessery item in your inventory. Search!")
                 num_gameb -= 1
+
+        elif num_gameb == 9:
+            # win game
+            win.win_game()
 
 
 def main():
