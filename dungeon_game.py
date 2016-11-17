@@ -82,7 +82,6 @@ def print_table(order="count,asc"):
                 remove_from_inventory(loot)
                 os.system('clear')
                 drunk.print_drunk()
-                os.system("aplay ~/kodowanie/dungeon_game/hobbit.wav")
                 time.sleep(3)
                 x = getch()
                 break
@@ -142,7 +141,7 @@ def merchant():
     os.system('clear')
     global gold_coins
     global num_gameb
-    life_potions = 5
+    life_potions = 3
     print_merchant()
     print("Welcome to my shop.")
     print("\nI sell potions that restore your life.")
@@ -151,7 +150,7 @@ def merchant():
         print("You can buy at least one")
         while True:
             try:
-                print("I've got 5 potions to sell.")
+                print("I've got 3 potions to sell.")
                 amount = int(input("\nHow many do you want?(0 for exit): "))
                 if life_potions >= amount:
                     if amount == 0:
@@ -164,7 +163,6 @@ def merchant():
                         gold_coins = gold_coins - 30 * amount
                         loot = life_potions
                         print("\nThank you for purchase.")
-                        loot = life_potions*amount
                         add_to_inventory(loot)
                         break
                         num_gameb += 1
@@ -195,6 +193,10 @@ def add_to_inventory(loot):
         weapon += 1
     elif loot == ['whisky'] or loot == ['life potions']:
         drinks += 1
+    elif loot == ['life potions', 'life potions']:
+        drinks += 2
+    elif loot == ['life potions', 'life potions', 'life potions']:
+        drinks += 3
     elif loot == ['spell book'] or loot == ['abacus'] or loot == ['globe']:
         special_items += 1
     elif loot == ['ruby']:
@@ -251,6 +253,10 @@ def remove_from_inventory(loot):
         weapon -= 1
     elif loot == ['whisky'] or loot == ['life potions']:
         drinks -= 1
+    elif loot == ['life potions', 'life potions']:
+        drinks -= 2
+    elif loot == ['life potions', 'life potions', 'life potions']:
+        drinks -= 3
     elif loot == ['spell book'] or loot == ['abacus'] or loot == ['globe']:
         special_items -= 1
     elif loot == ['ruby']:
