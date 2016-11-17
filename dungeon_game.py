@@ -424,6 +424,7 @@ def check_touch(table, user_position, last_position, x):
             loot = ['ruby']
             add_to_inventory(loot)
         else:
+            print_fight()
             life -= 1
     elif table[y_user][x_user] == '🟔' and num_gameb == 1:
         # add ascii spell book
@@ -442,7 +443,7 @@ def print_fight():
     os.system('clear')
     x = open("monster.txt", 'r')
     for line in x:
-        cprint(line, "red")
+        cprint(line, "red", attrs=['bold'], end='')
     getch()
 
 
