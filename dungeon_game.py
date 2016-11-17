@@ -137,6 +137,7 @@ def merchant():
     global gold_coins
     global num_gameb
     life_potions = 5
+    print_merchant()
     print("Welcome in my shop.")
     print("\nI sell potions that restore your life.")
     print("\nOne costs 30 gold coins")
@@ -175,6 +176,7 @@ def merchant():
         key = input("Press any key to go on")
         num_gameb += 1
         num_gameb -= 1
+
 
 
 def add_to_inventory(loot):
@@ -422,6 +424,13 @@ def print_cash():
     for line in x:
         cprint(line, "yellow")
     getch()
+
+def print_merchant():
+    os.system('clear')
+    x = open("merchant.txt", 'r')
+    for line in x:
+        cprint(line, "yellow")
+
 
 
 def random_elements(tab, *args):
