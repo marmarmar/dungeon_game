@@ -7,6 +7,7 @@ import collections
 import sfinx_graphic
 import hangman_game
 import drunk
+import sword
 from termcolor import colored, cprint
 
 os.system('clear')  # clear screen
@@ -260,7 +261,7 @@ def display_gameboard(x, y, table, life, gold_coins):
         elif i == 7:
             cprint("{:^22}".format(life*'💗 '), 'red', attrs=['bold'], end='')
         elif i == 10:
-            cprint("{:^22}".format('ITEMS'), 'green', attrs=['bold'], end='')
+            cprint("{:^22}".format("ITEMS press 'i'"), 'green', attrs=['bold'], end='')
         else:
             print('{:>22}'.format(''), end='')
         for j in range(y):
@@ -272,7 +273,7 @@ def display_gameboard(x, y, table, life, gold_coins):
                 cprint(table[i][j], 'red', attrs=['bold'], end=' ')
             elif table[i][j] == '💰' or table[i][j] == '🎁':
                 cprint(table[i][j], 'blue', attrs=['bold'], end=' ')
-            elif table[i][j] == '^':
+            elif table[i][j] == '😼':
                 cprint(table[i][j], 'magenta', attrs=['bold'], end=' ')
             elif table[i][j] == '&' or table[i][j] == '🗡':
                 cprint(table[i][j], 'green', attrs=['bold'], end=' ')
@@ -281,7 +282,6 @@ def display_gameboard(x, y, table, life, gold_coins):
             elif table[i][j] == '.':
                 print('\033[1;30;8m' + "{}".format(table[i][j]) + '\033[0m', end=' ')
         print('')
-    cprint("{:^110}".format("For backpack press 'i'"), 'green', attrs=['bold'])
 
 
 def user_move(table, user_position):
@@ -349,6 +349,9 @@ def check_touch(table, user_position, last_position, x):
         weapon = ['sword', 'axe', 'dagger']
         loot = [random.choice(weapon)]
         add_to_inventory(loot)
+        os.system('clear')
+        sword.print_sword()
+        getch()
     elif table[y_user][x_user] == '💰':
         gold_coins += random.randint(20, 50)
     elif table[y_user][x_user] == '🎁':
@@ -358,7 +361,7 @@ def check_touch(table, user_position, last_position, x):
     elif table[y_user][x_user] == '🞦':
         merchant()
         return last_position
-    elif table[y_user][x_user] == '^':
+    elif table[y_user][x_user] == '😼':
         if 'sword' in inv.keys() or 'dagger' in inv.keys() or 'axe' in inv.keys():
             # add ascii ruby
             loot = ['ruby']
@@ -374,7 +377,7 @@ def check_touch(table, user_position, last_position, x):
 
 def random_elements(tab, *args):
     """randoms items to gameboard"""
-    elements = ('🗡', '💰', '🎁', '^', '&', '🔑', '🞦')
+    elements = ('🗡', '💰', '🎁', '😼', '&', '🔑', '🞦')
     for i in range(len(elements)):
         x = random.randint(2, len(tab)-1)
         y = random.randint(2, len(tab[0])-1)
