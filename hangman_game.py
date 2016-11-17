@@ -2,6 +2,7 @@ import sys
 import random
 import os
 import time
+from termcolor import colored, cprint
 
 
 def clear():
@@ -76,8 +77,8 @@ def check_user_input(n, x):
             clear()
             hangman_graphic()
             print_full()
-            print("You are GOOD!!")
-            time.sleep(3)
+            # print("You are GOOD!!")
+            # time.sleep(3)
             x = 1
             return x
         else:
@@ -171,34 +172,63 @@ def hangman_graphic():
     """
     global health
     if health == 5:
-        print('\x1b[6;30;42m' + graphics[0:167] + '\x1b[0m')
+        print('\n\n')
+        print('{}'.format('\x1b[6;30;42m' + graphics[0:167] + '\x1b[0m'))
     elif health == 4:
-        print('\x1b[6;30;42m' + graphics[168:335] + '\x1b[0m')
+        print('\n\n')
+        print('{}'.format('\x1b[6;30;42m' + graphics[168:335] + '\x1b[0m'))
     elif health == 3:
-        print('\x1b[6;30;42m' + graphics[336:503] + '\x1b[0m')
+        print('\n\n')
+        print('{}'.format('\x1b[6;30;42m' + graphics[336:503] + '\x1b[0m'))
     elif health == 2:
-        print('\x1b[6;30;42m' + graphics[504:671] + '\x1b[0m')
+        print('\n\n')
+        print('{}'.format('\x1b[6;30;42m' + graphics[504:671] + '\x1b[0m'))
     elif health == 1:
-        print('\x1b[6;30;42m' + graphics[672:839] + '\x1b[0m')
+        print('\n\n')
+        print('{}'.format('\x1b[6;30;42m' + graphics[672:839] + '\x1b[0m'))
+
+
+def intro_graphic():
+    data = [line.strip() for line in open("hangmang_intro.txt", 'r')]
+    for i in range(len(data)):
+        if i == 0:
+            print(" ", end='')
+        # if i == 9:
+        #     print(" ", end='')
+        if i > 6:
+            print("            ", end='')
+        for j in range(len(data[i])):
+            time.sleep(0.005)
+            cprint("{}".format(data[i][j]), 'red', attrs=['bold'], end='')
+        print()
+    print()
 
 
 def main(life, num_gameb):
+    intro_graphic()
+    time.sleep(2)
     x = 0
     load_list()
     clear()
     # global num_gameb
     global health
-    health = life
+    health = 5
     create_dashes_capital()
     while health > 0:
         user_input()
         x = check_user_input(n, x)
         if x == 1:
             num_gameb += 1
-            return health, num_gameb  # , num_gameb
+            print('{:^20}'.format("You are GOOD!!"))
+            time.sleep(3)
+            return life, num_gameb
         if CAPITOL_SAVE == random_capital_dashes:
-            break
-    return health, num_gameb
+            num_gameb += 1
+            print('{:^20}'.format("You are GOOD!!"))
+            time.sleep(3)
+            return life, num_gameb
+    print('{:^20}'.format("You are LOSE!!"))
+    return life - 1, num_gameb - 1
 
 
 if __name__ == '__main__':

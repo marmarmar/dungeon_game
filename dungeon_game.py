@@ -30,7 +30,10 @@ def intro_graphic():
 
 
 def print_table(order="count,asc"):
-    """Prints sorted table of inventory"""
+    """
+    Prints sorted table of inventory
+    Lets to use items from inventory
+    """
     os.system('clear')
     global inv
     global life
@@ -82,6 +85,12 @@ def print_table(order="count,asc"):
 
 
 def sfinx(life):
+    """
+    Displays sphix graphic and asks user
+    Wait for answer
+    If answer is bad subtracts 1 life
+    If answer is good adds ruby to inventory
+    """
     global num_gameb
     global inv
     # global life
@@ -240,21 +249,18 @@ def instructions():
 
 
 def display_gameboard(x, y, table, life, gold_coins):
-    os.system('clear')
-    global inv  # clear screen
+    os.system('clear')  # clear screen
     for i in range(x):
         if i == 2:
-            cprint("{:^22}".format("GOLD COINS"), 'green', attrs=['bold'], end='')
+            cprint("{:^15}".format("GOLD COINS"), 'green', attrs=['bold'], end='')
         elif i == 3:
-            cprint("{:^22}".format(gold_coins), 'green', attrs=['bold'], end='')
+            cprint("{:^15}".format(gold_coins), 'green', attrs=['bold'], end='')
         elif i == 6:
-            cprint("{:^22}".format("LIFES"), 'green', attrs=['bold'], end='')
+            cprint("{:^15}".format("LIFES"), 'green', attrs=['bold'], end='')
         elif i == 7:
-            cprint("{:^22}".format(life*'💗 '), 'red', attrs=['bold'], end='')
-        elif i == 10:
-            cprint("{:^22}".format('ITEMS'), 'green', attrs=['bold'], end='')
+            cprint("{:^15}".format(life*'💗 '), 'red', attrs=['bold'], end='')
         else:
-            print('{:>22}'.format(''), end='')
+            print('{:>15}'.format(''), end='')
         for j in range(y):
             if table[i][j] == '🌴':
                 cprint(table[i][j], 'yellow', end=' ')
@@ -386,7 +392,9 @@ def start():
         #2 sfinx
         #3 create second gameboard
         #4 run second gameboard
-        #5 ...
+        #5 run hangman_game
+        #6 create second gameboard
+        #7 run third gameboard
     """
     global gold_coins
     global num_gameb
@@ -402,11 +410,12 @@ def start():
     gameboard_table = choice_gameboard(num_gameb, wide_gameboard, height_gameboard, user_coordinates)
     gameboard_table = random_elements(gameboard_table)
     while True:
+
         os.system('clear')
         if num_gameb == 1:
             display_gameboard(wide_gameboard, height_gameboard, gameboard_table, life, gold_coins)
-            print('{}'.format(num_gameb))
             user_coordinates = user_move(gameboard_table, user_coordinates)
+
         elif num_gameb == 2:
             # move to first boss
             if 'spell book' in inv.keys():
@@ -414,37 +423,41 @@ def start():
             elif 'spell book' not in inv.keys():
                 x = input("You don't have necessery item in your inventory. Search!")
                 num_gameb -= 1
+
         elif num_gameb == 3:
             # creates new gameboard
             user_coordinates = [1, 1]
             gameboard_table = choice_gameboard(num_gameb, wide_gameboard, height_gameboard, user_coordinates)
             gameboard_table = random_elements(gameboard_table)
             num_gameb += 1
+
         elif num_gameb == 4:
             # run next level
             display_gameboard(wide_gameboard, height_gameboard, gameboard_table, life, gold_coins)
-            print('{}'.format(num_gameb))
             user_coordinates = user_move(gameboard_table, user_coordinates)
+
         elif num_gameb == 5:
+            # run hangman_game
             hang_tupl = hangman_game.main(life, num_gameb)
             life = hang_tupl[0]
             num_gameb = hang_tupl[1]
+
         elif num_gameb == 6:
             # creates new gameboard
             user_coordinates = [1, 1]
             gameboard_table = choice_gameboard(num_gameb, wide_gameboard, height_gameboard, user_coordinates)
             gameboard_table = random_elements(gameboard_table)
             num_gameb += 1
+
         elif num_gameb == 7:
             # run next level
             display_gameboard(wide_gameboard, height_gameboard, gameboard_table, life, gold_coins)
-            print('{}'.format(num_gameb))
             user_coordinates = user_move(gameboard_table, user_coordinates)
+
         elif num_gameb == 8:
-            # move to first boss
+            # move to last boss
             if 'spell book' in inv.keys():
                 cold_warm_hot_game.run()
-                # life = sfinx(life)
             elif 'spell book' not in inv.keys():
                 x = input("You don't have necessery item in your inventory. Search!")
                 num_gameb -= 1
