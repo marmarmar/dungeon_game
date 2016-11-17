@@ -1,56 +1,25 @@
-<<<<<<< HEAD
-   
-                                              ,--,  ,.-.
-                ,                   \,       '-,-`,'-.' | ._
-               /|           \    ,   |\         }  )/  / `-,',
-               [ '          |\  /|   | |        /  \|  |/`  ,`
-               | |       ,.`  `,` `, | |  _,...(   (      _',
-               \  \  __ ,-` `  ,  , `/ |,'      Y     (   \_L\
-                \  \_\,``,   ` , ,  /  |         )         _,/
-                 \  '  `  ,_ _`_,-,<._.<        /         /
-                  ', `>.,`  `  `   ,., |_      |         /
-                    \/`  `,   `   ,`  | /__,.-`    _,   `\
-                -,-..\  _  \  `  /  ,  / `._) _,-\`       \
-                 \_,,.) /\    ` /  / ) (-,, ``    ,        |
-                ,` )  | \_\       '-`  |  `(               \
-               /  /```(   , --, ,' \   |`<`    ,            |
-              /  /_,--`\   <\  V /> ,` )<_/)  | \      _____)
-        ,-, ,`   `   (_,\ \    |   /) / __/  /   `----`
-       (-, \           ) \ ('_.-._)/ /,`    /
-       | /  `          `/ \\ V   V, /`     /
-    ,--\(        ,     <_/`\\     ||      /
-   (   ,``-     \/|         \-A.A-`|     /
-  ,>,_ )_,..(    )\          -,,_-`  _--`
- (_ \|`   _,/_  /  \_            ,--`
-  \( `   <.,../`     `-.._   _,-`
-   `                      ```                      
-                                                                                                                                                        
-                                                                                                                                                                                                        
-                                                                                                                                                                      
-=======
-                        -/oyhdmNNNNNmmhyo/-`              
+                -/oyhdmNNNNNmmhyo/-`              
 /o-         :sdMMMMMMMMMMMMMMMMMMMMMms:`       -o/
- yMMho:` -sNMMMMmyo/-.`     `.-/+ymMMMMNy:`:ohMMy 
-  yMMMMMmMMMMh/`                   `/yNMMMMMMMMy  
-   yMMMMMMMMmo:                    :odMMMMMMMMy   
-    yMMMMMMMMMh                    hMMMMMMMMMN.   
-   `mMMMMMMMMd`                    `dMMMMMMMMMN.  
-   hMMMMMMMd/                        +dMMMMhMMMd  
-  :MMMhoo/.                            ./oo yMMM/ 
-  yMMM:                                     .MMMd 
-  mMMM`                                      NMMN 
+ yMMho:` -sNMMMMmyo/-.`     `.-/+ymMMMMNy:`:ohMMy
+  yMMMMMmMMMMh/`                   `/yNMMMMMMMMy
+   yMMMMMMMMmo:                    :odMMMMMMMMy
+    yMMMMMMMMMh                    hMMMMMMMMMN.
+   `mMMMMMMMMd`                    `dMMMMMMMMMN.
+   hMMMMMMMd/                        +dMMMMhMMMd
+  :MMMhoo/.                            ./oo yMMM/
+  yMMM:                                     .MMMd
+  mMMM`                                      NMMN
   NMMN      --                       .:      dMMM`
-  NMMN      oMNy/.               `/smMy      mMMM 
-  hMMM-      `-sMMms:`        -odMMd-`      `MMMd 
-  +MMMs       .MMMMMd`       `+MMMMMs       +MMMo 
-  `mMMN.       hMMMN+         .dMMMm-      `NMMN` 
-   :MMMd`       `--             .-.        hMMM+  
-    oMMMh`                                yMMMy   
-     sMMMd.                             `hMMMy    
-      +MMMN+      ```````````````      /NMMMo     
-       .dMMMm/    oyyyyyyyyyyyyys    /dMMMm-      
-         /mMMMNs:                 -sNMMMm+        
-           :hMMMMNho/-.`    `-/ohNMMMMh/          
-             `/yNMMMMMMMMMMMMMMMMMNh+.            
-                 ./oydmNNNNNmdyo/.               
->>>>>>> fe2551617d1ae4892e7830180bc941fd8ca5c276
+  NMMN      oMNy/.               `/smMy      mMMM
+  hMMM-      `-sMMms:`        -odMMd-`      `MMMd
+  +MMMs       .MMMMMd`       `+MMMMMs       +MMMo
+  `mMMN.       hMMMN+         .dMMMm-      `NMMN`
+   :MMMd`       `--             .-.        hMMM+
+    oMMMh`                                yMMMy
+     sMMMd.                             `hMMMy
+      +MMMN+      ```````````````      /NMMMo
+       .dMMMm/    oyyyyyyyyyyyyys    /dMMMm-
+         /mMMMNs:                 -sNMMMm+
+           :hMMMMNho/-.`    `-/ohNMMMMh/
+             `/yNMMMMMMMMMMMMMMMMMNh+.
+                 ./oydmNNNNNmdyo/.

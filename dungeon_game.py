@@ -194,12 +194,15 @@ def add_to_inventory(loot):
     global weapon
     global drinks
     global special_items
+    global precious
     if loot == ['sword'] or loot == ['dagger'] or loot == ['axe']:
         weapon += 1
     elif loot == ['whisky'] or loot == ['life potions']:
         drinks += 1
     elif loot == ['spell book'] or loot == ['abacus'] or loot == ['globe']:
         special_items += 1
+    elif loot == ['ruby']:
+        precious += 1
     inv = collections.Counter(inv)
     # collections module helps to add dictionaries value
     loot = collections.Counter(loot)
@@ -246,6 +249,7 @@ def remove_from_inventory(loot):
     global weapon
     global drinks
     global special_items
+    global precious
     global inv
     if loot == ['sword'] or loot == ['dagger'] or loot == ['axe']:
         weapon -= 1
@@ -253,6 +257,8 @@ def remove_from_inventory(loot):
         drinks -= 1
     elif loot == ['spell book'] or loot == ['abacus'] or loot == ['globe']:
         special_items -= 1
+    elif loot == ['ruby']:
+        precious -= 1
     inv = collections.Counter(inv)
     # collections module helps to add dictionaries value
     loot = collections.Counter(loot)
@@ -356,9 +362,13 @@ def display_gameboard(x, y, table, life, gold_coins):
         elif i == 14:
             cprint("{:^22}".format(drinks), 'green', attrs=['bold'], end='')
         elif i == 15:
-            cprint("{:^22}".format("SPECIAL ITEMS:"), 'green', attrs=['bold'], end='')
+            cprint("{:^22}".format("SPECIAL ITEMS"), 'green', attrs=['bold'], end='')
         elif i == 16:
             cprint("{:^22}".format(special_items), 'green', attrs=['bold'], end='')
+        elif i == 17:
+            cprint("{:^22}".format("PRECIOUS"), 'green', attrs=['bold'], end='')
+        elif i == 18:
+            cprint("{:^22}".format(precious), 'green', attrs=['bold'], end='')
         else:
             print('{:>22}'.format(''), end='')
         for j in range(y):
@@ -562,6 +572,8 @@ def start():
     global weapon
     global drinks
     global special_items
+    global precious
+    precious = 0
     weapon = 0
     drinks = 0
     special_items = 0
