@@ -4,6 +4,22 @@ import time
 from termcolor import colored, cprint
 
 
+def intro_graphic():
+    data = [line.strip() for line in open("cold_intro.txt", 'r')]
+    for i in range(len(data)):
+        if i == 0:
+            print(" ", end='')
+        if i == 2:
+            print(" ", end='')
+        # if i > 6:
+        #     print("            ", end='')
+        for j in range(len(data[i])):
+            time.sleep(0.005)
+            cprint("{}".format(data[i][j]), 'red', attrs=['bold'], end='')
+        print()
+    print()
+
+
 def rand_num():
     i = 0
     rand_list = []
@@ -96,6 +112,8 @@ def print_intro():
 
 def run():
     os.system('clear')  # clear screen
+    intro_graphic()
+    time.sleep(2)
     print_intro()
     result = comparison_numbers(rand_num())
     if result == 1:
