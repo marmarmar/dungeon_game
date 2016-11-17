@@ -122,6 +122,7 @@ def run():
         os.system('clear')
         print("\n\n\t\tYOU WIN!!!\n\n")
         time.sleep(2)
+        os.system("aplay ~/kodowanie/dungeon_game/hobbit.wav")
         return 1
     if result == 0:
         os.system('clear')

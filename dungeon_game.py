@@ -84,6 +84,7 @@ def print_table(order="count,asc"):
                 drunk.print_drunk()
                 time.sleep(5)
                 x = getch()
+                os.system("aplay ~/kodowanie/dungeon_game/hobbit.wav")
                 break
             else:
                 print("You don't have any whisky.")
