@@ -43,4 +43,4 @@ def win_game():
     # os.system("aplay ~/kodowanie/dungeon_game/hobbit.wav")
     sys.exit()
 
-win_game()
+# win_game()
