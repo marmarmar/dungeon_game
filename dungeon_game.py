@@ -16,6 +16,7 @@ os.system('clear')  # clear screen
 
 
 def intro_graphic():
+    """prints graphics at the beginning of the game"""
     data = [line.strip() for line in open("intro_graphic.txt", 'r')]
     for i in range(len(data)):
         if i == 0:
@@ -132,13 +133,17 @@ def sfinx(life):
 
 
 def merchant():
-    """NPC to buy life potions"""
+    """
+    NPC to buy life potions.
+    If you don't have enough gold he sends you away.
+    He sells you only as many potions as you can afford.
+    """
     os.system('clear')
     global gold_coins
     global num_gameb
     life_potions = 5
     print_merchant()
-    print("Welcome in my shop.")
+    print("Welcome to my shop.")
     print("\nI sell potions that restore your life.")
     print("\nOne costs 30 gold coins")
     if gold_coins >= 30:
@@ -403,6 +408,7 @@ def check_touch(table, user_position, last_position, x):
 
 
 def print_fight():
+    """prints ascii from file"""
     os.system('clear')
     x = open("monster.txt", 'r')
     for line in x:
@@ -411,6 +417,7 @@ def print_fight():
 
 
 def print_whisky():
+    """prints ascii from file"""
     os.system('clear')
     x = open("w.txt", 'r')
     for line in x:
@@ -419,6 +426,7 @@ def print_whisky():
 
 
 def print_cash():
+    """prints ascii from file"""
     os.system('clear')
     x = open("cash.txt", 'r')
     for line in x:
@@ -426,6 +434,7 @@ def print_cash():
     getch()
 
 def print_merchant():
+    """prints ascii from file"""
     os.system('clear')
     x = open("merchant.txt", 'r')
     for line in x:
@@ -485,7 +494,7 @@ def start():
             if 'spell book' in inv.keys():
                 life = sfinx(life)
             elif 'spell book' not in inv.keys():
-                x = input("You don't have necessery item in your inventory. Search!")
+                x = input("You don't have necessary item in your inventory. Search on!")
                 num_gameb -= 1
 
         elif num_gameb == 3:
@@ -523,7 +532,7 @@ def start():
             if 'spell book' in inv.keys():
                 cold_warm_hot_game.run()
             elif 'spell book' not in inv.keys():
-                x = input("You don't have necessery item in your inventory. Search!")
+                x = input("You don't have necessary item in your inventory. Search on!")
                 num_gameb -= 1
 
 
