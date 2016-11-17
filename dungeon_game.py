@@ -82,9 +82,9 @@ def print_table(order="count,asc"):
                 remove_from_inventory(loot)
                 os.system('clear')
                 drunk.print_drunk()
-                time.sleep(5)
-                x = getch()
                 os.system("aplay ~/kodowanie/dungeon_game/hobbit.wav")
+                time.sleep(3)
+                x = getch()
                 break
             else:
                 print("You don't have any whisky.")
