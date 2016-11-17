@@ -186,6 +186,15 @@ def merchant():
 def add_to_inventory(loot):
     """it adding loot to current inventory"""
     global inv
+    global weapon
+    global drinks
+    global special_items
+    if loot == ['sword'] or loot == ['dagger'] or loot == ['axe']:
+        weapon += 1
+    elif loot == ['whisky'] or loot == ['life potions']:
+        drinks += 1
+    elif loot == ['spell book'] or loot == ['abacus'] or loot == ['globe']:
+        special_items += 1
     inv = collections.Counter(inv)
     # collections module helps to add dictionaries value
     loot = collections.Counter(loot)
@@ -194,6 +203,7 @@ def add_to_inventory(loot):
 
 
 def checking_weight():
+    """Checks if inventory isn't to heavy"""
     global inv
     total = 0
     for i in inv:
@@ -228,7 +238,16 @@ def checking_weight():
 
 def remove_from_inventory(loot):
     """it delete item from inventory"""
+    global weapon
+    global drinks
+    global special_items
     global inv
+    if loot == ['sword'] or loot == ['dagger'] or loot == ['axe']:
+        weapon -= 1
+    elif loot == ['whisky'] or loot == ['life potions']:
+        drinks -= 1
+    elif loot == ['spell book'] or loot == ['abacus'] or loot == ['globe']:
+        special_items -= 1
     inv = collections.Counter(inv)
     # collections module helps to add dictionaries value
     loot = collections.Counter(loot)
@@ -308,6 +327,9 @@ def instructions():
 
 
 def display_gameboard(x, y, table, life, gold_coins):
+    global weapon
+    global drinks
+    global special_items
     os.system('clear')  # clear screen
     for i in range(x):
         if i == 2:
@@ -320,6 +342,18 @@ def display_gameboard(x, y, table, life, gold_coins):
             cprint("{:^22}".format(life*'💗 '), 'red', attrs=['bold'], end='')
         elif i == 10:
             cprint("{:^22}".format("For ITEMS press 'i'"), 'green', attrs=['bold'], end='')
+        elif i == 11:
+            cprint("{:^22}".format("WEAPONS"), 'green', attrs=['bold'], end='')
+        elif i == 12:
+            cprint("{:^22}".format(weapon), 'green', attrs=['bold'], end='')
+        elif i == 13:
+            cprint("{:^22}".format("DRINKS"), 'green', attrs=['bold'], end='')
+        elif i == 14:
+            cprint("{:^22}".format(drinks), 'green', attrs=['bold'], end='')
+        elif i == 15:
+            cprint("{:^22}".format("SPECIAL ITEMS:"), 'green', attrs=['bold'], end='')
+        elif i == 16:
+            cprint("{:^22}".format(special_items), 'green', attrs=['bold'], end='')
         else:
             print('{:>22}'.format(''), end='')
         for j in range(y):
@@ -503,9 +537,15 @@ def start():
     global num_gameb
     global inv
     global life
+    global weapon
+    global drinks
+    global special_items
+    weapon = 0
+    drinks = 0
+    special_items = 0
     life = 5
     gold_coins = 10
-    inv = {'ruby': 1}
+    inv = {}
     num_gameb = 1
     user_coordinates = [1, 1]
     wide_gameboard = 40
