@@ -164,6 +164,7 @@ def merchant():
                         loot = life_potions
                         print("\nThank you for purchase.")
                         add_to_inventory(loot)
+                        checking_weight()
                         break
                         num_gameb += 1
                         num_gameb -= 1
@@ -619,10 +620,14 @@ def start():
 
         elif num_gameb == 5:
             # run hangman_game
-            hang_tupl = hangman_game.main(life, num_gameb)
-            life = hang_tupl[0]
-            game_over.check_life(life)
-            num_gameb = hang_tupl[1]
+            if 'globe' in inv.keys():
+                hang_tupl = hangman_game.main(life, num_gameb)
+                life = hang_tupl[0]
+                game_over.check_life(life)
+                num_gameb = hang_tupl[1]
+            elif 'globe' not in inv.keys():
+                x = input("You don't have necessary item in your inventory. Search on!")
+                num_gameb -= 1
 
         elif num_gameb == 6:
             # creates new gameboard
@@ -639,7 +644,7 @@ def start():
 
         elif num_gameb == 8:
             # move to last boss
-            if 'spell book' in inv.keys():
+            if 'abacus' in inv.keys():
                 x = cold_warm_hot_game.run()
                 if x == 1:
                     num_gameb += 1
@@ -647,7 +652,7 @@ def start():
                     num_gameb -= 1
                     life -= 1
                     game_over.check_life(life)
-            elif 'spell book' not in inv.keys():
+            elif 'abacus' not in inv.keys():
                 x = input("You don't have necessary item in your inventory. Search on!")
                 num_gameb -= 1
 
