@@ -38,5 +38,9 @@ def win_game():
     cprint("{:^100}".format("  `88.    .88'   .8'     `888.   8    Y     888   888       o"), 'red', attrs=['bold'])
     cprint("{:^100}".format("   `Y8bood8P'   o88o     o8888o o8o        o888o o888ooooood8\n"), 'red', attrs=['bold'])
     time.sleep(1)
-    os.system("aplay ~/kodowanie/dungeon_game/hobbit.wav")
+    # plays music from current folder
+    os.system("aplay hobbit.wav")
+    # os.system("aplay ~/kodowanie/dungeon_game/hobbit.wav")
     sys.exit()
+
+win_game()
