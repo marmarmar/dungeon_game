@@ -371,6 +371,7 @@ def check_touch(table, user_position, last_position, x):
         sword.print_sword()
         getch()
     elif table[y_user][x_user] == '💰':
+        print_cash()
         gold_coins += random.randint(20, 50)
     elif table[y_user][x_user] == '🎁':
         loot = ['whisky']
@@ -410,6 +411,14 @@ def print_fight():
 def print_whisky():
     os.system('clear')
     x = open("w.txt", 'r')
+    for line in x:
+        cprint(line, "yellow")
+    getch()
+
+
+def print_cash():
+    os.system('clear')
+    x = open("cash.txt", 'r')
     for line in x:
         cprint(line, "yellow")
     getch()
