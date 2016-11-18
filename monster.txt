@@ -1,37 +1,4 @@
-<<<<<<< HEAD
-
-   
-                                              ,--,  ,.-.
-                ,                   \,       '-,-`,'-.' | ._
-               /|           \    ,   |\         }  )/  / `-,',
-               [ '          |\  /|   | |        /  \|  |/`  ,`
-               | |       ,.`  `,` `, | |  _,...(   (      _',
-               \  \  __ ,-` `  ,  , `/ |,'      Y     (   \_L\
-                \  \_\,``,   ` , ,  /  |         )         _,/
-                 \  '  `  ,_ _`_,-,<._.<        /         /
-                  ', `>.,`  `  `   ,., |_      |         /
-                    \/`  `,   `   ,`  | /__,.-`    _,   `\
-                -,-..\  _  \  `  /  ,  / `._) _,-\`       \
-                 \_,,.) /\    ` /  / ) (-,, ``    ,        |
-                ,` )  | \_\       '-`  |  `(               \
-               /  /```(   , --, ,' \   |`<`    ,            |
-              /  /_,--`\   <\  V /> ,` )<_/)  | \      _____)
-        ,-, ,`   `   (_,\ \    |   /) / __/  /   `----`
-       (-, \           ) \ ('_.-._)/ /,`    /
-       | /  `          `/ \\ V   V, /`     /
-    ,--\(        ,     <_/`\\     ||      /
-   (   ,``-     \/|         \-A.A-`|     /
-  ,>,_ )_,..(    )\          -,,_-`  _--`
- (_ \|`   _,/_  /  \_            ,--`
-  \( `   <.,../`     `-.._   _,-`
-   `                      ```                      
-                                                                                                                                                        
-                                                                                                                                                                                                        
-                                                                                                                                                                      
-               -/oyhdmNNNNNmmhyo/-`              
-=======
-                -/oyhdmNNNNNmmhyo/-`              
->>>>>>> 6328e0c8d34fd0a47be7bd9698a23be718da8cd7
+                -/oyhdmNNNNNmmhyo/-`
 /o-         :sdMMMMMMMMMMMMMMMMMMMMMms:`       -o/
  yMMho:` -sNMMMMmyo/-.`     `.-/+ymMMMMNy:`:ohMMy
   yMMMMMmMMMMh/`                   `/yNMMMMMMMMy
@@ -43,22 +10,6 @@
   yMMM:                                     .MMMd
   mMMM`                                      NMMN
   NMMN      --                       .:      dMMM`
-<<<<<<< HEAD
-  NMMN      oMNy/.               `/smMy      mMMM 
-  hMMM-      `-sMMms:`        -odMMd-`      `MMMd 
-  +MMMs       .MMMMMd`       `+MMMMMs       +MMMo 
-  `mMMN.       hMMMN+         .dMMMm-      `NMMN` 
-   :MMMd`       `--             .-.        hMMM+  
-    oMMMh`                                yMMMy   
-     sMMMd.                             `hMMMy    
-      +MMMN+      ```````````````      /NMMMo     
-       .dMMMm/    oyyyyyyyyyyyyys    /dMMMm-      
-         /mMMMNs:                 -sNMMMm+        
-           :hMMMMNho/-.`    `-/ohNMMMMh/          
-             `/yNMMMMMMMMMMMMMMMMMNh+.            
-                 ./oydmNNNNNmdyo/.               
-
-=======
   NMMN      oMNy/.               `/smMy      mMMM
   hMMM-      `-sMMms:`        -odMMd-`      `MMMd
   +MMMs       .MMMMMd`       `+MMMMMs       +MMMo
@@ -72,4 +23,3 @@
            :hMMMMNho/-.`    `-/ohNMMMMh/
              `/yNMMMMMMMMMMMMMMMMMNh+.
                  ./oydmNNNNNmdyo/.
->>>>>>> 6328e0c8d34fd0a47be7bd9698a23be718da8cd7
