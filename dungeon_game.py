@@ -379,6 +379,8 @@ def display_gameboard(x, y, table, life, gold_coins):
             cprint("{:^22}".format("PRECIOUS:"), 'green', attrs=['bold'], end='')
         elif i == 18:
             cprint("{:^22}".format(precious), 'green', attrs=['bold'], end='')
+        elif i == 22:
+            cprint("{:^22}".format("x to EXIT"), 'green', attrs=['bold'], end='')
         else:
             print('{:>22}'.format(''), end='')
         for j in range(y):
