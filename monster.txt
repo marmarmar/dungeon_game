@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
    
                                               ,--,  ,.-.
                 ,                   \,       '-,-`,'-.' | ._
@@ -27,8 +27,7 @@
                                                                                                                                                         
                                                                                                                                                                                                         
                                                                                                                                                                       
-=======
-                        -/oyhdmNNNNNmmhyo/-`              
+               -/oyhdmNNNNNmmhyo/-`              
 /o-         :sdMMMMMMMMMMMMMMMMMMMMMms:`       -o/
  yMMho:` -sNMMMMmyo/-.`     `.-/+ymMMMMNy:`:ohMMy 
   yMMMMMmMMMMh/`                   `/yNMMMMMMMMy  
@@ -53,4 +52,4 @@
            :hMMMMNho/-.`    `-/ohNMMMMh/          
              `/yNMMMMMMMMMMMMMMMMMNh+.            
                  ./oydmNNNNNmdyo/.               
->>>>>>> fe2551617d1ae4892e7830180bc941fd8ca5c276
+
