@@ -94,7 +94,7 @@ def print_table(order="count,asc"):
                     remove_from_inventory(loot)
                     os.system('clear')
                     drunk.print_drunk()
-                    time.sleep(3)
+                    time.sleep(1)
                     x = getch()
                     break
                 else:
@@ -104,7 +104,7 @@ def print_table(order="count,asc"):
             elif use == 'r':
                 os.system('clear')
                 ruby.print_ruby()
-                time.sleep(5)
+                time.sleep(1)
                 x = getch()
                 break
             elif use == 'q':
@@ -170,7 +170,6 @@ def merchant():
                         num_gameb += 1
                         num_gameb -= 1
                     elif gold_coins >= amount * 30:
-
                         life_potions = ['life potions'] * amount
                         gold_coins = gold_coins - 30 * amount
                         loot = life_potions
@@ -266,10 +265,6 @@ def remove_from_inventory(loot):
         weapon -= 1
     elif loot == ['whisky'] or loot == ['life potions']:
         drinks -= 1
-    elif loot == ['life potions', 'life potions']:
-        drinks -= 2
-    elif loot == ['life potions', 'life potions', 'life potions']:
-        drinks -= 3
     elif loot == ['spell book'] or loot == ['abacus'] or loot == ['globe']:
         special_items -= 1
     elif loot == ['ruby']:
@@ -384,6 +379,8 @@ def display_gameboard(x, y, table, life, gold_coins):
             cprint("{:^22}".format("PRECIOUS:"), 'green', attrs=['bold'], end='')
         elif i == 18:
             cprint("{:^22}".format(precious), 'green', attrs=['bold'], end='')
+        elif i == 22:
+            cprint("{:^22}".format("x to EXIT"), 'green', attrs=['bold'], end='')
         else:
             print('{:>22}'.format(''), end='')
         for j in range(y):

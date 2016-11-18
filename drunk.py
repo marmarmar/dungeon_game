@@ -1,9 +1,8 @@
 from termcolor import colored, cprint
 
 
-
 def print_drunk():
-    cprint('\n\n\t\t    ╲╲╲╲┏━━━━━━━━━━━━┓', 'green', attrs=['bold'])
+    cprint('\t\t        ╲╲╲╲┏━━━━━━━━━━━━┓', 'green', attrs=['bold'])
     cprint('\t\t        ╲╲╲╲┃ㅤㅤʞunɹp ɹ n ǝɯoɥ oƃㅤㅤ┃', 'green',  attrs=['bold'])
     cprint('\t\t        ╲╲╲╲┗━━━━┳━━━━━━━┛', 'green',  attrs=['bold'])
     cprint('\t\t        ╲╲╲╲╲╭ⓄⓄ╮┃╱╱╱╱╱╱╱', 'green', attrs=['bold'])
