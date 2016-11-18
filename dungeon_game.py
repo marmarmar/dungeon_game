@@ -104,7 +104,7 @@ def print_table(order="count,asc"):
             elif use == 'r':
                 os.system('clear')
                 ruby.print_ruby()
-                time.sleep(5)
+                time.sleep(1)
                 x = getch()
                 break
             elif use == 'q':
