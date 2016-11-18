@@ -38,73 +38,80 @@ def print_table(order="count,asc"):
     """
     Prints sorted table of inventory
     Lets to use items from inventory
+    If inventory is empty prints statement
     """
     os.system('clear')
     global inv
     global life
     # if user want to sort own inventory, sorts it by values
-    if order == "count,desc":
-        ordered = sorted(inv, key=inv.get, reverse=True)
-    elif order == "count,asc":
-        ordered = sorted(inv, key=inv.get, reverse=False)
-    else:
-        ordered = inv
+    ordered = sorted(inv, key=inv.get, reverse=True)
     total = 0
-    # checks maximal length of names of loot and if it's to short for
-    # good presentation change it to 9
-    max_len = len(max(inv, key=len))
-    if max_len < 9:
-        max_len = 9
-    # creates string which will been displays
-    formatted_text = "{:>7}{:>%d}" % (max_len + 3)
-    print("Inventory:")
-    print(formatted_text.format("count", "item name"))
-    print("-" * (10 + max_len))
-    for i in ordered:
-        print(formatted_text.format(inv[i], i))
-        total += inv[i]
-    print("-" * (10 + max_len))
-    print("Total number of items: {}\n".format(total))
-    print("'h' to use potion, 'p to use whisky' and 'q' to exit from inventory: ")
-    use = input("r to see the ruby: ")
-    # using inventory items
-    while use != 'p' or use != 'q' or use != 'h' or use != 'r':
-        if use == 'h':
-            if 'life potions' in inv.keys():
-                loot = ['life potions']
-                remove_from_inventory(loot)
-                life += 1
-                print("press any key to exit")
-                break
-                x = getch()
-            else:
-                print("You don't have any life potions.")
-                break
-                x = getch()
-        elif use == 'p':
-            if 'whisky' in inv.keys():
-                loot = ['whisky']
-                remove_from_inventory(loot)
+
+    try:
+        max_len = len(max(inv, key=len))
+
+    except ValueError:
+        max_len = '.'
+        print("\n\n\tYour inventory is empty")
+        # print(type(max_len))
+        time.sleep(2)
+
+    # if inventory not empty
+    if type(max_len) == int:
+        # checks maximal length of names of loot and if it's to short for
+        # good presentation change it to 9
+        if max_len < 9:
+            max_len = 9
+        # creates string which will been displays
+        formatted_text = "{:>7}{:>%d}" % (max_len + 3)
+        print("Inventory:")
+        print(formatted_text.format("count", "item name"))
+        print("-" * (10 + max_len))
+        for i in ordered:
+            print(formatted_text.format(inv[i], i))
+            total += inv[i]
+        print("-" * (10 + max_len))
+        print("Total number of items: {}\n".format(total))
+        print("'h' to use potion, 'p to use whisky' and 'q' to exit from inventory: ")
+        use = input("r to see the ruby: ")
+        # using inventory items
+        while use != 'p' or use != 'q' or use != 'h' or use != 'r':
+            if use == 'h':
+                if 'life potions' in inv.keys():
+                    loot = ['life potions']
+                    remove_from_inventory(loot)
+                    life += 1
+                    print("press any key to exit")
+                    break
+                    x = getch()
+                else:
+                    print("You don't have any life potions.")
+                    x = getch()
+                    break
+            elif use == 'p':
+                if 'whisky' in inv.keys():
+                    loot = ['whisky']
+                    remove_from_inventory(loot)
+                    os.system('clear')
+                    drunk.print_drunk()
+                    time.sleep(3)
+                    x = getch()
+                    break
+                else:
+                    print("You don't have any whisky.")
+                    x = getch()
+                    break
+            elif use == 'r':
                 os.system('clear')
-                drunk.print_drunk()
+                ruby.print_ruby()
                 time.sleep(5)
                 x = getch()
                 break
-            else:
-                print("You don't have any whisky.")
-                x = getch()
+            elif use == 'q':
                 break
-        elif use == 'r':
-            os.system('clear')
-            ruby.print_ruby()
-            time.sleep(5)
-            x = getch()
-            break
-        elif use == 'q':
-            break
-            x = getch()
-        else:
-            use = input("I've already said 'p', 'r,', 'h' or 'q'!")
+                x = getch()
+            else:
+                use = input("I've already said 'p', 'r,', 'h' or 'q'!")
 
 
 def sfinx(life):
@@ -146,7 +153,7 @@ def merchant():
     os.system('clear')
     global gold_coins
     global num_gameb
-    life_potions = 5
+    life_potions = 3
     print_merchant()
     print("Welcome to my shop.")
     print("\nI sell potions that restore your life.")
@@ -155,7 +162,7 @@ def merchant():
         print("You can buy at least one")
         while True:
             try:
-                print("I've got 5 potions to sell.")
+                print("I've got 3 potions to sell.")
                 amount = int(input("\nHow many do you want?(0 for exit): "))
                 if life_potions >= amount:
                     if amount == 0:
@@ -167,8 +174,8 @@ def merchant():
                         gold_coins = gold_coins - 30 * amount
                         loot = life_potions
                         print("\nThank you for purchase.")
-                        loot = life_potions*amount
                         add_to_inventory(loot)
+                        checking_weight()
                         break
                         num_gameb += 1
                         num_gameb -= 1
@@ -190,6 +197,22 @@ def merchant():
 def add_to_inventory(loot):
     """it adding loot to current inventory"""
     global inv
+    global weapon
+    global drinks
+    global special_items
+    global precious
+    if loot == ['sword'] or loot == ['dagger'] or loot == ['axe']:
+        weapon += 1
+    elif loot == ['whisky'] or loot == ['life potions']:
+        drinks += 1
+    elif loot == ['life potions', 'life potions']:
+        drinks += 2
+    elif loot == ['life potions', 'life potions', 'life potions']:
+        drinks += 3
+    elif loot == ['spell book'] or loot == ['abacus'] or loot == ['globe']:
+        special_items += 1
+    elif loot == ['ruby']:
+        precious += 1
     inv = collections.Counter(inv)
     # collections module helps to add dictionaries value
     loot = collections.Counter(loot)
@@ -198,6 +221,7 @@ def add_to_inventory(loot):
 
 
 def checking_weight():
+    """Checks if inventory isn't to heavy"""
     global inv
     total = 0
     for i in inv:
@@ -232,7 +256,23 @@ def checking_weight():
 
 def remove_from_inventory(loot):
     """it delete item from inventory"""
+    global weapon
+    global drinks
+    global special_items
+    global precious
     global inv
+    if loot == ['sword'] or loot == ['dagger'] or loot == ['axe']:
+        weapon -= 1
+    elif loot == ['whisky'] or loot == ['life potions']:
+        drinks -= 1
+    elif loot == ['life potions', 'life potions']:
+        drinks -= 2
+    elif loot == ['life potions', 'life potions', 'life potions']:
+        drinks -= 3
+    elif loot == ['spell book'] or loot == ['abacus'] or loot == ['globe']:
+        special_items -= 1
+    elif loot == ['ruby']:
+        precious -= 1
     inv = collections.Counter(inv)
     # collections module helps to add dictionaries value
     loot = collections.Counter(loot)
@@ -312,6 +352,9 @@ def instructions():
 
 
 def display_gameboard(x, y, table, life, gold_coins):
+    global weapon
+    global drinks
+    global special_items
     os.system('clear')  # clear screen
     for i in range(x):
         if i == 2:
@@ -324,6 +367,22 @@ def display_gameboard(x, y, table, life, gold_coins):
             cprint("{:^22}".format(life*'💗 '), 'red', attrs=['bold'], end='')
         elif i == 10:
             cprint("{:^22}".format("For ITEMS press 'i'"), 'green', attrs=['bold'], end='')
+        elif i == 11:
+            cprint("{:^22}".format("WEAPONS"), 'green', attrs=['bold'], end='')
+        elif i == 12:
+            cprint("{:^22}".format(weapon), 'green', attrs=['bold'], end='')
+        elif i == 13:
+            cprint("{:^22}".format("DRINKS"), 'green', attrs=['bold'], end='')
+        elif i == 14:
+            cprint("{:^22}".format(drinks), 'green', attrs=['bold'], end='')
+        elif i == 15:
+            cprint("{:^22}".format("SPECIAL ITEMS"), 'green', attrs=['bold'], end='')
+        elif i == 16:
+            cprint("{:^22}".format(special_items), 'green', attrs=['bold'], end='')
+        elif i == 17:
+            cprint("{:^22}".format("PRECIOUS:"), 'green', attrs=['bold'], end='')
+        elif i == 18:
+            cprint("{:^22}".format(precious), 'green', attrs=['bold'], end='')
         else:
             print('{:>22}'.format(''), end='')
         for j in range(y):
@@ -482,7 +541,6 @@ def print_merchant():
         cprint(line, "yellow")
 
 
-
 def print_spell():
     """prints ascii from file"""
     os.system('clear')
@@ -490,7 +548,6 @@ def print_spell():
     for line in x:
         cprint(line, "green")
     getch()
-
 
 
 def random_elements(tab, *args):
@@ -524,9 +581,17 @@ def start():
     global num_gameb
     global inv
     global life
+    global weapon
+    global drinks
+    global special_items
+    global precious
+    precious = 0
+    weapon = 0
+    drinks = 0
+    special_items = 0
     life = 5
     gold_coins = 10
-    inv = {'ruby': 1}
+    inv = {}
     num_gameb = 1
     user_coordinates = [1, 1]
     wide_gameboard = 40
@@ -564,10 +629,14 @@ def start():
 
         elif num_gameb == 5:
             # run hangman_game
-            hang_tupl = hangman_game.main(life, num_gameb)
-            life = hang_tupl[0]
-            game_over.check_life(life)
-            num_gameb = hang_tupl[1]
+            if 'globe' in inv.keys():
+                hang_tupl = hangman_game.main(life, num_gameb)
+                life = hang_tupl[0]
+                game_over.check_life(life)
+                num_gameb = hang_tupl[1]
+            elif 'globe' not in inv.keys():
+                x = input("You don't have necessary item in your inventory. Search on!")
+                num_gameb -= 1
 
         elif num_gameb == 6:
             # creates new gameboard
@@ -584,7 +653,7 @@ def start():
 
         elif num_gameb == 8:
             # move to last boss
-            if 'spell book' in inv.keys():
+            if 'abacus' in inv.keys():
                 x = cold_warm_hot_game.run()
                 if x == 1:
                     num_gameb += 1
@@ -592,7 +661,7 @@ def start():
                     num_gameb -= 1
                     life -= 1
                     game_over.check_life(life)
-            elif 'spell book' not in inv.keys():
+            elif 'abacus' not in inv.keys():
                 x = input("You don't have necessary item in your inventory. Search on!")
                 num_gameb -= 1
 
