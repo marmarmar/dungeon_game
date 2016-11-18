@@ -176,6 +176,7 @@ def merchant():
                         print("\nThank you for purchase.")
                         add_to_inventory(loot)
                         checking_weight()
+                        #Checking total items in inventory
                         break
                         num_gameb += 1
                         num_gameb -= 1
@@ -201,6 +202,7 @@ def add_to_inventory(loot):
     global drinks
     global special_items
     global precious
+    #Adding items to categories counter
     if loot == ['sword'] or loot == ['dagger'] or loot == ['axe']:
         weapon += 1
     elif loot == ['whisky'] or loot == ['life potions']:
