@@ -170,7 +170,6 @@ def merchant():
                         num_gameb += 1
                         num_gameb -= 1
                     elif gold_coins >= amount * 30:
-
                         life_potions = ['life potions'] * amount
                         gold_coins = gold_coins - 30 * amount
                         loot = life_potions
