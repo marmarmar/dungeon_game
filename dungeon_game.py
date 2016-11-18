@@ -94,7 +94,7 @@ def print_table(order="count,asc"):
                     remove_from_inventory(loot)
                     os.system('clear')
                     drunk.print_drunk()
-                    time.sleep(3)
+                    time.sleep(1)
                     x = getch()
                     break
                 else:
@@ -266,10 +266,6 @@ def remove_from_inventory(loot):
         weapon -= 1
     elif loot == ['whisky'] or loot == ['life potions']:
         drinks -= 1
-    elif loot == ['life potions', 'life potions']:
-        drinks -= 2
-    elif loot == ['life potions', 'life potions', 'life potions']:
-        drinks -= 3
     elif loot == ['spell book'] or loot == ['abacus'] or loot == ['globe']:
         special_items -= 1
     elif loot == ['ruby']:
